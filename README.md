@@ -60,7 +60,7 @@ For the project, students need to **create a web app, web service or set of micr
 
 - Use log files/streams extensively to provide a trace of the programs, good or bad, functioning.
 
-###Project first draft
+### Project first draft
 
 On a normal project, one would have a series of draft documents before delivering the final report. In this case, students will only to have to produce two documents: what the team plans on doing (first draft) and what they finally did (final report).
 
@@ -117,7 +117,7 @@ Between 6000 and  10000 English words, adding any images considered necessary;
     - the GitHub URL containing the code repository.
   
 
-###Evaluation criteria
+### Evaluation criteria
 
 Delivered documents need to **follow the specified  restrictions in order to be graded**. Do not provide deliverables after the deadline, longer/shorter documentation or different file formats.
 
