@@ -27,6 +27,10 @@ Students will begin by creating an essential toolbox to get them started in the 
 [Lab6]: ./Lab06.md
 [Lab7]: ./Lab07.md
 
+#### Deadlines
+
+The deadlines for each assignment will be published at the "FIB Racó".
+
 #### Acknowledgements
 I would like to thank Prof. Jordi Torres for developing the initial version of these lab sessions and thanks also due to some of his former students for their help proofreading and improving the documentation: Eloy Gil, Dani Cea, Xisco Sastre, Maurici Yagüez and Mauro Gómez.
 
@@ -115,6 +119,10 @@ Between 1000 and  2000 English words, adding any images considered necessary.
     - a **PDF file** with the final report. 
 Between 6000 and  10000 English words, adding any images considered necessary;
     - the GitHub URL containing the code repository.
+
+#### Deadlines
+
+The deadlines for each deliverable will be published at the "FIB Racó".
   
 
 ### Evaluation criteria
@@ -138,7 +146,3 @@ Once the laboratory laboratory assignemnts have finised, students are required t
 All team members need to demonstrate that they have equally contributed to the success of the project, therefore they need to communicate their efforts and difficulties to the teacher (during the in-class meetings and the technical interviews).
 
 Based on the quality of the in-class presentation and the answers given during the in-class meetings and technical interview, **all team members may not end up having the same final grade** on the project.
-
-## Deadlines
-
-The deadlines for each assignment will be published at the "FIB Racó".
