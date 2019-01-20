@@ -141,4 +141,4 @@ Based on the quality of the in-class presentation and the answers given during t
 
 ## Deadlines
 
-The deadlines for each assignment will be published at the "FIB Racó" and are hard deadlines.
+The deadlines for each assignment will be published at the "FIB Racó".
