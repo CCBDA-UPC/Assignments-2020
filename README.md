@@ -141,7 +141,7 @@ The project will be evaluated based on the **quality of the materials delivered*
 
 - an effective in-class presentation that will allow student peers to enrich from the lessons learned by the team while doing the project.
 
-Once the laboratory laboratory assignemnts have finised, students are required to continue attending to class. They will then have the opportunity to ask the teacher any doubts, have him to help solving problems, agree on changes in the scope of the project. The teacher will also be able to supervise that everyone is participating adequately and encourage students to improve any aspect of the project development (work methodology, details definition, etc.).
+Once the laboratory laboratory assignments have finished, students are required to continue attending to class. They will then have the opportunity to ask the teacher any doubts, have him to help solving problems, agree on changes in the scope of the project. The teacher will also be able to supervise that everyone is participating adequately and encourage students to improve any aspect of the project development (work methodology, details definition, etc.).
 
 All team members need to demonstrate that they have equally contributed to the success of the project, therefore they need to communicate their efforts and difficulties to the teacher (during the in-class meetings and the technical interviews).
 

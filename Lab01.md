@@ -8,6 +8,7 @@ Take a look at the following hands-on guides to check if you already have the ba
 * Hands-on 1: [Git and GitHub Quick Start](../../../Cloud-Computing-QuickStart/blob/master/Git-Github-Quick-Start.md)
 * Hands-on 2: [Markdown syntax](../../../Cloud-Computing-QuickStart/blob/master/Quick-Start-Markdown.md)
 * Hands-on 3: [Python Quick Start](../../../Cloud-Computing-QuickStart/blob/master/Python-Quick-Start.md)
+* Hands-on 4: [Python Development Environment Quick Start](../../../Cloud-Computing-QuickStart/blob/master/Python-Development-Environment-Quick-Start.md)
 
 #  Pre-lab homework 1
 Create an AWS account and install AWS CLI following the following hands-on:
@@ -21,11 +22,11 @@ For these lab sessions we advice you to create a new anaconda environment using 
 
 Once the new environment is set you can hover and see the path where the python interpreter and the packages have been installed.
 
-<p align="center"><img src="./images/Lab01-AnacondaEnviron.png " alt="Lab05-1" title="New Anaconda Environment"/></p>
+<p align="center"><img src="./images/Lab01-AnacondaEnviron.png " alt="New Anaconda Environment" title="New Anaconda Environment"/></p>
 
 You can also open a terminal and examine your new environment.
 
- <p align="center"><img src="./images/Lab01-AnacondaTerminal.png " alt="Lab05-1" title="Anaconda terminal"/></p>
+ <p align="center"><img src="./images/Lab01-AnacondaTerminal.png " alt="Anaconda terminal" title="Anaconda terminal"/></p>
 
 Using the Anaconda terminal, some unix commands also work in MS-Windows:
 
@@ -51,31 +52,31 @@ Create a python code that uses the “random” library. We will positively valu
 
 If you are using PyCharm try to become familiar with the integrated debugger. You will need to debug your code in future sessions. On the top-right part of the IDE:
 
-<p align="center"><img src="./images/Lab01-PyCharmEditConfig.png " alt="Lab05-1" title="Edit configuration"/></p>
+<p align="center"><img src="./images/Lab01-PyCharmEditConfig.png " alt="Edit configuration" title="Edit configuration"/></p>
 
 Create a new configuration to run each Python Script:
 
-<p align="center"><img src="./images/Lab01-PyCharmDebugConfig.png " alt="Lab05-1" title="New configuration"/></p>
+<p align="center"><img src="./images/Lab01-PyCharmDebugConfig.png " alt="New configuration" title="New configuration"/></p>
 
 Just to become familiar with the IDE, set some break points and examine the variables.
 
 
 ## Task 1.3:
-Create a `private repository` **CLOUD-COMPUTING-CLASS-2018** in your GitHub account. Use your student email account (".upc.edu") to create your GitHub account to benefit from private repositories and other perks of the [student pack](https://education.github.com/pack).
+Create a `private repository` **CLOUD-COMPUTING-CLASS-2019** in your GitHub account. Use your student email account (".upc.edu") to create your GitHub account to benefit from private repositories and other perks of the [student pack](https://education.github.com/pack).
 
 We advice you to create a global folder with a subfolder for each lab session similarly as shown below:
 
-<p align="center"><img src="./images/SolutionsFolder.png " alt="Lab01-1" title="Solutions Folder"/></p>
+<p align="center"><img src="./images/SolutionsFolder.png " alt="Solutions Folder" title="Solutions Folder"/></p>
 
 ## Task 1.4:   
 Update your remote repository from the local repository on your laptop:
 ```
-echo "# CLOUD-COMPUTING-CLASS-2018" >> README.md
+echo "# CLOUD-COMPUTING-CLASS-2019" >> README.md
 git init
 git add README.md
 git add Lab1/Lab1.guessnumber.py
 git commit -m "first commit"
-git remote add origin https://github.com/<username>/CLOUD-COMPUTING-CLASS-2018.git
+git remote add origin https://github.com/<username>/CLOUD-COMPUTING-CLASS-2019.git
 git push -u origin master
 ```
 > change `<username>` for your Github account
