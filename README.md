@@ -14,9 +14,9 @@ Students will begin by creating an essential toolbox to get them started in the 
 - Lab 1: [Basic "Knowledge Toolbox" to get started in the Cloud][Lab1] 
 - Lab 2: [Doors in the Cloud][Lab2]                                        
 - Lab 3: [Extracting and Analyzing data from the Cloud][Lab3]              
-- Lab 4: [Interacting with users and services in the Cloud][Lab4]          
-- Lab 5: [Under the hood of the Cloud: Advanced Analytics Services][Lab5]   
-- Lab 6: [Using AWS PaaS to create a web application][Lab6]
+- Lab 4: [Creating a web application using cloud PaaS][Lab4]          
+- Lab 5: [Enhancing your web app using additional cloud services][Lab5]   
+- Lab 6: [Interacting with users and services in the Cloud][Lab6]
 - Lab 7: [Using the Elastic Stack to study scraped data from a web page][Lab7]       
 
 [Lab1]: ./Lab01.md
