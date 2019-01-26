@@ -48,7 +48,7 @@ SET PATH=%PATH%;c:\Anaconda\envs\CCBDA_UPC;c:\Anaconda\envs\CCBDA_UPC\Scripts;
 
 
 ## Task 1.2:
-Create a python code that uses the “random” library. We will positively value if you build a creative program in python. The minimum example accepted will be a code that generates a random number between 1 and 20. Then let the player guess the number introduced, displaying if the number is too low or high. The game ends either when the number is guessed correctly. The suggested program name is `Lab1.guessnumber.py`.
+Create a python code that uses the “random” library. Build a program in python that generates a random number between 1 and 20. Then let the player guess the number entered, displaying if the number is too low or high. The game ends either when the number is guessed correctly. The suggested program name is `Lab1.guessnumber.py`.
 
 If you are using PyCharm try to become familiar with the integrated debugger. You will need to debug your code in future sessions. On the top-right part of the IDE:
 
@@ -64,7 +64,7 @@ Just to become familiar with the IDE, set some break points and examine the vari
 ## Task 1.3:
 Create a `private repository` **CLOUD-COMPUTING-CLASS-2019** in your GitHub account. Use your student email account (".upc.edu") to create your GitHub account to benefit from private repositories and other perks of the [student pack](https://education.github.com/pack).
 
-We advice you to create a global folder with a subfolder for each lab session similarly as shown below:
+**Create a global folder with a sub-folder for each lab session similarly as shown below**:
 
 <p align="center"><img src="./images/SolutionsFolder.png " alt="Solutions Folder" title="Solutions Folder"/></p>
 
@@ -86,7 +86,7 @@ It is better that you manage git by hand. Once you become familiar with git you 
 ## Task 1.5:
 Update the `README.md` file including all the information about your group (member's name and email addresses).
 ## Task 1.6:
-Invite `angeltoribio-UPC-BCN` to your remote private repository as a collaborator using `settings` button (for evaluation purpose).
+Invite `angeltoribio-UPC-BCN` to your remote private repository as a collaborator using the  `settings` button (for evaluation purpose).
 ## Task 1.7:
 Create an EC2 instance at AWS. Login and pull down all the contents of your GitHub repository to make an exact clone by using `git clone` command.
 ## Task 1.8:
@@ -97,7 +97,7 @@ Update your remote GitHub repository with the updated `README.md`and the new fil
 ## Task 1.10:
 Create an S3 bucket and synchronize your repository there. Take a screenshot of the browser window showing your S3 bucket. Include that screenshot in your local repository, on your laptop, with the name `Lab1.S3Bucket.png`.
 
-**Q111: How long have you been working on this session? What have been the main difficulties you have faced and how have you solved them?** Add your answers to `README.md`.
+**Questions: How long have you been working on this session? What have been the main difficulties you have faced and how have you solved them?** Add your answers to `README.md`.
 
 
 # How to submit this assignment:
