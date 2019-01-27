@@ -1,16 +1,17 @@
 # Lab session #8: Advanced Analytics as a Service in the Cloud
 
-<a name="Tasks81"/>
+In this Lab session, we are going to experiment the power of the Cloud Vision API from Google to detect text within images as an example of Advanced Analytics as a Service in the Cloud.
 
-## Task 8.1:  (optional task)
-
-In this section, we are going to experiment the power of the Cloud Vision API from Google to detect text within images as an example of Advanced Analytics as a Service in the Cloud.
 This section follows the official [introduction to image classification]( https://cloud.google.com/vision/docs/detecting-labels).
-
 
 This hands-on helps you to classify images using labels. [Cloud Vision API](https://cloud.google.com/vision/) enables developers to understand the content of an image by encapsulating powerful machine learning models in an easy to use REST API. It quickly classifies images into thousands of categories (e.g., "sailboat", "lion", "Eiffel Tower"), detects individual objects and faces within images and finds and reads printed words contained within images. You can build metadata on your image catalog, moderate offensive content, or enable new marketing scenarios through image sentiment analysis. Analyze images uploaded in the request or integrate with your image storage on Google Cloud Storage. Try the API [(Drag image file here or Browse from your computer)](https://cloud.google.com/vision/). Locate the area shown below and test the functionality offered:
 
 <p align="center"><img src="./images/Lab06-GoogleVision.png" alt="GoogleVision" title="GoogleVision"/></p>
+
+<a name="Tasks81"/>
+
+## Task 8.1:  Google Cloud Vision
+
 
 ### 8.3.1 Cloud Platform sign up
 It exists a free trial for this service, to fully enjoy the benefits of Google’s Cloud platform the best option is to get a business trial, with $300 worth of free credit for this year. That amount is far more than enough for the expected needs on this subject’s scope and will give you time enough to explore other features.
@@ -92,18 +93,18 @@ server - 0.723
 
 ### 8.3.4 Classify images
 
-Now that you know how to use the Google cloud vision service what about analyzing the pictures posted on Twitter or Instagram by famous people?
+Now that you know how to use the Google cloud vision service what about analyzing the pictures posted on Twitter by famous people? You can, instead, scrape a website and analyze the pictures published there.
 
-Create a file `ImageAnalyzer.py` that you will run on your computer. The first command line parameter will be the URL of a valid Instagram or Twitter profile. That program will:
+Create a file `ImageAnalyzer.py` that you will run on your computer. The first command line parameter will be the URL of a website or valid or Twitter profile. That program will:
 
-1. obtain the last 100 images from the profile entered
+1. obtain the last 100 images from the URL entered
 2. send the images to Google Cloud Vision
 3. store all the tags describing the images and the associated probabilities
 4. create a PNG file containing a histogram, or any other type of representation, of what thinks Google cloud vision about the images published by that profile
 
 **Q81: What problems have you found developing this section? How did you solve them?** Attach to your Lab06 folder the README.md file containing your answers, the code and some histograms, related to different analyzed profiles.
 
-**Q82: How long have you been working on this session (including the optional part)? What have been the main difficulties you have faced and how have you solved them?** Add your answers to `README.md`.
+**Q82: How long have you been working on this session? What have been the main difficulties you have faced and how have you solved them?** Add your answers to `README.md`.
 
 # How to Submit this Assignment:
 
@@ -112,7 +113,7 @@ Go to your responses repository, commit and push:
 - include the code and histograms for task 8.1
 
 
-Submit **before the deadline for each part** to the *RACO Practicals section* a "Lab8.txt" file including:
+Submit **before the deadline** to the *RACO Practicals section* a "Lab8.txt" file including:
 
 1. Group number
 2. Name and email of the members of this group

@@ -398,7 +398,7 @@ Go to your responses repository, commit and push:
 
 Go to your **private** web app repository and commit the changes that you have made to implement task 6.2.
 
-Submit **before the deadline for each part** to the *RACO Practicals section* a "Lab6.txt" file including:
+Submit **before the deadline** to the *RACO Practicals section* a "Lab6.txt" file including:
 
 1. Group number
 2. Name and email of the members of this group
