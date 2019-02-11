@@ -2,7 +2,7 @@
 In this Lab session, we are going to discuss the overall structure of a tweet and how to pre-process the text before going into a more interesting analysis in the next Lab session. In particular, we are going to see how tokenization, while being a well-understood problem, can get tricky dealing with Twitter data. Before this, we need to install A Python Development Environment which will be very helpful for this and future sessions.
 
 * [Pre-lab howemork 2](#Prelab)
-   * [HW 2.1: Registering Our App on Twitter](#HW1)
+   * [Homework 2.1: Registering Our App on Twitter](#Homework1)
 * [Tasks for Lab session #2](#Tasks)
    * [Task 2.1: Geting Started with NLTK](#NLTK)
    * [Task 2.2: Getting Started with `tweepy`](#tweepy)
@@ -12,9 +12,9 @@ In this Lab session, we are going to discuss the overall structure of a tweet an
 
 #  Pre-lab homework 2
 
-<a name="HW1"/>
+<a name="Homework1"/>
 
-## HW 2.1: Registering Our App on Twitter
+## Homework 2.1: Registering Our App on Twitter
 Cloud applications are characterized by an increased focus on user participation and content creation, but also by a profound interaction and interconnection of applications sharing content from different types of services to integrate multiple systems. This scenario is possible, without a doubt,  thanks to the rise of “Application Programming Interfaces” (API). 
 
 An API, or **Application Programming Interface**, provides a way for computer systems to interact with each other. There are many types of APIs. Every programming language has a built-in API that it is used to write programs. For instance, you have studied in previous courses that operating systems themselves have APIs used by applications to interact with files or display text on the screen.
@@ -120,7 +120,7 @@ In this task, we are going to use the `tweepy` package as a tool to access Twitt
 
 ### The Twitter API
 
-As [homework](#HW1) we already registered Our App on Twitter to set up our project and access Twitter data. However, the Twitter API limits access to applications. You can find more details at [the official documentation](https://dev.twitter.com/rest/public/rate-limiting). It's also important to consider that [different APIs have different rate limits](https://dev.twitter.com/rest/public/rate-limiting). The implications of hitting the API limits is that Twitter returns an error message rather than the data we require. Moreover, if we continue performing more requests to the API, the time required to obtain regular access again increases, as Twitter could flag us as potential abusers. If our application needs many API requests we can use the `time` module (`time.sleep()` function). 
+As [homework](#Homework1) we already registered Our App on Twitter to set up our project and access Twitter data. However, the Twitter API limits access to applications. You can find more details at [the official documentation](https://dev.twitter.com/rest/public/rate-limiting). It's also important to consider that [different APIs have different rate limits](https://dev.twitter.com/rest/public/rate-limiting). The implications of hitting the API limits is that Twitter returns an error message rather than the data we require. Moreover, if we continue performing more requests to the API, the time required to obtain regular access again increases, as Twitter could flag us as potential abusers. If our application needs many API requests we can use the `time` module (`time.sleep()` function). 
 
 Another relevant thing to know, before we begin, is that we have two classes of APIs: **REST APIs** and **Streaming API**. All REST APIs only allow you to go back in time (tweets already published). Often these APIs limit the number of tweets you can retrieve, not just regarding rate limits as we mentioned, but also regarding a period. In fact, it's usually possible to go back in time up to approximately one week. Also, another aspect to consider regarding the REST API is that it does not guarantee to provide all tweets published on Twitter. 
 
