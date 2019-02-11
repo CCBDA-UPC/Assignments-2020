@@ -39,11 +39,11 @@ The deadlines for each assignment will be published at the "FIB Racó".
 I would like to thank Prof. Jordi Torres for developing the initial version of these lab sessions and thanks also due to some of his former students for their help proofreading and improving the documentation: Eloy Gil, Dani Cea, Xisco Sastre, Maurici Yagüez and Mauro Gómez.
 
 ## Course Project
-The course project will be completed in teams of **four students enrolled in the same sub-group**.  Before starting the development, students require the teacher's approval of their course project proposal.
+The course project will be completed in teams of **five students enrolled in the same sub-group**.  Before starting the development, students require the teacher's approval of their course project proposal.
 
 The student project is meant to allow students to put into practice many concepts that they learn in this subject. It is an exercise to help students to consolidate their learning, not a way to obtain a flawlessly working prototype.
 
-Students are supposed to invest forty hours of their time (one hundred sixty hours the four members). If the group is too ambitious in the scope of the project, there is a high chance of running out of time.
+Students are supposed to invest forty hours of their time (two hundred hours the five members). If the group is too ambitious in the scope of the project, there is a high chance of running out of time.
 
 A good approach is to work on a simple idea that makes sense by itself. Once it is working, make it grow larger by adding new features. Students may end up having all the initially planned tasks or not.
 
