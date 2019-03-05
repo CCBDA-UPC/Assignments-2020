@@ -190,10 +190,10 @@ print('Description: ' + str(user.description))
 Before you run the program, you need to instantiate the process environment variables that contain your credentials. **Remember** that every time you close the session, you will need to set them again. Use your Bash shell `.bashrc` to automate this process. (Create a FILE.bat in MS-Windows or use the equivalent init files for other Unix shells).
 
 ```bash
-_$ export CONSUMER-KEY="oEeC30R9-YOUR-OWN-DATA-y4YlY94KIZ"
-_$ export CONSUMER-SECRET="qfeRShB54Zf-YOUR-OWN-DATA-4djddUb6FcsivoZ4gkOMX"
-_$ export ACCESS-TOKEN="dsSW6K26GM-YOUR-OWN-DATA-IAh80cx4Kmg1VOOi142542"
-_$ export ACCESS-SECRET="DNvRZMdzRZWaFimgOZ8gd9-YOUR-OWN-DATA-GcKbn3ERDc7"
+_$ export CONSUMER_KEY="oEeC30R9-YOUR-OWN-DATA-y4YlY94KIZ"
+_$ export CONSUMER_SECRET="qfeRShB54Zf-YOUR-OWN-DATA-4djddUb6FcsivoZ4gkOMX"
+_$ export ACCESS_TOKEN="dsSW6K26GM-YOUR-OWN-DATA-IAh80cx4Kmg1VOOi142542"
+_$ export ACCESS_SECRET="DNvRZMdzRZWaFimgOZ8gd9-YOUR-OWN-DATA-GcKbn3ERDc7"
 ```
 
 **Q221: Is the data printed correctly? Is it yours?** Add your answers to `README.md`.
