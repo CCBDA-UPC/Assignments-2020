@@ -347,8 +347,7 @@ Please, wait until you see the last message stating that the environment is succ
 Please, note that issuing the above command the application code has been uploaded. See line stating 
 ```
 Creating application version archive "app-190310_224408".
-``
-
+```
 
 Ìf you change your code, you only need to type the following command to transfer the code to AWS and restart the environment.
 
@@ -396,10 +395,15 @@ _$ eb logs
 If you want to check the errors inside the EC2 instance running your EB environment, you can connect the CLI using a command like:
 
 ```
- ssh -i YOUR-KEYPAIR.pem ec2-user@IP-ADDRESS-OR-NAME
+_$ ssh -i YOUR-KEYPAIR.pem ec2-user@IP-ADDRESS-OR-NAME
 ```
 
 Where the key-pair used is the one declared when initializing the EB and the name of the host. Go to the EC2 console in case that you want to obtain the IP address.
+
+Since ElasticBeanstalk infrastructure maintenante is part of AWS responsibilities, that includes updating the operating system, web server, application server, etc. Such updates may interfere with your application, therefore you can decide when it is the best moment to use the following command that updates the environment to the most recent platform version.
+```
+_$ eb upgrade
+```
 
 ### One final step
 
@@ -416,6 +420,8 @@ Go to your EC2 console and check the EC2 instance that AWS uses for the Elastic 
 Now, to save expenses, you can terminate your environment, this time from the EB console.
 
 **Q45b: What has happened? Why do you think that has happened?** Check both EC2 and EB consoles. Add your responses to `README.md`.
+
+**Q45c: Can you terminate the application using the command line? What is the command? if it exists.**
 
 **Q46: How long have you been working on this session? What have been the main difficulties you have faced and how have you solved them?** Add your answers to `README.md`.
 
