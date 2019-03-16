@@ -298,6 +298,12 @@ global:
   workspace_type: Application
 ```
 
+Transfer the configuration parameters to the remote deployment by setting the environment variables.
+```
+_$ eb setenv DEBUG=True STARTUP_SIGNUP_TABLE=gsg-signup-table AWS_REGION=eu-west-1
+```
+
+To create the resources required to run the application and upload the application code we need to type:
 ```
 _$ eb create
 Enter Environment Name
@@ -310,7 +316,7 @@ Select a load balancer type
 2) application
 3) network
 (default is 2): 1
-Creating application version archive "app-190316_124408".
+Creating application version archive "app-190310_224408".
 Uploading: [##################################################] 100% Done...
 Environment details for: eb-django-signup
   Application name: eb-django-signup
@@ -338,12 +344,13 @@ Please, wait until you see the last message stating that the environment is succ
 
 <p align="center"><img src="./images/Lab04-14.png " alt="Sample web app" title="Sample web app"/></p>
 
-Transfer the configuration to the remote deployment by setting the environment variables.
+Please, note that issuing the above command the application code has been uploaded. See line stating 
 ```
-_$ eb setenv DEBUG=True STARTUP_SIGNUP_TABLE=gsg-signup-table AWS_REGION=eu-west-1
+Creating application version archive "app-190310_224408".
+``
 
-```
-Finally, you only need to type `deploy` to transfer the code to AWS.
+
+Ìf you change your code, you only need to type the following command to transfer the code to AWS and restart the environment.
 
 ```
 _$ eb deploy
@@ -393,10 +400,6 @@ If you want to check the errors inside the EC2 instance running your EB environm
 ```
 
 Where the key-pair used is the one declared when initializing the EB and the name of the host. Go to the EC2 console in case that you want to obtain the IP address.
-
-**NOTE:** Some people have detected that even after configuring the environment variables they do not appear to be set. Please, make sure that the "Software Configuration" box, inside of the tab "Configuration" has the environment variables correctly setup.
-
-<p align="center"><img src="./images/Lab04-15.png " alt="Environment" title="Environment"/></p>
 
 ### One final step
 
