@@ -203,7 +203,7 @@ Open the Elastic Beanstalk console using this preconfigured link: [https://conso
 
 1. See the *Application name* and the *Environment name* at its place. Feel free to change the names.
 
-2. For *Domain*, leave blank to get a random host name (i.e., gsgSignup-d6rrp-env). Alternatively, you can type a host name that you like better, if it is available. The URL we are going to use to access the project will be something like: `http://gsgSignup-d6rrp-env.eu-west-1.elasticbeanstalk.com/`.
+2. For *Domain*, leave it blank to get a random host name (i.e., gsgSignup-d6rrp-env). Alternatively, you can type a host name that you like better, if it is available. The URL we are going to use to access the project will be something like: `http://gsgSignup-d6rrp-env.eu-west-1.elasticbeanstalk.com/`.
 
 3. For *Platform*, choose *Preconfigured platform* and select **Preconfigured Python**. **DO NOT SELECT** *Preconfigured - Docker - Python*.
 
@@ -274,19 +274,53 @@ Select a key pair.
 (default is 2): 1
 
 
-_$ eb use gsgSignup-d6rrp-env
+
+_$ eb create
+Enter Environment Name
+(default is eb-django-signup-dev): eb-django-signup
+Enter DNS CNAME prefix
+(default is eb-django-signup): eb-django-ccbda
+
+Select a load balancer type
+1) classic
+2) application
+3) network
+(default is 2): 1
+Creating application version archive "app-190316_124408".
+Uploading: [##################################################] 100% Done...
+Environment details for: eb-django-signup
+  Application name: eb-django-signup
+  Region: eu-west-1
+  Deployed Version: app-190316_124408
+  Environment ID: e-rduyfzjegp
+  Platform: arn:aws:elasticbeanstalk:eu-west-1::platform/Python 3.6 running on 64bit Amazon Linux/2.8.1
+  Tier: WebServer-Standard-1.0
+  CNAME: eb-django-ccbda.eu-west-1.elasticbeanstalk.com
+  Updated: 2019-03-10 21:44:32.529000+00:00
+Printing Status:
+2019-03-10 21:44:31    INFO    createEnvironment is starting.
+2019-03-10 21:44:32    INFO    Using elasticbeanstalk-eu-west-1-468331866415 as Amazon S3 storage bucket for environment data.
+2019-03-10 21:44:55    INFO    Created load balancer named: awseb-e-r-AWSEBLoa-1K9ZK4E68LYD1
+2019-03-10 21:45:11    INFO    Created security group named: awseb-e-rduyfzjegp-stack-AWSEBSecurityGroup-4AZMXHN8NEN3
+2019-03-10 21:45:11    INFO    Created Auto Scaling launch configuration named: awseb-e-rduyfzjegp-stack-AWSEBAutoScalingLaunchConfiguration-TYFNTTWETJIU
+2019-03-10 21:46:28    INFO    Created Auto Scaling group named: awseb-e-rduyfzjegp-stack-AWSEBAutoScalingGroup-25JLWUN93G2
+2019-03-10 21:46:28    INFO    Waiting for EC2 instances to launch. This may take a few minutes.
+.........
+2019-03-10 21:47:31    INFO    Application available at eb-django-ccbda.eu-west-1.elasticbeanstalk.com.
+2019-03-1o 21:47:31    INFO    Successfully launched environment: eb-django-signup
+
 ```
-Please note that `gsgSignup-d6rrp-env` is the environment name that we created previously and it is also part of the URL we are going to use to access the project: `http://gsgSignup-d6rrp-env.eu-west-1.elasticbeanstalk.com/`.
+Please, wait until you see the last message stating that the environment is successfully launched and use `http://eb-django-ccbda.eu-west-1.elasticbeanstalk.com/` to access the project.
 
 Running eb init creates a configuration file at `.elasticbeanstalk/config.yml`. You can edit it if necessary.
 
 ```
 branch-defaults:
-  master:
-    environment: gsgSignup-d6rrp-env
+  default:
+    environment: eb-django-signup
     group_suffix: null
 global:
-  application_name: gsg-signup
+  application_name: eb-django-signup
   branch: null
   default_ec2_keyname: ccbda_upc
   default_platform: Python 3.6
@@ -295,26 +329,20 @@ global:
   instance_profile: null
   platform_name: null
   platform_version: null
-  profile: null
+  profile: eb-cli
   repository: null
-  sc: git
+  sc: null
   workspace_type: Application
-
 ```
 
-**NOTE:** Check that the name of the Elastic Beanstalk application_name corresponds to "gsg-signup" (or other name that you may see at the EB console) and that the environment corresponds to something like "gsgSignup-d6rrp-env".
-
 <p align="center"><img src="./images/Lab04-14.png " alt="Sample web app" title="Sample web app"/></p>
-
-Finally, you only need to type `deploy` to transfer the code to AWS.
 
 Transfer the configuration to the remote deployment by setting the environment variables.
 ```
 _$ eb setenv DEBUG=True STARTUP_SIGNUP_TABLE=gsg-signup-table AWS_REGION=eu-west-1
 
 ```
-
-Please note that if you haven't committed all the changes in your local repository eb deploy will deploy the last committed changes.
+Finally, you only need to type `deploy` to transfer the code to AWS.
 
 ```
 _$ eb deploy
@@ -329,11 +357,12 @@ INFO: Environment update completed successfully.
 
 ### Test the Web App
 
-Your EB console will show changes, as seen below.
+To open a new browser with your application, type:
 
-<p align="center"><img src="./images/Lab04-10.png " alt="Sample web app" title="Sample web app"/></p>
-
-When the deployment has finished, and the environment health is listed as "Green", open the URL of the app, and you should see the screen capture shown below.
+```
+_$ eb open
+```
+Your Elasti console will show changes, as seen below.
 
 <p align="center"><img src="./images/Lab04-11.png " alt="Sample web app" title="Sample web app"/></p>
 
