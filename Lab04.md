@@ -201,34 +201,24 @@ Another important set of files are the ones at the `.ebextensions` directory. Th
 
 Open the Elastic Beanstalk console using this preconfigured link: [https://console.aws.amazon.com/elasticbeanstalk/home#/newApplication?applicationName=gsg-signup&environmentType=LoadBalanced](https://console.aws.amazon.com/elasticbeanstalk/home#/newApplication?applicationName=gsg-signup&environmentType=LoadBalanced).
 
-1. See the name at its place and choose **Next**.
+1. See the *Application name* and the *Environment name* at its place. Feel free to change the names.
 
-2. For New Environment, choose **Create webserver**.
+2. For *Domain*, leave blank to get a random host name (i.e., gsgSignup-d6rrp-env). Alternatively, you can type a host name that you like better, if it is available. The URL we are going to use to access the project will be something like: `http://gsgSignup-d6rrp-env.eu-west-1.elasticbeanstalk.com/`.
 
-3. For Environment Type, select **Python**, **Load balancing, auto-scaling** and choose **Next**.
+3. For *Platform*, choose *Preconfigured platform* and select **Preconfigured Python**. **DO NOT SELECT** *Preconfigured - Docker - Python*.
 
-4. For Application version, select **Sample application** and choose **Next**.
-
-5. For Environment Info, accept the proposed name (i.e., gsgSignup-d6rrp-env). Alternatively, you can find one name that you like better, if it is available. Continue by choosing **Next**.
-
-    Please note that `gsgSignup-d6rrp-env` is also part of the URL we are going to use to access the project: `http://gsgSignup-d6rrp-env.eu-west-1.elasticbeanstalk.com/`.
-
-6. For Additional Resources, select **Create this environment inside a VPC** and choose **Next**.
-
-7. For Configuration Details, select a `t2.nano` Instance type (the smallest EC2 instance that you can pick. Consider t2.micro if you have free tier available) and a key pair that you have access to. Type your e-mail address to receive notifications regarding the environment that you are launching and finally choose **Next**.
-
-8. For Environment Tags, leave it blank and choose **Next**.
+4. For *Application code*, select **Sample application** and click at **Review and launch**.
 
 
-9. For VPC Configuration, select the proposed VPC (if you haven't created one yet) and also select `eu-west-1a` for `ELB` and `EC2`. Select a VPC security group that contains the set of Internet ports that are open for inbound and outbound connections. Make sure that ELB visibility is External and choose **Next**.
-    <p align="center"><img src="./images/Lab04-5.png " alt="VPC Configuration" title="VPC Configuration"/></p>
+5. In the next screen, find the box named **Instances** click *Modify* and select a `t2.nano` Instance type (the smallest EC2 instance that you can pick. Consider t2.micro if you have free tier available).  Click **Save**.
 
-10. For Permissions, choose the Instance profile that you created earlier (**gsg-signup-role**) and choose **Next**.
-    <p align="center"><img src="./images/Lab04-6.png " alt="gsg-signup-role" title="gsg-signup-role"/></p>
+6. Back in the boxes screen find the one named **Security** click *Modify* and select a *EC2 key pair* that you have access to. Select *IAM instance profile* the value **gsg-signup-role** and click **Save**.
+ 
+7. Back in the boxes screen find the one named **Notifications** and type your e-mail address to receive notifications regarding the environment that you are launching. Click **Save**.
 
-11. Review all the settings and choose **Launch**.
+8. Back in the boxes screen find the one named **Network** and select a VPC where the app. will run isolated regarding its security groups. Select only **eu-west-1a** in both *Load balancer subnets* and *Instance subnets*. If you select more availability zones one EC2 instance will be created on each zone. Check *Public IP address* to be able to access the app from the outside. Click **Next**.
 
-<p align="center"><img src="./images/Lab04-7.png " alt="Launching" title="Launching"/></p>
+9. Review all the settings and click **Create app**.
 
 In just a few minutes, Elastic Beanstalk provisions the networking, storage, compute and monitoring infrastructure required to run a scalable web application in AWS.
 
