@@ -272,9 +272,33 @@ Select a key pair.
 1) ccbda_upc
 2) [ Create new KeyPair ]
 (default is 2): 1
+```
+That has initialized the container and now you will be creating an environment for the application:
 
+Running eb init creates a configuration file at `.elasticbeanstalk/config.yml`. You can edit it if necessary.
 
+```
+branch-defaults:
+  default:
+    environment: eb-django-signup
+    group_suffix: null
+global:
+  application_name: eb-django-signup
+  branch: null
+  default_ec2_keyname: ccbda_upc
+  default_platform: Python 3.6
+  default_region: eu-west-1
+  include_git_submodules: true
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: eb-cli
+  repository: null
+  sc: null
+  workspace_type: Application
+```
 
+```
 _$ eb create
 Enter Environment Name
 (default is eb-django-signup-dev): eb-django-signup
@@ -312,29 +336,6 @@ Printing Status:
 ```
 Please, wait until you see the last message stating that the environment is successfully launched and use `http://eb-django-ccbda.eu-west-1.elasticbeanstalk.com/` to access the project.
 
-Running eb init creates a configuration file at `.elasticbeanstalk/config.yml`. You can edit it if necessary.
-
-```
-branch-defaults:
-  default:
-    environment: eb-django-signup
-    group_suffix: null
-global:
-  application_name: eb-django-signup
-  branch: null
-  default_ec2_keyname: ccbda_upc
-  default_platform: Python 3.6
-  default_region: eu-west-1
-  include_git_submodules: true
-  instance_profile: null
-  platform_name: null
-  platform_version: null
-  profile: eb-cli
-  repository: null
-  sc: null
-  workspace_type: Application
-```
-
 <p align="center"><img src="./images/Lab04-14.png " alt="Sample web app" title="Sample web app"/></p>
 
 Transfer the configuration to the remote deployment by setting the environment variables.
@@ -362,7 +363,8 @@ To open a new browser with your application, type:
 ```
 _$ eb open
 ```
-Your Elasti console will show changes, as seen below.
+
+You can check your ElasticBeanstalk that will console will show changes, as seen below.
 
 <p align="center"><img src="./images/Lab04-11.png " alt="Sample web app" title="Sample web app"/></p>
 
@@ -378,7 +380,11 @@ Of course, you would try to catch such an error in development. However, if an e
 _$ eb deploy
 ```
 
-In the Elastic Beanstalk console, in the navigation pane for your environment, choose Logs, download them and try to find the error. For instance one of the process environment variables are not set correctly.
+You can also download the logs and try to find the error. For instance one of the process environment variables are not set correctly.
+
+```
+_$ eb logs
+```
 
 If you want to check the errors inside the EC2 instance running your EB environment, you can connect the CLI using a command like:
 
