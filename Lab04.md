@@ -238,7 +238,17 @@ Good job! We are almost there.
 
 ## Task 4.6: Configure Elastic Beanstalk CLI and deploy the target web app
 
-At this point, we have the sample web app deployed. AWS EB CLI can, alternatively, help us to transfer and install our web app to the cloud. Go to your terminal window and write:
+At this point, we have the sample web app deployed. AWS EB CLI can, alternatively, help us to transfer and install our web app to the cloud. 
+
+To execute the AWS EB commands you will need to create a new user and configure it for programmatic access (API key and secreat) and attach the three policies listed below.
+ 
+```
+gsg-signup-policy
+AWSElasticBeanstalkFullAccess
+AmazonS3FullAccess
+```
+
+Go to your terminal window and write:
 
 ```
 _$ eb init
