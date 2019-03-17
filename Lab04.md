@@ -240,14 +240,6 @@ Good job! We are almost there.
 
 At this point, we have the sample web app deployed. AWS EB CLI can, alternatively, help us to transfer and install our web app to the cloud. 
 
-To execute the AWS EB commands you will need to create a new user and configure it for programmatic access (API key and secreat) and attach the three policies listed below.
- 
-```
-gsg-signup-policy
-AWSElasticBeanstalkFullAccess
-AmazonS3FullAccess
-```
-
 Go to your terminal window and write:
 
 ```
@@ -308,14 +300,10 @@ global:
   workspace_type: Application
 ```
 
-Transfer the configuration parameters to the remote deployment by setting the environment variables.
-```
-_$ eb setenv DEBUG=True STARTUP_SIGNUP_TABLE=gsg-signup-table AWS_REGION=eu-west-1
-```
+To create the resources required to run the application and upload the application code we need to type the following command, using the parameters `--envvars` to set the values for the environment variables, `--ip` and `--service-role` to grant the role's permissions to the EC2s running the code.
 
-To create the resources required to run the application and upload the application code we need to type:
 ```
-_$ eb create
+_$ eb create --envvars DEBUG=True,STARTUP_SIGNUP_TABLE=gsg-signup-table,AWS_REGION=eu-west-1 --service-role gsg-signup-role
 Enter Environment Name
 (default is eb-django-signup-dev): eb-django-signup
 Enter DNS CNAME prefix
@@ -350,6 +338,8 @@ Printing Status:
 2019-03-1o 21:47:31    INFO    Successfully launched environment: eb-django-signup
 
 ```
+
+
 Please, wait until you see the last message stating that the environment is successfully launched and use `http://eb-django-ccbda.eu-west-1.elasticbeanstalk.com/` to access the project.
 
 <p align="center"><img src="./images/Lab04-14.png " alt="Sample web app" title="Sample web app"/></p>
