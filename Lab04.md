@@ -344,7 +344,7 @@ Please, wait until you see the last message stating that the environment is succ
 
 <p align="center"><img src="./images/Lab04-14.png " alt="Sample web app" title="Sample web app"/></p>
 
-Please, note that issuing the above command the application code has been uploaded. See line stating 
+Please, note that issuing the above command the application code has been uploaded. See the line stating 
 ```
 Creating application version archive "app-190310_224408".
 ```
