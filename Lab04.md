@@ -209,7 +209,6 @@ Open the Elastic Beanstalk console using this preconfigured link: [https://conso
 
 4. For *Application code*, select **Sample application** and click at **Review and launch**.
 
-
 5. In the next screen, find the box named **Instances** click *Modify* and select a `t2.nano` Instance type (the smallest EC2 instance that you can pick. Consider t2.micro if you have free tier available).  Click **Save**.
 
 6. Back in the boxes screen find the one named **Security** click *Modify* and select a *EC2 key pair* that you have access to. Select *IAM instance profile* the value **gsg-signup-role** and click **Save**.
@@ -218,7 +217,9 @@ Open the Elastic Beanstalk console using this preconfigured link: [https://conso
 
 8. Back in the boxes screen find the one named **Network** and select a VPC where the app. will run isolated regarding its security groups. Select only **eu-west-1a** in both *Load balancer subnets* and *Instance subnets*. If you select more availability zones one EC2 instance will be created on each zone. Check *Public IP address* to be able to access the app from the outside. Click **Next**.
 
-9. Review all the settings and click **Create app**.
+9. Back in the boxes screen find the one named **Capacity**. Here you can select whether you want a single instance running your environment or several instances with a load balancer and an auto-scalling policy. Please check the auto-scalling options to get a sense of what it can be achieved.
+
+10. Review all the settings and click **Create app**.
 
 In just a few minutes, Elastic Beanstalk provisions the networking, storage, compute and monitoring infrastructure required to run a scalable web application in AWS.
 
@@ -348,6 +349,7 @@ Please, note that issuing the above command the application code has been upload
 ```
 Creating application version archive "app-190310_224408".
 ```
+Do a little research on the CLI params and create the environment with a single instance, with no load-balancer.
 
 Ìf you change your code, you only need to type the following command to transfer the code to AWS and restart the environment.
 
@@ -422,6 +424,8 @@ Now, to save expenses, you can terminate your environment, this time from the EB
 **Q45b: What has happened? Why do you think that has happened?** Check both EC2 and EB consoles. Add your responses to `README.md`.
 
 **Q45c: Can you terminate the application using the command line? What is the command? if it exists.**
+
+**Q45d: What parameters have you added to the `eb create` command to create your environment? Explain why you have selected each parameter.**
 
 **Q46: How long have you been working on this session? What have been the main difficulties you have faced and how have you solved them?** Add your answers to `README.md`.
 
