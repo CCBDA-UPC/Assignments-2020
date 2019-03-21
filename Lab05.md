@@ -4,18 +4,18 @@ This hands-on session continues the previous lab session where you deployed a ba
 
 For that web app, we used a **DynamoDB table** storing the list of leads, a **Elastic Beanstalk instance** running the Python code that implements the web app functionality.
 
-You had previously set a **IAM Policy and Role** to grant correct access to the resources involved.
+You had previously set up a **IAM Policy and Role** to grant correct access to the resources involved.
 
 The code used sits in a **private** repository of your GitHub account named `eb-django-express-signup`.
 
-Remember that in your Elastic beanstalk console you have the settings of the previously created environment and that you can *unfreeze* the web app by clicking at *Restore terminated environment*.
+Remember that, in your Elastic beanstalk console, you have the settings of the previously created environment and that you can *unfreeze* the web app by clicking at *Restore terminated environment*.
 
 <p align="center"><img src="./images/Lab05-1.png " alt="Restore environment" title="Restore environment"/></p>
 
-### Amazon Simple Notification Service
-We want to know when customers submit a form, so we are going to use **Amazon Simple Notification Service** (Amazon SNS), a push messaging service that can deliver notifications over various protocols. For our web app, we are going to push notifications to an email address.
+### AWS Simple Notification Service (SNS)
+We want to know when customers submit a form, therefore we are going to use **AWS Simple Notification Service** (AWS SNS), a message pushing service that can deliver notifications over various protocols. For our web app, we are going to push notifications to an email address.
 
-### Amazon CloudFront CDN
+### AWS CloudFront CDN
 
 A content delivery network or content distribution network (CDN) is a geographically distributed network of proxy servers that disseminate a service spatially, as close to end-users as possible, to provide high availability, low latency, and high performance.
 
@@ -25,7 +25,7 @@ Nowadays, CDNs serve a substantial portion of the "static" content of the Intern
 
 Content owners pay CDN operators to deliver the content that they produce to their end users. In turn, a CDN pays ISPs (Internet Service Providers), carriers, and network operators for hosting its servers in their data centers.
 
-**AWS CloudFront CDN** is a global CDN service that securely delivers static content with low latency and high transfer speeds. CloudFront CDN works seamlessly with other AWS services including **AWS Shield** for DDoS mitigation, **Amazon S3**, **Elastic Load Balancing** or **Amazon EC2** as origins for your applications, and **AWS Lambda** to run custom code close to final viewers.
+**AWS CloudFront CDN** is a global CDN service that securely delivers static content with low latency and high transfer speeds. CloudFront CDN works seamlessly with other AWS services including **AWS Shield** for DDoS mitigation, **AWS S3**, **Elastic Load Balancing** or **AWS EC2** as origins for your applications, and **AWS Lambda** to run custom code close to final viewers.
 
 #  Pre-lab homework
 
@@ -82,7 +82,7 @@ Now test your local programs with the new identity that has much-restricted perm
 
 #  Tasks for Lab session #5
 
-* [Task 5.1: Use Amazon Simple Notification Service in your web app](#Tasks51)
+* [Task 5.1: Use AWS Simple Notification Service in your web app](#Tasks51)
 * [Task 5.2: Create a new option to retrieve the list of leads](#Tasks52)
 * [Task 5.3: Improve the web app transfer of information](#Tasks53)
 * [Task 5.4: Deliver static content using a Content Delivery Network](#Tasks54)
@@ -90,31 +90,31 @@ Now test your local programs with the new identity that has much-restricted perm
 
 <a name="Tasks51" />
 
-## Task 5.1: Use Amazon Simple Notification Service in your web app
+## Task 5.1: Use AWS Simple Notification Service in your web app
 
 
-### Create an SNS Topic
+### Create anAWS SNSTopic
 
-Our signup web app wants to notify you each time a user signs up. When the data from the signup form is written to the DynamoDB table, the app will send you an SNS notification.
+Our signup web app wants to notify you each time a user signs up. When the data from the signup form is written to the DynamoDB table, the app will send you anAWS SNSnotification.
 
-First, you need to create an SNS topic, which is a stream for notifications, and then you need to create a subscription that tells SNS where and how to send the notifications.
+First, you need to create anAWS SNStopic, which is a stream for notifications, and then you need to create a subscription that tellsAWS SNSwhere and how to send the notifications.
 
-**To set up Amazon SNS notifications**
+**To set up AWS SNS notifications**
 
-Open the Amazon SNS console at [https://console.aws.amazon.com/sns/v2/home](https://console.aws.amazon.com/sns/v2/home).
+Open the AWS SNS console at [https://console.aws.amazon.com/sns/v2/home](https://console.aws.amazon.com/sns/v2/home).
 
 - Choose **Create topic**.
 - For Topic name, type *gsg-signup-notifications*. Choose **Create topic**.
 - Choose **Create subscription**.
 - For **Protocol**, choose *Email*. For **Endpoint**, enter *your email address*. Choose **Create Subscription**.
 
-To confirm the subscription, Amazon SNS sends you an email named *AWS Notification — Subscription Confirmation*. Open the link in the email to confirm your subscription.
+To confirm the subscription, AWS SNS sends you an email named *AWS Notification — Subscription Confirmation*. Open the link in the email to confirm your subscription.
 
-Do not forget that before testing the new functionality you need to have the SNS subscription approved.
+Do not forget that before testing the new functionality you need to have theAWS SNSsubscription approved.
 
 <p align="center"><img src="./images/Lab05-2.png " alt="Confirmed" title="Confirmed"/></p>
 
-Add the *unique identifier* for the SNS topic to the configuration environment of your local deployment.
+Add the *unique identifier* for theAWS SNStopic to the configuration environment of your local deployment.
 
 ```bash
 _$ export NEW_SIGNUP_TOPIC="arn:aws:sns:eu-west-1:YOUR-INSTANCE-NUMBER:gsg-signup-notifications"
@@ -148,7 +148,7 @@ def send_notification(self, email):
 
     except Exception as e:
         logger.error(
-            'Error sending SNS message: ' + (e.fmt if hasattr(e, 'fmt') else '') + ','.join(e.args))
+            'Error sendingAWS SNSmessage: ' + (e.fmt if hasattr(e, 'fmt') else '') + ','.join(e.args))
 ```
 
 You have probably noticed that there is a Python variable that needs to be instantiated. Scroll up that file and add *NEW_SIGNUP_TOPIC* next to the other two environment variables, as shown below:
@@ -178,7 +178,7 @@ Now you can see that the new record appears inserted but when you try to add a n
 (eb-virt)_$ python manage.py runserver
 "GET / HTTP/1.1" 200 7456
 New item added to database.
-Error sending SNS message: An error occurred (AuthorizationError) when calling the Publish operation:
+Error sending AWS SNS message: An error occurred (AuthorizationError) when calling the Publish operation:
   User: arn:aws:iam::YOUR-USER-NUMBER:root is not authorized to perform: SNS:Publish on resource: arn:aws:sns:eu-west-1:YOUR-INSTANCE-NUMBER:gsg-signup-notifications
 "POST /signup HTTP/1.1" 200 0
 ```
@@ -371,7 +371,7 @@ We can now add our CSS code to customize the look and feel of our web app even m
 
 If you check the contents of the file *static/custom.css* you will see that it includes some images, also available in the same folder. If you save the modifications to *form/templates/generic.html* and review your web app, http://127.0.0.1:8000, you will see that it appears slightly different.
 
-### Upload your static content to Amazon S3 and grant object permissions
+### Upload your static content to AWS S3 and grant object permissions
 
 All the distributed static content overloads our server with requests. Moving it to a CDN will reduce our server's load and, at the same time, the users will experience a much lower latency while using our web app. We only have static files in this app, but a typical web app distributes hundreds of pieces of static content.
 
