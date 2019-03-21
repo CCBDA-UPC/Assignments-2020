@@ -81,4 +81,14 @@ Go to AWS console and lauch a new EC2 instance:
     
     <p align="center"><img src="./images/Lab09-AMI-config.PNG" alt="AMI configure" title="AMI configure"/></p>
     
-15. create an auto scalling group
+15. create an auto scalling group using the AMI that you created before. Name it `web-server-auto-scaling-group` and attach the `web-sg` security group that you created before.
+    <p align="center"><img src="./images/Lab09-LoadBalancer.PNG" alt="Auto scalling group" title="Auto scalling group"/></p>
+    <p align="center"><img src="./images/Lab09-AutoScalingGroup.png" alt="Auto scalling group" title="Auto scalling group"/></p>
+
+16. while creating the security group add the two availability zones that you were using before. Start with 2 instances. Open the "Advanced Details" tab and select "receive traffic from one or more load balancers"
+
+17. use scaling policies to adjust the capacity of this group, scaling from 2 and 2 instances.
+
+18. add some tracking tags
+    - Project = ccbda lab
+    - Cost-center = laboratory
