@@ -97,7 +97,7 @@ Now test your local programs with the new identity that has much-restricted perm
 
 Our signup web app wants to notify you each time a user signs up. When the data from the signup form is written to the DynamoDB table, the app will send you an AWS SNS notification.
 
-First, you need to create an AWS SNS t opic, which is a stream for notifications, and then you need to create a subscription that tells AWS SNS where and how to send the notifications.
+First, you need to create an AWS SNS topic, which is a stream for notifications, and then you need to create a subscription that tells AWS SNS where and how to send the notifications.
 
 **To set up AWS SNS notifications**
 
@@ -120,14 +120,7 @@ Add the *unique identifier* for the AWS SNS topic to the configuration environme
 _$ export NEW_SIGNUP_TOPIC="arn:aws:sns:eu-west-1:YOUR-INSTANCE-NUMBER:gsg-signup-notifications"
 ```
 
-Before you forget, you can also add a new variable to the environment of the Elastic Beanstalk deployment: go to the configuration of your web app, select *Software configuration* and click on the gear.
-
-<p align="center"><img src="./images/Lab05-3.png " alt="Configuration" title="Configuration"/></p>
-
-Scroll down the page and find the environment variables. Add a new variable named *NEW_SIGNUP_TOPIC* containing *arn:aws:sns:eu-west-1:YOUR-INSTANCE-NUMBER:gsg-signup-notifications*. Choose **Apply**.
-
-<p align="center"><img src="./images/Lab05-4.png " alt="Environment" title="Environment"/></p>
-
+Before you forget, you can also add a new variable to the environment of the Elastic Beanstalk deployment.
 
 ### Modify the web app to send messages
 
