@@ -32,7 +32,7 @@ Go to AWS console and lauch a new EC2 instance:
     - Cost-center = laboratory
 6. create a new security group named `web-sg` and open port 80 for everyone and port 22 for your current IP address.
 7. once the EC2 is being lauched, create an HTTP/HTTPS load balancer.
-    <p align="center"><img src="./images/Lab09-LoadBalancer.PNG" alt="ELB" title="ELB"/></p>
+    <p align="center"><img src="./images/Lab09-LoadBalancer.png" alt="ELB" title="ELB"/></p>
 8. name it "load-balancer", with internet-facing scheme. Add protocols HTTP and HTTPS using standard ports and select availabity zones "a" and "b" from your current region. Add the following tags for tracking. 
     - Project = ccbda lab
     - Cost-center = laboratory
@@ -62,7 +62,7 @@ Go to AWS console and lauch a new EC2 instance:
 11. create a new target group named ``primary-apache-web-server-target`` using HTTP protocol and attach the EC2 instance named ``apache-web-server``.
 12. once the ELB is provisioned, go to the "Description" tab and copy in your browser the the DNS name assigned http://load-balancer-1334015960.eu-west-1.elb.amazonaws.com/. 
 
-    <p align="center"><img src="./images/Lab09-ApacheWorking.PNG" alt="Apache working" title="Apache working"/></p>
+    <p align="center"><img src="./images/Lab09-ApacheWorking.png" alt="Apache working" title="Apache working"/></p>
 
 13. use ssh to connect to the instance. Remove the file `/var/www/html/index.html`  and copy the contents below to `/var/www/html/index.php`. Close the ssh session.
 
@@ -77,9 +77,9 @@ Go to AWS console and lauch a new EC2 instance:
     ````
 14. create a machine image (AMI) using the name `test-web-server-version-1.0` with the description `LAMP web server`.
 
-    <p align="center"><img src="./images/Lab09-AMI.PNG" alt="AMI" title="AMI"/></p>
+    <p align="center"><img src="./images/Lab09-AMI.png" alt="AMI" title="AMI"/></p>
     
-    <p align="center"><img src="./images/Lab09-AMI-config.PNG" alt="AMI configure" title="AMI configure"/></p>
+    <p align="center"><img src="./images/Lab09-AMI-config.png" alt="AMI configure" title="AMI configure"/></p>
     
 15. create an auto scalling group using the AMI that you created before. Name it `web-server-auto-scaling-group` and attach the `web-sg` security group that you created before.
     <p align="center"><img src="./images/Lab09-LoadBalancer.png" alt="Auto scalling group" title="Auto scalling group"/></p>
