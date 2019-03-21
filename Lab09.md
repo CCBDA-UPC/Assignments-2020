@@ -33,11 +33,10 @@ Go to AWS console and lauch a new EC2 instance:
 6. create a new security group named `web-sg` and open port 80 for everyone and port 22 for your current IP address.
 7. once the EC2 is being lauched, create an HTTP/HTTPS load balancer.
     <p align="center"><img src="./images/Lab09-LoadBalancer.png" alt="ELB" title="ELB"/></p>
-8. name it "load-balancer", with internet-facing scheme. Add protocols HTTP and HTTPS using standard ports and select availabity zones "a" and "b" from your current region. Add the following tags for tracking. 
+8. name it `load-balancer`, with internet-facing scheme. Add protocols HTTP and HTTPS using standard ports and select availabity zones "a" and "b" from your current region. Add the following tags for tracking. 
     - Project = ccbda lab
     - Cost-center = laboratory
-8. attach the ELB to the ``load-balancer-sg`` security group that you are creating.
-9. you will normally obtain an SSL certificate from AWS. For that you need to have control over the DNS of the server's domain. For testing purposes, go to http://www.selfsignedcertificate.com/ and create a self-signed certificate for "myserver.info" and copy the private key and certificate in the corresponding text boxes. The generated information looks like the text below. Leave the certificate chain empty and select ``ELBSecurityPolicy-TLS-1-2-2017-01`` ans the security policy. 
+9. you will normally obtain an SSL certificate from AWS. For that you need to have control over the DNS of the server's domain. Select `Upload a certificate to ACM` and, for testing purposes, go to http://www.selfsignedcertificate.com/ and create a self-signed certificate for "myserver.info" and copy the private key and certificate in the corresponding text boxes. The generated information looks like the text below. Leave the certificate chain empty and select ``ELBSecurityPolicy-TLS-1-2-2017-01`` as the security policy. 
 
     ```
     -----BEGIN CERTIFICATE-----
@@ -58,8 +57,10 @@ Go to AWS console and lauch a new EC2 instance:
     7Qrhmkr8Pl353hCmoqH06zzkeHsPD+XxQN9ANL4lsBJdo8r3Z+F6SQ==
     -----END RSA PRIVATE KEY-----
     ```
-10. create a new security group named ``load-banacer-sg`` open HTTP and HTTPS protocols.
-11. create a new target group named ``primary-apache-web-server-target`` using HTTP protocol and attach the EC2 instance named ``apache-web-server``.
+10. attach the ELB to the ``load-balancer-sg`` security group that you are creating. open HTTP and HTTPS protocols.
+11. create a new target group type IP and named ``primary-apache-web-server-target`` using HTTP protocol
+ 
+ and attach the EC2 instance named ``apache-web-server``.
 12. once the ELB is provisioned, go to the "Description" tab and copy in your browser the the DNS name assigned http://load-balancer-1334015960.eu-west-1.elb.amazonaws.com/. 
 
     <p align="center"><img src="./images/Lab09-ApacheWorking.png" alt="Apache working" title="Apache working"/></p>
