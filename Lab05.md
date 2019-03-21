@@ -93,11 +93,11 @@ Now test your local programs with the new identity that has much-restricted perm
 ## Task 5.1: Use AWS Simple Notification Service in your web app
 
 
-### Create anAWS SNSTopic
+### Create a AWS SNS Topic
 
-Our signup web app wants to notify you each time a user signs up. When the data from the signup form is written to the DynamoDB table, the app will send you anAWS SNSnotification.
+Our signup web app wants to notify you each time a user signs up. When the data from the signup form is written to the DynamoDB table, the app will send you an AWS SNS notification.
 
-First, you need to create anAWS SNStopic, which is a stream for notifications, and then you need to create a subscription that tellsAWS SNSwhere and how to send the notifications.
+First, you need to create an AWS SNS t opic, which is a stream for notifications, and then you need to create a subscription that tells AWS SNS where and how to send the notifications.
 
 **To set up AWS SNS notifications**
 
@@ -110,11 +110,11 @@ Open the AWS SNS console at [https://console.aws.amazon.com/sns/v2/home](https:/
 
 To confirm the subscription, AWS SNS sends you an email named *AWS Notification — Subscription Confirmation*. Open the link in the email to confirm your subscription.
 
-Do not forget that before testing the new functionality you need to have theAWS SNSsubscription approved.
+Do not forget that before testing the new functionality you need to have the AWS SNS subscription approved.
 
 <p align="center"><img src="./images/Lab05-2.png " alt="Confirmed" title="Confirmed"/></p>
 
-Add the *unique identifier* for theAWS SNStopic to the configuration environment of your local deployment.
+Add the *unique identifier* for the AWS SNS topic to the configuration environment of your local deployment.
 
 ```bash
 _$ export NEW_SIGNUP_TOPIC="arn:aws:sns:eu-west-1:YOUR-INSTANCE-NUMBER:gsg-signup-notifications"
@@ -148,7 +148,7 @@ def send_notification(self, email):
 
     except Exception as e:
         logger.error(
-            'Error sendingAWS SNSmessage: ' + (e.fmt if hasattr(e, 'fmt') else '') + ','.join(e.args))
+            'Error sending AWS SNS message: ' + (e.fmt if hasattr(e, 'fmt') else '') + ','.join(e.args))
 ```
 
 You have probably noticed that there is a Python variable that needs to be instantiated. Scroll up that file and add *NEW_SIGNUP_TOPIC* next to the other two environment variables, as shown below:
