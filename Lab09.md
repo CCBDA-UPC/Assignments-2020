@@ -144,7 +144,15 @@ Use the ELB URL in your browser and see that the output of the webpage changes w
 
 <p align="center"><img src="./images/Lab09-Serverless-Schema.png" alt="Serverless" title="Serverless"/></p>
 
-### Static website
+Download a zip with the files from [https://github.com/CCBDA-UPC/Lambda-example](https://github.com/CCBDA-UPC/Lambda-example). 
+
+### Create a Lambda function
+
+
+### Create an API gateway
+
+
+### Create a static website
 
 Create a new AWS S3 bucket. Uncheck all the properties below. 
  
@@ -186,8 +194,15 @@ To host a static website, your bucket must have public read access. Copy the fol
 
 In the policy, replace **YOUR-BUCKET** with the name of your bucket.
 
-Download a zip with the files from [https://github.com/CCBDA-UPC/Lambda-example](https://github.com/CCBDA-UPC/Lambda-example). Then upload the files `index.html`, `script.js`, `styles.css` in the bucket. Select all three and grant them public access.
+From the zip files downloaded, upload `index.html`, `script.js`, `styles.css` to the bucket. Select all three and grant them public access.
 
 Verify that the endpoint shows you the following contents:
 
  <p align="center"><img src="./images/Lab09-S3-web-form.png" alt="S3 public access" title="S3 public access"/></p>
+
+If you type anything in the form, an error will appear.
+
+Replace `https://your-gw-url/test/ccbda-dynamoDB-python-CRUD` by the API gateway that you have created.
+
+
+Change the properties of the screen capture above with checkmarks on all the boxes but the last one.
