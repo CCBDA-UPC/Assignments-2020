@@ -41,6 +41,7 @@ Go to [AWS console](https://eu-west-1.console.aws.amazon.com/ec2/) and lauch a n
 ### Create a load balancer
 
 Once the EC2 is being lauched, create an HTTP/HTTPS load balancer.
+
     <p align="center"><img src="./images/Lab09-LoadBalancer.png" alt="ELB" title="ELB"/></p>
 
 8. name it `load-balancer`, with internet-facing scheme. Add protocols HTTP and HTTPS using standard ports and select availabity zones "a" and "b" from your current region. Add the following tags for tracking. 
