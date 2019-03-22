@@ -58,10 +58,9 @@ Go to AWS console and lauch a new EC2 instance:
     -----END RSA PRIVATE KEY-----
     ```
 10. attach the ELB to the ``load-balancer-sg`` security group that you are creating. open HTTP and HTTPS protocols.
-11. create a new target group type IP and named ``primary-apache-web-server-target`` using HTTP protocol
- 
- and attach the EC2 instance named ``apache-web-server``.
-12. once the ELB is provisioned, go to the "Description" tab and copy in your browser the the DNS name assigned http://load-balancer-1334015960.eu-west-1.elb.amazonaws.com/. 
+11. create a new target group type IP and named ``primary-apache-web-server-target`` using HTTP protocol and attach the EC2 instance named ``apache-web-server``.
+
+12. once the ELB is provisioned, go to the "Description" tab and copy the DNS name assigned http://load-balancer-1334015960.eu-west-1.elb.amazonaws.com/ and paste it in your browser. 
 
     <p align="center"><img src="./images/Lab09-ApacheWorking.png" alt="Apache working" title="Apache working"/></p>
 
