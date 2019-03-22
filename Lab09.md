@@ -130,7 +130,7 @@ Use the ELB URL in your browser and see that the output of the webpage changes w
 
 ### Questions
 
-**Q911.** What happens when you use https://your-load-balancer-url? Why does that happen? How could you fix it?
+**Q911.** What happens when you use https://your-load-balancer-url instead of http://your-load-balancer-url ? Why does that happen? How could you fix it?
 
 **Q912.** Stop all three EC2 instances. What happens?
 
