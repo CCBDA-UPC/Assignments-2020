@@ -44,7 +44,7 @@ Once the EC2 is being lauched, create an HTTP/HTTPS load balancer.
 
     <p align="center"><img src="./images/Lab09-LoadBalancer.png" alt="ELB" title="ELB"/></p>
 
-8. name it `load-balancer`, with internet-facing scheme. Add protocols HTTP and HTTPS using standard ports and select availabity zones "a" and "b" from your current region. Add the following tags for tracking. 
+1. name it `load-balancer`, with internet-facing scheme. Add protocols HTTP and HTTPS using standard ports and select availabity zones "a" and "b" from your current region. Add the following tags for tracking. 
     - Project = ccbda lab
     - Cost-center = laboratory
 9. you will normally obtain an SSL certificate from AWS. For that you need to have control over the DNS of the server's domain. Select `Upload a certificate to ACM` and, for testing purposes, go to http://www.selfsignedcertificate.com/ and create a self-signed certificate for "myserver.info" and copy the private key and certificate in the corresponding text boxes. The generated information looks like the text below. Leave the certificate chain empty and select ``ELBSecurityPolicy-TLS-1-2-2017-01`` as the security policy. 
