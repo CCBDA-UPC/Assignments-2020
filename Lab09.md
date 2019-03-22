@@ -146,9 +146,48 @@ Use the ELB URL in your browser and see that the output of the webpage changes w
 
 ### Static website
 
-Create a new AWS S3 bucket with `Static website hosting` capabilities. `Remove public access granted through public ACLs (Recommended)`.  Use the tags:
+Create a new AWS S3 bucket. Uncheck all the properties below. 
+ 
+ <p align="center"><img src="./images/Lab09-S3-public-access.png" alt="S3 public access" title="S3 public access"/></p>
+ 
+Use the tags:
 
 - Cost-center = laboratory
 - Project = ccbda serverless
+  
+Open the bucket Properties pane, choose `Static Website Hosting`, and do the following:
 
- Retrieve the html, css and js files from [https://github.com/CCBDA-UPC/Lambda-example](https://github.com/CCBDA-UPC/Lambda-example) and upload them in the AWS S3 bucket. Make the files public by uploading them and selecting "Grant public read access to this object(s)" in Manage public permissions.
+- Choose Use this bucket to host a website.
+
+- In the Index Document box, type index.html.
+
+- Choose Save to save the website configuration.
+
+- Write down the Endpoint `http://YOUR-BUCKET.s3-website-eu-west-1.amazonaws.com`
+
+In the Properties pane for the bucket, choose Permissions and then choose Bucket Policy.
+
+To host a static website, your bucket must have public read access. Copy the following bucket policy, and then paste it in the Bucket Policy Editor.
+
+```json
+{
+   "Version":"2012-10-17",
+   "Statement":[{
+ 	"Sid":"PublicReadForGetBucketObjects",
+         "Effect":"Allow",
+ 	  "Principal": "*",
+       "Action":["s3:GetObject"],
+       "Resource":["arn:aws:s3:::YOUR-BUCKET/*"
+       ]
+     }
+   ]
+ }
+```
+
+In the policy, replace **YOUR-BUCKET** with the name of your bucket.
+
+Download a zip with the files from [https://github.com/CCBDA-UPC/Lambda-example](https://github.com/CCBDA-UPC/Lambda-example). Then upload the files `index.html`, `script.js`, `styles.css` in the bucket. Select all three and grant them public access.
+
+Verify that the endpoint shows you the following contents:
+
+ <p align="center"><img src="./images/Lab09-S3-web-form.png" alt="S3 public access" title="S3 public access"/></p>
