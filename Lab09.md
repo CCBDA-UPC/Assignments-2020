@@ -35,7 +35,7 @@ Go to [AWS console](https://eu-west-1.console.aws.amazon.com/ec2/) and lauch a n
     
 4. Add 8GB of storage space.
 5. Add some tags for tracking. 
-    - Project = ccbda lab
+    - Project = ccbda bootstrap
     - Name = apache-web-server
     - Cost-center = laboratory
 6. Create a new security group named `web-sg` and open port 80 for everyone and port 22 for your current IP address.
@@ -47,7 +47,7 @@ Once the EC2 is being lauched, create an HTTP/HTTPS load balancer.
 <p align="center"><img src="./images/Lab09-LoadBalancer.png" alt="ELB" title="ELB"/></p>
 
 1. Name it `load-balancer`, with internet-facing scheme. Add protocols HTTP and HTTPS using standard ports and select availabity zones "a" and "b" from your current region. Add the following tags for tracking. 
-    - Project = ccbda lab
+    - Project = ccbda bootstrap
     - Cost-center = laboratory
 9. You will normally obtain an SSL certificate from AWS. For that you need to have control over the DNS of the server's domain. Select `Upload a certificate to ACM` and, for testing purposes, go to http://www.selfsignedcertificate.com/ and create a self-signed certificate for "myserver.info" and copy the private key and certificate in the corresponding text boxes. The generated information looks like the text below. Leave the certificate chain empty and select ``ELBSecurityPolicy-TLS-1-2-2017-01`` as the security policy. 
 
@@ -119,7 +119,7 @@ Once the EC2 is being lauched, create an HTTP/HTTPS load balancer.
 18. Add notifications to your e-mail via a SNS topic.
 
 19. Add some tracking tags
-    - Project = ccbda lab
+    - Project = ccbda bootstrap
     - Cost-center = laboratory
     
 20. Once the auto scalling group is running you will see that you have two more EC2 instances running.
@@ -139,3 +139,16 @@ Use the ELB URL in your browser and see that the output of the webpage changes w
 **Q914.** How are you going to end this section regarding the use of AWS resources?
 
 **Q915.** Create a piece of code (Python or bash) to reproduce the above steps required to lauch a new set of web servers with a load balancer. Start using the AMI that you have already created.
+
+## Task 9.2: Serverless example
+
+<p align="center"><img src="./images/Lab09-Serverless-Schema.png" alt="Serverless" title="Serverless"/></p>
+
+### Static website
+
+Create a new AWS S3 bucket with `Static website hosting` capabilities. `Remove public access granted through public ACLs (Recommended)`.  Use the tags:
+
+- Cost-center = laboratory
+- Project = ccbda serverless
+
+ Retrieve the html, css and js files from [https://github.com/CCBDA-UPC/Lambda-example](https://github.com/CCBDA-UPC/Lambda-example) and upload them in the AWS S3 bucket. Make the files public by uploading them and selecting "Grant public read access to this object(s)" in Manage public permissions.
