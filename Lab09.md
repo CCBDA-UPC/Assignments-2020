@@ -108,9 +108,11 @@ Once the EC2 is being lauched, create an HTTP/HTTPS load balancer.
     <p align="center"><img src="./images/Lab09-LoadBalancer.png" alt="Auto scalling group" title="Auto scalling group"/></p>
     <p align="center"><img src="./images/Lab09-AutoScalingGroup.png" alt="Auto scalling group" title="Auto scalling group"/></p>
 
-16. while creating the security group add the two availability zones that you were using before. Start with 2 instances in a VPC (do not use EC-2 classic). Open the "Advanced Details" tab and select "receive traffic from one or more load balancers" and add `primary-apache-web-server-target` to Target Groups. Select Health Check Type: ELB
+16. while creating the security group add the two availability zones that you were using before. Start with 2 instances in a VPC (do not use EC-2 classic as Network option). You will see an error saying "No public IP addresses will be assigned". That is correct because the EC2 instances will receive HTTP/HTTPS traffic through the ELB.
 
-17. use scaling policies to adjust the capacity of this group, scaling from 2 and 2 instances depending on the Average CPU utilization.
+17. Open the "Advanced Details" tab and select "receive traffic from one or more load balancers" and add `primary-apache-web-server-target` to Target Groups. Select Health Check Type: ELB
+
+17. Use scaling policies to adjust the capacity of this group, scaling from 2 and 2 instances depending on the Average CPU utilization.
 
 18. Add notifications to your e-mail via a SNS topic.
 
@@ -125,10 +127,13 @@ Once the EC2 is being lauched, create an HTTP/HTTPS load balancer.
 21. Use the ELB URL in your browser and see that the output of the webpage changes when reloading the URL. The EC2 instance ID of the first EC2 instance created does not show since it is not part of the auto scalling group. Two new EC2 instances have been created using the AMI provided.
 
 ### Questions
-**Q911.** Stop all three EC2 instances. What happens?
 
-**Q912.** Terminate all three EC2 instances. What happens?
+**Q911.** What happens when you use https://your-load-balancer-url? Why does that happen? How could you fix it?
 
-**Q913.** How are you going to end this section regarding the use of AWS resources?
+**Q912.** Stop all three EC2 instances. What happens?
 
-**Q914.** Create a piece of code (Python or bash) to reproduce the above behavior.
+**Q913.** Terminate all three EC2 instances. What happens?
+
+**Q914.** How are you going to end this section regarding the use of AWS resources?
+
+**Q915.** Create a piece of code (Python or bash) to reproduce the above behavior.
