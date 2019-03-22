@@ -1,6 +1,12 @@
+# Lab session #9: Enhancing your web app using additional cloud services
 
+This hands-on session will guide you through the creation of a load balancer attached to several web servers. We will be using [bootstrapping](https://en.wikipedia.org/wiki/Bootstrapping) to create this example.
 
-Go to AWS console and lauch a new EC2 instance:
+## Task 9.1: Bootstrap the creation of your web server
+
+### Configure the EC2 serving as a seed for the rest of the example
+
+Go to [AWS console](https://eu-west-1.console.aws.amazon.com/ec2/) and lauch a new EC2 instance:
  
 1. use Ubuntu 16.x as base AMI
  
@@ -31,7 +37,10 @@ Go to AWS console and lauch a new EC2 instance:
     - Name = apache-web-server
     - Cost-center = laboratory
 6. create a new security group named `web-sg` and open port 80 for everyone and port 22 for your current IP address.
-7. once the EC2 is being lauched, create an HTTP/HTTPS load balancer.
+
+### Create a load balancer
+
+Once the EC2 is being lauched, create an HTTP/HTTPS load balancer.
     <p align="center"><img src="./images/Lab09-LoadBalancer.png" alt="ELB" title="ELB"/></p>
 8. name it `load-balancer`, with internet-facing scheme. Add protocols HTTP and HTTPS using standard ports and select availabity zones "a" and "b" from your current region. Add the following tags for tracking. 
     - Project = ccbda lab
@@ -58,13 +67,16 @@ Go to AWS console and lauch a new EC2 instance:
     -----END RSA PRIVATE KEY-----
     ```
 10. attach the ELB to the ``load-balancer-sg`` security group that you are creating. open HTTP and HTTPS protocols.
-11. create a new target group type IP and named ``primary-apache-web-server-target`` using HTTP protocol and attach the EC2 instance named ``apache-web-server``.
+
+11. Create a new target group of type IP and name it ``primary-apache-web-server-target`` using HTTP protocol and attach the EC2 instance named ``apache-web-server``.
 
 12. once the ELB is provisioned, go to the "Description" tab and copy the DNS name assigned http://load-balancer-1334015960.eu-west-1.elb.amazonaws.com/ and paste it in your browser. 
 
     <p align="center"><img src="./images/Lab09-ApacheWorking.png" alt="Apache working" title="Apache working"/></p>
 
-13. use ssh to connect to the instance. Remove the file `/var/www/html/index.html`  and copy the contents below to `/var/www/html/index.php`. Close the ssh session.
+### Modify the web server response and create a base AWS AMI 
+
+13. use ssh to connect to the running EC2 instance. Remove the file `/var/www/html/index.html`  and copy the contents below to `/var/www/html/index.php`. Close the ssh session.
 
     ````php
     <html>
@@ -87,6 +99,8 @@ Go to AWS console and lauch a new EC2 instance:
     <p align="center"><img src="./images/Lab09-AMI.png" alt="AMI" title="AMI"/></p>
     
     <p align="center"><img src="./images/Lab09-AMI-config.png" alt="AMI configure" title="AMI configure"/></p>
+
+### Create an auto scalling group
     
 15. create an auto scalling group using the AMI that you created before. Name it `web-server-auto-scaling-group` and attach the `web-sg` security group that you created before.
     <p align="center"><img src="./images/Lab09-LoadBalancer.png" alt="Auto scalling group" title="Auto scalling group"/></p>
@@ -104,10 +118,15 @@ Go to AWS console and lauch a new EC2 instance:
     
 20. once the auto scalling group is running you will see that you have two more EC2 instances running.
 
+### Test your new system
+
 21. Use the ELB URL in your browser and see that the output of the webpage changes when reloading the URL. The EC2 instance ID of the first EC2 instance created does not show since it is not part of the auto scalling group. Two new EC2 instances have been created using the AMI provided.
 
-22. stop all three EC2 instances. What happens?
+### Questions
+**Q911.** Stop all three EC2 instances. What happens?
 
-23. terminate all three EC2 instances. What happens?
+**Q912.** Terminate all three EC2 instances. What happens?
 
-24. how are you going to end this section regarding the use of AWS resources?
+**Q913.** How are you going to end this section regarding the use of AWS resources?
+
+**Q914.** Create a piece of code (Python or bash) to reproduce the above behavior.
