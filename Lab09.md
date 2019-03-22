@@ -1,4 +1,4 @@
-# Lab session #9: Enhancing your web app using additional cloud services
+# Lab session #9: Programming your cloud infrastructure
 
 This hands-on session will guide you through the creation of a load balancer attached to several web servers. We will be using [bootstrapping](https://en.wikipedia.org/wiki/Bootstrapping) to create this example.
 
