@@ -8,11 +8,11 @@ This hands-on session will guide you through the creation of a load balancer att
 
 Go to [AWS console](https://eu-west-1.console.aws.amazon.com/ec2/) and lauch a new EC2 instance:
  
-1. use Ubuntu 16.x as base AMI
+1. Use Ubuntu 16.x as base AMI
  
-2. select `t2.nano` instance type
+2. Select `t2.nano` instance type
 
-3. for the instance details create 1 instance on your default VPC using the subnet of any availability zone. Enable auto-assign a public IP. At the bottom of the page unfold "Advanced details" and copy the following code "as text". You can check for errors, when the EC2 is running, at `/var/log/cloud-init-output.log`.
+3. For the instance details create 1 instance on your default VPC using the subnet of any availability zone. Enable auto-assign a public IP. At the bottom of the page unfold "Advanced details" and copy the following code "as text". You can check for errors, when the EC2 is running, at `/var/log/cloud-init-output.log`.
  
     ````bash
     #! /bin/bash -ex
@@ -31,12 +31,12 @@ Go to [AWS console](https://eu-west-1.console.aws.amazon.com/ec2/) and lauch a n
     ````
     <p align="center"><img src="./images/Lab09-AdvancedDetails.png" alt="Script" title="Script"/></p>
     
-4. add 8GB of storage space
-5. add some tags for tracking. 
+4. Add 8GB of storage space.
+5. Add some tags for tracking. 
     - Project = ccbda lab
     - Name = apache-web-server
     - Cost-center = laboratory
-6. create a new security group named `web-sg` and open port 80 for everyone and port 22 for your current IP address.
+6. Create a new security group named `web-sg` and open port 80 for everyone and port 22 for your current IP address.
 
 ### Create a load balancer
 
@@ -44,10 +44,10 @@ Once the EC2 is being lauched, create an HTTP/HTTPS load balancer.
 
     <p align="center"><img src="./images/Lab09-LoadBalancer.png" alt="ELB" title="ELB"/></p>
 
-1. name it `load-balancer`, with internet-facing scheme. Add protocols HTTP and HTTPS using standard ports and select availabity zones "a" and "b" from your current region. Add the following tags for tracking. 
+1. Name it `load-balancer`, with internet-facing scheme. Add protocols HTTP and HTTPS using standard ports and select availabity zones "a" and "b" from your current region. Add the following tags for tracking. 
     - Project = ccbda lab
     - Cost-center = laboratory
-9. you will normally obtain an SSL certificate from AWS. For that you need to have control over the DNS of the server's domain. Select `Upload a certificate to ACM` and, for testing purposes, go to http://www.selfsignedcertificate.com/ and create a self-signed certificate for "myserver.info" and copy the private key and certificate in the corresponding text boxes. The generated information looks like the text below. Leave the certificate chain empty and select ``ELBSecurityPolicy-TLS-1-2-2017-01`` as the security policy. 
+9. You will normally obtain an SSL certificate from AWS. For that you need to have control over the DNS of the server's domain. Select `Upload a certificate to ACM` and, for testing purposes, go to http://www.selfsignedcertificate.com/ and create a self-signed certificate for "myserver.info" and copy the private key and certificate in the corresponding text boxes. The generated information looks like the text below. Leave the certificate chain empty and select ``ELBSecurityPolicy-TLS-1-2-2017-01`` as the security policy. 
 
     ```
     -----BEGIN CERTIFICATE-----
@@ -68,17 +68,17 @@ Once the EC2 is being lauched, create an HTTP/HTTPS load balancer.
     7Qrhmkr8Pl353hCmoqH06zzkeHsPD+XxQN9ANL4lsBJdo8r3Z+F6SQ==
     -----END RSA PRIVATE KEY-----
     ```
-10. attach the ELB to the ``load-balancer-sg`` security group that you are creating. open HTTP and HTTPS protocols.
+10. Attach the ELB to the ``load-balancer-sg`` security group that you are creating. open HTTP and HTTPS protocols.
 
 11. Create a new target group of type IP and name it ``primary-apache-web-server-target`` using HTTP protocol and attach the EC2 instance named ``apache-web-server``.
 
-12. once the ELB is provisioned, go to the "Description" tab and copy the DNS name assigned http://load-balancer-1334015960.eu-west-1.elb.amazonaws.com/ and paste it in your browser. 
+12. Once the ELB is provisioned, go to the "Description" tab and copy the DNS name assigned http://load-balancer-1334015960.eu-west-1.elb.amazonaws.com/ and paste it in your browser. 
 
     <p align="center"><img src="./images/Lab09-ApacheWorking.png" alt="Apache working" title="Apache working"/></p>
 
 ### Modify the web server response and create a base AWS AMI 
 
-13. use ssh to connect to the running EC2 instance. Remove the file `/var/www/html/index.html`  and copy the contents below to `/var/www/html/index.php`. Close the ssh session.
+13. Use ssh to connect to the running EC2 instance. Remove the file `/var/www/html/index.html`  and copy the contents below to `/var/www/html/index.php`. Close the ssh session.
 
     ````php
     <html>
@@ -96,7 +96,7 @@ Once the EC2 is being lauched, create an HTTP/HTTPS load balancer.
     </body>
     </html>
     ````
-14. create a machine image (AMI) using the name `test-web-server-version-1.0` with the description `LAMP web server`.
+14. Create a machine image (AMI) using the name `test-web-server-version-1.0` with the description `LAMP web server`.
 
     <p align="center"><img src="./images/Lab09-AMI.png" alt="AMI" title="AMI"/></p>
     
@@ -104,11 +104,11 @@ Once the EC2 is being lauched, create an HTTP/HTTPS load balancer.
 
 ### Create an auto scalling group
     
-15. create an auto scalling group using the AMI that you created before. Name it `web-server-auto-scaling-group` and attach the `web-sg` security group that you created before.
+15. Create an auto scalling group using the AMI that you created before. Name it `web-server-auto-scaling-group` and attach the `web-sg` security group that you created before.
     <p align="center"><img src="./images/Lab09-LoadBalancer.png" alt="Auto scalling group" title="Auto scalling group"/></p>
     <p align="center"><img src="./images/Lab09-AutoScalingGroup.png" alt="Auto scalling group" title="Auto scalling group"/></p>
 
-16. while creating the security group add the two availability zones that you were using before. Start with 2 instances in a VPC (do not use EC-2 classic as Network option). You will see an error saying "No public IP addresses will be assigned". That is correct because the EC2 instances will receive HTTP/HTTPS traffic through the ELB.
+16. While creating the security group add the two availability zones that you were using before. Start with 2 instances in a VPC (do not use EC-2 classic as Network option). You will see an error saying "No public IP addresses will be assigned". That is correct because the EC2 instances will receive HTTP/HTTPS traffic through the ELB.
 
 17. Open the "Advanced Details" tab and select "receive traffic from one or more load balancers" and add `primary-apache-web-server-target` to Target Groups. Select Health Check Type: ELB
 
@@ -116,11 +116,11 @@ Once the EC2 is being lauched, create an HTTP/HTTPS load balancer.
 
 18. Add notifications to your e-mail via a SNS topic.
 
-19. add some tracking tags
+19. Add some tracking tags
     - Project = ccbda lab
     - Cost-center = laboratory
     
-20. once the auto scalling group is running you will see that you have two more EC2 instances running.
+20. Once the auto scalling group is running you will see that you have two more EC2 instances running.
 
 ### Test your new system
 
