@@ -4,6 +4,8 @@ This hands-on session will guide you through the creation of a load balancer att
 
 ## Task 9.1: Bootstrap the creation of your web server
 
+<p align="center"><img src="./images/Lab09-Schema.png" alt="Layout" title="Layout"/></p>
+
 ### Configure the EC2 serving as a seed for the rest of the example
 
 Go to [AWS console](https://eu-west-1.console.aws.amazon.com/ec2/) and lauch a new EC2 instance:
