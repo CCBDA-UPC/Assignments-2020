@@ -80,7 +80,7 @@ Once the EC2 is being lauched, create an HTTP/HTTPS load balancer.
 
 ### Modify the web server response and create a base AWS AMI 
 
-13. Use ssh to connect to the running EC2 instance. Remove the file `/var/www/html/index.html`  and copy the contents below to `/var/www/html/index.php`. Close the ssh session.
+1. Use ssh to connect to the running EC2 instance. Remove the file `/var/www/html/index.html`  and copy the contents below to `/var/www/html/index.php`. Close the ssh session.
 
     ````php
     <html>
