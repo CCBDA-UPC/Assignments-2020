@@ -67,13 +67,20 @@ Go to AWS console and lauch a new EC2 instance:
 13. use ssh to connect to the instance. Remove the file `/var/www/html/index.html`  and copy the contents below to `/var/www/html/index.php`. Close the ssh session.
 
     ````php
+    <html>
+    <head></head>
+    <body>
+    <h1>This is instance
     <?php
-    $this_instance_id = file_get_contents('http://169.254.169.254/latest/meta-data/instance-id');
-    if(!empty($this_instance_id))
-        echo (string)($this_instance_id);
+        $this_instance_id = file_get_contents('http://169.254.169.254/latest/meta-data/instance-id');
+    if(empty($this_instance_id))
+        echo "Unknown ID";
     else
-        echo "Sorry, instance id unknown";
-    
+        echo (string)($this_instance_id); 
+    ?>
+    alive!!</h1>
+    </body>
+    </html>
     ````
 14. create a machine image (AMI) using the name `test-web-server-version-1.0` with the description `LAMP web server`.
 
@@ -85,10 +92,22 @@ Go to AWS console and lauch a new EC2 instance:
     <p align="center"><img src="./images/Lab09-LoadBalancer.png" alt="Auto scalling group" title="Auto scalling group"/></p>
     <p align="center"><img src="./images/Lab09-AutoScalingGroup.png" alt="Auto scalling group" title="Auto scalling group"/></p>
 
-16. while creating the security group add the two availability zones that you were using before. Start with 2 instances. Open the "Advanced Details" tab and select "receive traffic from one or more load balancers"
+16. while creating the security group add the two availability zones that you were using before. Start with 2 instances in a VPC (do not use EC-2 classic). Open the "Advanced Details" tab and select "receive traffic from one or more load balancers" and add `primary-apache-web-server-target` to Target Groups. Select Health Check Type: ELB
 
-17. use scaling policies to adjust the capacity of this group, scaling from 2 and 2 instances.
+17. use scaling policies to adjust the capacity of this group, scaling from 2 and 2 instances depending on the Average CPU utilization.
 
-18. add some tracking tags
+18. Add notifications to your e-mail via a SNS topic.
+
+19. add some tracking tags
     - Project = ccbda lab
     - Cost-center = laboratory
+    
+20. once the auto scalling group is running you will see that you have two more EC2 instances running.
+
+21. Use the ELB URL in your browser and see that the output of the webpage changes when reloading the URL. The EC2 instance ID of the first EC2 instance created does not show since it is not part of the auto scalling group. Two new EC2 instances have been created using the AMI provided.
+
+22. stop all three EC2 instances. What happens?
+
+23. terminate all three EC2 instances. What happens?
+
+24. how are you going to end this section regarding the use of AWS resources?
