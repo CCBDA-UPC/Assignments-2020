@@ -138,4 +138,4 @@ Use the ELB URL in your browser and see that the output of the webpage changes w
 
 **Q914.** How are you going to end this section regarding the use of AWS resources?
 
-**Q915.** Create a piece of code (Python or bash) to reproduce the above behavior.
+**Q915.** Create a piece of code (Python or bash) to reproduce the above steps required to lauch a new set of web servers with a load balancer. Start using the AMI that you have already created.
