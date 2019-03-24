@@ -267,9 +267,7 @@ Use the tags:
 - Cost-center = laboratory
 - Project = ccbda serverless
 
-Download a zip with the files from [https://github.com/CCBDA-UPC/Lambda-example](https://github.com/CCBDA-UPC/Lambda-example). 
-
-Edit the file `script.js` and replace `apiUrl = 'https://YOUR-API-HOST/test/serverless-controller';` with the API Endpoint URL without adding any query string parameter.
+Download and edit the file [`script.js`](Lambda-example/script.js) and replace `apiUrl = 'https://YOUR-API-HOST/test/serverless-controller';` with the API Endpoint URL without adding any query string parameter.
   
 Open the bucket Properties pane, choose `Static Website Hosting`, and do the following:
 
@@ -302,13 +300,13 @@ To host a static website, your bucket must have public read access. Copy the fol
 
 In the policy, replace **YOUR-BUCKET** with the name of your bucket.
 
-From the zip files downloaded, upload `index.html`, `script.js` (modified version), `styles.css` to the bucket. Select all three and grant them public access.
+Upload [`index.html`](Lambda-example/index.html), the modified `script.js`, and [`styles.css`](Lambda-example/styles.css) to the bucket. Select all three and grant them public access.
 
 Verify that the endpoint shows you the following contents:
 
  <p align="center"><img src="./images/Lab09-S3-web-form.png" alt="S3 public access" title="S3 public access"/></p>
 
-If you type anything in the form, an error will appear. If you open the browser console you will see the following error:
+If you open the browser console you will see the following error:
 
 ``html
 Access to XMLHttpRequest at 'https://YOUR-API-HOST/test/serverless-controller?TableName=shopping-list' from origin 'http://YOUR-BUCKET-URL' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
