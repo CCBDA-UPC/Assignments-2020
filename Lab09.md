@@ -146,10 +146,118 @@ Use the ELB URL in your browser and see that the output of the webpage changes w
 
 Download a zip with the files from [https://github.com/CCBDA-UPC/Lambda-example](https://github.com/CCBDA-UPC/Lambda-example). 
 
+### Create a new DynamoDB table
+
+Go to the DynamoDB console and create a new table named `shoping-list`. Follow the steps detailed at [Task 4.3: Create a DynamoDB Table](./Lab04.md#task-43-create-a-dynamodb-table).
+
 ### Create a Lambda function
 
+Go to the AWS Lambda console [https://eu-west-1.console.aws.amazon.com/lambda/](https://eu-west-1.console.aws.amazon.com/lambda/) and create a new function from the blueprint `microservice-http-endpoint-python3` and name it `serverless-controller`. Create a new role and name it `serverless-controller-role`. The role needs to have `Simple microservice permissions - DynamoDB` permission.
+
+For the **API Gateway trigger** section create a new API that is `Open, which means that your API endpoint will be publicly available and can be invoked by all users. Name it `serverless-controller-API`.
+
+You need to keep the Python code that the blueprint provides. 
+
+<p align="center"><img src="./images/Lab09-Serverless-Console.png" alt="Serverless" title="Serverless"/></p>
+
+
+Once the lambda function and API are created you will see the above image. Click on ``serverles-controller`` to replace the Lambda function code by:
+
+````python
+import boto3
+import json
+
+print('Loading function')
+dynamo = boto3.client('dynamodb')
+
+def respond(err, res=None):
+    return {
+        'statusCode': '400' if err else '200',
+        'body': json.dumps(str(err) if err else res),
+        'headers': {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+        },
+    }
+
+
+def lambda_handler(event, context):
+    operation = event['httpMethod']
+    if operation == 'GET':
+        return respond(None, dynamo.scan(**event['queryStringParameters']))
+    elif operation == 'POST':
+        return respond(None, dynamo.put_item(**json.loads(event['body'])))
+    elif operation == 'DELETE':
+        return respond(None, dynamo.delete_item(**json.loads(event['body'])))
+    elif operation == 'PUT':
+        return respond(None, dynamo.update_item(**json.loads(event['body'])))
+    else:
+        return respond(ValueError('Unsupported method %s'%operation))
+
+````
+
+Check that the [created role](https://console.aws.amazon.com/iam/home#/roles/serverless-controller-role?section=permissions) has effective permissions to interact with any DynamoDB table of your account and the the working zone, as well as log execution. 
+
+````json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:DeleteItem",
+                "dynamodb:GetItem",
+                "dynamodb:PutItem",
+                "dynamodb:Scan",
+                "dynamodb:UpdateItem"
+            ],
+            "Resource": "arn:aws:dynamodb:YOUR-AWS-ZONE:YOUR-ACCOUNT-ID:table/*"
+        }
+    ]
+}
+````
+
+````json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "logs:CreateLogGroup",
+            "Resource": "arn:aws:logs:YOUR-AWS-ZONE:YOUR-ACCOUNT-ID:*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+            ],
+            "Resource": [
+                "arn:aws:logs:YOUR-AWS-ZONE:YOUR-ACCOUNT-ID:log-group:/aws/lambda/fname:*"
+            ]
+        }
+    ]
+}
+````
+
+Click on the tab `API Gateway`, as shown in the above screen capture, to obtain the API Endpoint URL.
+
+
+ 
+
+
+
+
+
+Test it locally `api-controller-dynamodb`
+
+
+
+[https://YOUR-API-HOST/test/serverless-controller?TableName=shoping-list](https://YOUR-API-HOST/test/serverless-controller?TableName=shoping-list)
 
 ### Create an API gateway
+
+Go to the AWS API gateway console [https://eu-west-1.console.aws.amazon.com/apigateway/](https://eu-west-1.console.aws.amazon.com/apigateway/) and create a new REST API and name it `serverless-api` 
 
 
 ### Create a static website
