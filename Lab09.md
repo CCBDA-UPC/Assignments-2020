@@ -310,7 +310,9 @@ Verify that the endpoint shows you the following contents:
 If you open the browser console you will see the following error:
 
 ````html
-Access to XMLHttpRequest at 'https://YOUR-API-HOST/test/serverless-controller?TableName=shopping-list' from origin 'http://YOUR-BUCKET-URL' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+Access to XMLHttpRequest at 'https://YOUR-API-HOST/test/serverless-controller?TableName=shopping-list' 
+from origin 'http://YOUR-BUCKET-URL' has been blocked by CORS policy: 
+No 'Access-Control-Allow-Origin' header is present on the requested resource.
 ````
 
 [Cross-origin resource sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) is a browser security feature that restricts cross-origin HTTP requests that are initiated from scripts running in the browser. If your REST API's resources receive cross-origin requests, you may need to enable CORS support on those resources.
