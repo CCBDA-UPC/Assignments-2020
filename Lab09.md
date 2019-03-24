@@ -254,6 +254,7 @@ Click on the tab `API Gateway`, as shown in the above screen capture, to obtain 
 [https://YOUR-API-HOST/test/serverless-controller?TableName=shopping-list](https://YOUR-API-HOST/test/serverless-controller?TableName=shopping-list)
 
 **Q921.** What is the list of events that the above URL triggers? 
+
 **Q922.** Does the reply of the above URL match what it should be expected? Why?
 
 ### Create a static website
@@ -308,9 +309,10 @@ Verify that the endpoint shows you the following contents:
 
 If you open the browser console you will see the following error:
 
-``html
+````html
 Access to XMLHttpRequest at 'https://YOUR-API-HOST/test/serverless-controller?TableName=shopping-list' from origin 'http://YOUR-BUCKET-URL' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
-``
+````
+
 [Cross-origin resource sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) is a browser security feature that restricts cross-origin HTTP requests that are initiated from scripts running in the browser. If your REST API's resources receive cross-origin requests, you may need to enable CORS support on those resources.
 
 A cross-origin HTTP request is one that is made to:
@@ -330,6 +332,7 @@ After you enable CORS support on your resource, you must deploy or redeploy the 
 Test the URL from the static website and insert and retrieve new items in the shopping list. 
 
 **Q923.** Explain what happens (actions and parts activated) when you type the URL in your browser to obtain the page updated with the shopping list.
+
 **Q924.** Explain what happens (actions and parts activated) when you type a new item in the New Thing box.
 
  <p align="center"><img src="./images/Lab09-API-shopping-list-listing.png" alt="S3 public access" title="S3 public access"/></p>
