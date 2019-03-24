@@ -1,20 +1,22 @@
 # Lab session #9: Programming your cloud infrastructure
 
-This hands-on session will guide you through the creation of a load balancer attached to several web servers. We will be using [bootstrapping](https://en.wikipedia.org/wiki/Bootstrapping) to create this example.
 
 ## Task 9.1: Bootstrap the creation of your web server
+
+This hands-on section guides you through the creation of a load balancer attached to several web servers. We are using a [bootstrapping](https://en.wikipedia.org/wiki/Bootstrapping) technique to create this example.
+
 
 <p align="center"><img src="./images/Lab09-Schema.png" alt="Layout" title="Layout"/></p>
 
 ### Configure the EC2 serving as a seed for the rest of the example
 
-Go to [AWS console](https://eu-west-1.console.aws.amazon.com/ec2/) and lauch a new EC2 instance:
+Go to [AWS console](https://eu-west-1.console.aws.amazon.com/ec2/) and launch a new EC2 instance:
  
 1. Use Ubuntu 16.x as base AMI
  
 2. Select `t2.nano` instance type
 
-3. For the instance details create 1 instance on your default VPC using the subnet of any availability zone. Enable auto-assign a public IP. At the bottom of the page unfold "Advanced details" and copy the following code "as text". You can check for errors, when the EC2 is running, at `/var/log/cloud-init-output.log`.
+3. For the instance, details create 1 instance on your default VPC using the subnet of any availability zone. Enable auto-assign a public IP. At the bottom of the page unfold "Advanced details" and copy the following code "as text". You can check for errors, when the EC2 is running, at `/var/log/cloud-init-output.log`.
  
     ````bash
     #! /bin/bash -ex
@@ -46,10 +48,10 @@ Once the EC2 is being lauched, create an HTTP/HTTPS load balancer.
 
 <p align="center"><img src="./images/Lab09-LoadBalancer.png" alt="ELB" title="ELB"/></p>
 
-1. Name it `load-balancer`, with internet-facing scheme. Add protocols HTTP and HTTPS using standard ports and select availabity zones "a" and "b" from your current region. Add the following tags for tracking. 
+1. Name it `load-balancer`, with an internet-facing scheme. Add protocols HTTP and HTTPS using standard ports and select availability zones "a" and "b" from your current region. Add the following tags for tracking. 
     - Project = ccbda bootstrap
     - Cost-center = laboratory
-9. You will normally obtain an SSL certificate from AWS. For that you need to have control over the DNS of the server's domain. Select `Upload a certificate to ACM` and, for testing purposes, go to http://www.selfsignedcertificate.com/ and create a self-signed certificate for "myserver.info" and copy the private key and certificate in the corresponding text boxes. The generated information looks like the text below. Leave the certificate chain empty and select ``ELBSecurityPolicy-TLS-1-2-2017-01`` as the security policy. 
+9. You would normally obtain an SSL certificate from AWS. For that, you need to have control over the DNS of the server's domain. Select `Upload a certificate to ACM` and, for testing purposes, go to http://www.selfsignedcertificate.com/ and create a self-signed certificate for "myserver.info" and copy the private key and certificate in the corresponding text boxes. The generated information looks like the text below. Leave the certificate chain empty and select ``ELBSecurityPolicy-TLS-1-2-2017-01`` as the security policy. 
 
     ```
     -----BEGIN CERTIFICATE-----
@@ -74,7 +76,7 @@ Once the EC2 is being lauched, create an HTTP/HTTPS load balancer.
 
 11. Create a new target group of type IP and name it ``primary-apache-web-server-target`` using HTTP protocol and attach the EC2 instance named ``apache-web-server``.
 
-12. Once the ELB is provisioned, go to the "Description" tab and copy the DNS name assigned http://load-balancer-1334015960.eu-west-1.elb.amazonaws.com/ and paste it in your browser. 
+12. Once the ELB is active, go to the "Description" tab and copy the DNS name assigned http://load-balancer-1334015960.eu-west-1.elb.amazonaws.com/ and paste it in your browser. 
 
     <p align="center"><img src="./images/Lab09-ApacheWorking.png" alt="Apache working" title="Apache working"/></p>
 
@@ -106,27 +108,27 @@ Once the EC2 is being lauched, create an HTTP/HTTPS load balancer.
 
 ### Create an auto scalling group
     
-1. Create an auto scalling group using the AMI that you created before. Name it `web-server-auto-scaling-group` and attach the `web-sg` security group that you created before.
+1. Create an auto scaling group using the AMI that you created before. Name it `web-server-auto-scaling-group` and attach the `web-sg` security group that you created before.
     <p align="center"><img src="./images/Lab09-LoadBalancer.png" alt="Auto scalling group" title="Auto scalling group"/></p>
     <p align="center"><img src="./images/Lab09-AutoScalingGroup.png" alt="Auto scalling group" title="Auto scalling group"/></p>
 
-16. While creating the security group add the two availability zones that you were using before. Start with 2 instances in a VPC (do not use EC-2 classic as Network option). You will see an error saying "No public IP addresses will be assigned". That is correct because the EC2 instances will receive HTTP/HTTPS traffic through the ELB.
+16. While creating the security group, add the two availability zones that you were using before. Start with 2 instances in a VPC (do not use EC-2 classic as Network option). A warning saying "No public IP addresses will be assigned" is normal because the EC2 instances will receive HTTP/HTTPS traffic through the ELB.
 
 17. Open the "Advanced Details" tab and select "receive traffic from one or more load balancers" and add `primary-apache-web-server-target` to Target Groups. Select Health Check Type: ELB
 
 17. Use scaling policies to adjust the capacity of this group, scaling from 2 and 2 instances depending on the Average CPU utilization.
 
-18. Add notifications to your e-mail via a SNS topic.
+18. Add notifications to your e-mail via an SNS topic.
 
 19. Add some tracking tags
     - Project = ccbda bootstrap
     - Cost-center = laboratory
     
-20. Once the auto scalling group is running you will see that you have two more EC2 instances running.
+20. Once the auto scaling group is running, you see that you have two more EC2 instances running.
 
 ### Test your new system
 
-Use the ELB URL in your browser and see that the output of the webpage changes when reloading the URL. The EC2 instance ID of the first EC2 instance created does not show since it is not part of the auto scalling group. Two new EC2 instances have been created using the AMI provided.
+Use the ELB URL in your browser and see that the output of the webpage changes when reloading the URL. The EC2 instance ID of the first EC2 instance created does not show since it is not part of the auto scaling group. Two new EC2 instances have been created using the AMI provided.
 
 ### Questions
 
@@ -138,9 +140,13 @@ Use the ELB URL in your browser and see that the output of the webpage changes w
 
 **Q914.** How are you going to end this section regarding the use of AWS resources?
 
-**Q915.** Create a piece of code (Python or bash) to reproduce the above steps required to lauch a new set of web servers with a load balancer. Start using the AMI that you have already created.
+**Q915.** Create a piece of code (Python or bash) to reproduce the above steps required to launch a new set of web servers with a load balancer. Start using the AMI that you have already created.
 
 ## Task 9.2: Serverless example
+
+This hands-on section guides you through the creation of a serverless architecture using AWS S3, AWS API Gateway, and AWS Lambda functions. This approach allows you to have a static website at AWS S3 that invokes an API gateway to perform a series of operations.
+
+The advantage of architecting a solution this way is that you don't need to provision or pay any computing resources to be used by the web server. This architecture allows your service without spending much if there are no requests and to respond to high demand of requests without requiring any extra effort on your side. 
 
 <p align="center"><img src="./images/Lab09-Serverless-Schema.png" alt="Serverless" title="Serverless"/></p>
 
@@ -157,7 +163,7 @@ Use the tags:
 
 Go to the AWS Lambda console [https://eu-west-1.console.aws.amazon.com/lambda/](https://eu-west-1.console.aws.amazon.com/lambda/) and create a new function from the blueprint `microservice-http-endpoint-python3` and name it `serverless-controller`. Create a new role and name it `serverless-controller-role`. The role needs to have `Simple microservice permissions - DynamoDB` permission.
 
-For the **API Gateway trigger** section create a new API that is `Open, which means that your API endpoint will be publicly available and can be invoked by all users. Name it `serverless-controller-API`.
+For the **API Gateway trigger** section create a new API that is `Open, which means that your API endpoint is publicly available and can be invoked by all users. Name it `serverless-controller-API`.
 
 Use the tags:
 
@@ -166,12 +172,12 @@ Use the tags:
 
 You need to keep the Python code that the blueprint provides. 
 
-Once the lambda function and API are created you will see the image below.
+Once the lambda function and API are ready, the image below shall appear.
 
 <p align="center"><img src="./images/Lab09-Serverless-Console.png" alt="Serverless" title="Serverless"/></p>
 
 
-Click on ``serverles-controller`` to replace the Lambda function code by:
+Click on ``serverless-controller`` to replace the Lambda function code by:
 
 ````python
 import boto3
@@ -206,7 +212,7 @@ def lambda_handler(event, context):
 
 ````
 
-Check that the [created role](https://console.aws.amazon.com/iam/home#/roles/serverless-controller-role?section=permissions) has effective permissions to interact with any DynamoDB table of your account and the the working zone, as well as log execution. 
+Check that the [created role](https://console.aws.amazon.com/iam/home#/roles/serverless-controller-role?section=permissions) has effective permissions to interact with any DynamoDB table of your account and the working zone, as well as log execution. 
 
 ````json
 {
@@ -282,15 +288,15 @@ Open the bucket Properties pane, choose `Static Website Hosting`, and do the fol
 
 In the Properties pane for the bucket, choose Permissions and then choose Bucket Policy.
 
-To host a static website, your bucket must have public read access. Copy the following bucket policy, and then paste it in the Bucket Policy Editor.
+Your bucket must have public read access to host a static website. Copy the following bucket policy, and then paste it in the Bucket Policy Editor.
 
 ```json
 {
    "Version":"2012-10-17",
    "Statement":[{
- 	"Sid":"PublicReadForGetBucketObjects",
+     "Sid":"PublicReadForGetBucketObjects",
          "Effect":"Allow",
- 	  "Principal": "*",
+       "Principal": "*",
        "Action":["s3:GetObject"],
        "Resource":["arn:aws:s3:::YOUR-BUCKET/*"
        ]
@@ -307,7 +313,7 @@ Verify that the endpoint shows you the following contents:
 
  <p align="center"><img src="./images/Lab09-S3-web-form.png" alt="S3 public access" title="S3 public access"/></p>
 
-If you open the browser console you will see the following error:
+If you open the browser console you see the following error:
 
 ````html
 Access to XMLHttpRequest at 'https://YOUR-API-HOST/test/serverless-controller?TableName=shopping-list' 
@@ -327,7 +333,7 @@ A cross-origin HTTP request is one that is made to:
 
 - A different protocol (for example, from https://example.com to http://example.com)
 
-To solve this, open the API Gateway console. Select the `serverless-controller` item and, using the drop down menu "Actions", Enable CORS.
+To solve this, open the API Gateway console. Select the `serverless-controller` item and, using the drop-down menu "Actions", Enable CORS.
 
  <p align="center"><img src="./images/Lab09-CORS-API.png" alt="S3 public access" title="S3 public access"/></p>
 
