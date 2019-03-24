@@ -144,11 +144,14 @@ Use the ELB URL in your browser and see that the output of the webpage changes w
 
 <p align="center"><img src="./images/Lab09-Serverless-Schema.png" alt="Serverless" title="Serverless"/></p>
 
-Download a zip with the files from [https://github.com/CCBDA-UPC/Lambda-example](https://github.com/CCBDA-UPC/Lambda-example). 
-
 ### Create a new DynamoDB table
 
-Go to the DynamoDB console and create a new table named `shoping-list`. Follow the steps detailed at [Task 4.3: Create a DynamoDB Table](./Lab04.md#task-43-create-a-dynamodb-table).
+Go to the DynamoDB console and create a new table named `shopping-list`. Follow the steps detailed at [Task 4.3: Create a DynamoDB Table](./Lab04.md#task-43-create-a-dynamodb-table).
+
+Use the tags:
+
+- Cost-center = laboratory
+- Project = ccbda serverless
 
 ### Create a Lambda function
 
@@ -156,12 +159,19 @@ Go to the AWS Lambda console [https://eu-west-1.console.aws.amazon.com/lambda/](
 
 For the **API Gateway trigger** section create a new API that is `Open, which means that your API endpoint will be publicly available and can be invoked by all users. Name it `serverless-controller-API`.
 
+Use the tags:
+
+- Cost-center = laboratory
+- Project = ccbda serverless
+
 You need to keep the Python code that the blueprint provides. 
+
+Once the lambda function and API are created you will see the image below.
 
 <p align="center"><img src="./images/Lab09-Serverless-Console.png" alt="Serverless" title="Serverless"/></p>
 
 
-Once the lambda function and API are created you will see the above image. Click on ``serverles-controller`` to replace the Lambda function code by:
+Click on ``serverles-controller`` to replace the Lambda function code by:
 
 ````python
 import boto3
@@ -240,25 +250,11 @@ Check that the [created role](https://console.aws.amazon.com/iam/home#/roles/ser
 }
 ````
 
-Click on the tab `API Gateway`, as shown in the above screen capture, to obtain the API Endpoint URL.
+Click on the tab `API Gateway`, as shown in the above screen capture, to obtain the API Endpoint URL. Test that it all works together adding `?TableName=shopping-list` to the end of the API Endpoint URL
+[https://YOUR-API-HOST/test/serverless-controller?TableName=shopping-list](https://YOUR-API-HOST/test/serverless-controller?TableName=shopping-list)
 
-
- 
-
-
-
-
-
-Test it locally `api-controller-dynamodb`
-
-
-
-[https://YOUR-API-HOST/test/serverless-controller?TableName=shoping-list](https://YOUR-API-HOST/test/serverless-controller?TableName=shoping-list)
-
-### Create an API gateway
-
-Go to the AWS API gateway console [https://eu-west-1.console.aws.amazon.com/apigateway/](https://eu-west-1.console.aws.amazon.com/apigateway/) and create a new REST API and name it `serverless-api` 
-
+**Q921.** What is the list of events that the above URL triggers? 
+**Q922.** Does the reply of the above URL match what it should be expected? Why?
 
 ### Create a static website
 
@@ -270,16 +266,20 @@ Use the tags:
 
 - Cost-center = laboratory
 - Project = ccbda serverless
+
+Download a zip with the files from [https://github.com/CCBDA-UPC/Lambda-example](https://github.com/CCBDA-UPC/Lambda-example). 
+
+Edit the file `script.js` and replace `apiUrl = 'https://YOUR-API-HOST/test/serverless-controller';` with the API Endpoint URL without adding any query string parameter.
   
 Open the bucket Properties pane, choose `Static Website Hosting`, and do the following:
 
-- Choose Use this bucket to host a website.
+- Select: Use this bucket to host a website.
 
 - In the Index Document box, type index.html.
 
 - Choose Save to save the website configuration.
 
-- Write down the Endpoint `http://YOUR-BUCKET.s3-website-eu-west-1.amazonaws.com`
+- Write down the Endpoint `http://YOUR-BUCKET-URL`
 
 In the Properties pane for the bucket, choose Permissions and then choose Bucket Policy.
 
@@ -302,15 +302,87 @@ To host a static website, your bucket must have public read access. Copy the fol
 
 In the policy, replace **YOUR-BUCKET** with the name of your bucket.
 
-From the zip files downloaded, upload `index.html`, `script.js`, `styles.css` to the bucket. Select all three and grant them public access.
+From the zip files downloaded, upload `index.html`, `script.js` (modified version), `styles.css` to the bucket. Select all three and grant them public access.
 
 Verify that the endpoint shows you the following contents:
 
  <p align="center"><img src="./images/Lab09-S3-web-form.png" alt="S3 public access" title="S3 public access"/></p>
 
-If you type anything in the form, an error will appear.
+If you type anything in the form, an error will appear. If you open the browser console you will see the following error:
 
-Replace `https://your-gw-url/test/ccbda-dynamoDB-python-CRUD` by the API gateway that you have created.
+``html
+Access to XMLHttpRequest at 'https://YOUR-API-HOST/test/serverless-controller?TableName=shopping-list' from origin 'http://YOUR-BUCKET-URL' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+``
+[Cross-origin resource sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) is a browser security feature that restricts cross-origin HTTP requests that are initiated from scripts running in the browser. If your REST API's resources receive cross-origin requests, you may need to enable CORS support on those resources.
+
+A cross-origin HTTP request is one that is made to:
+
+- A different domain (for example, from example.com to amazondomains.com)
+
+- A different subdomain (for example, from example.com to petstore.example.com)
+
+- A different port (for example, from example.com to example.com:10777)
+
+- A different protocol (for example, from https://example.com to http://example.com)
+
+ <p align="center"><img src="./images/Lab09-CORS-API.png" alt="S3 public access" title="S3 public access"/></p>
+
+After you enable CORS support on your resource, you must deploy or redeploy the API for the new settings to take effect.
+
+Test the URL from the static website and insert and retrieve new items in the shopping list. 
+
+**Q923.** Explain what happens (actions and parts activated) when you type the URL in your browser to obtain the page updated with the shopping list.
+**Q924.** Explain what happens (actions and parts activated) when you type a new item in the New Thing box.
+
+ <p align="center"><img src="./images/Lab09-API-shopping-list-listing.png" alt="S3 public access" title="S3 public access"/></p>
 
 
-Change the properties of the screen capture above with checkmarks on all the boxes but the last one.
+### Testing
+
+Lambda functions testing in the browser is not very convenient. If you change the code of the Lambda Function and want to test it before uploading it to AWS, you can use a code similar to the one below.
+
+```Python
+import json
+
+print('--------------------GET event test')
+get_event = {
+    'httpMethod': 'GET',
+    'queryStringParameters': {
+        'TableName': 'shopping-list'
+    }
+}
+print('--------------------REQUEST')
+print(json.dumps(get_event, indent=2))
+
+result = lambda_handler(get_event, None)
+print('--------------------RESULT')
+print(json.dumps(result, indent=2))
+print('--------------------RESULT body')
+print(json.dumps(json.loads(result['body']), indent=2))
+
+print('--------------------POST event test')
+
+myvar = {
+    'TableName': 'shopping-list',
+    'Item': {
+        'ThingId': {
+            'S': 'Red apples'
+        }
+    }
+}
+
+post_event = {
+    'httpMethod': 'POST',
+    'body': json.dumps(myvar, separators=(',', ':'))
+}
+
+print('--------------------REQUEST')
+print(json.dumps(post_event, indent=2))
+
+result = lambda_handler(post_event, None)
+
+print('--------------------RESULT')
+print(json.dumps(result, indent=2))
+print('--------------------RESULT body')
+print(json.dumps(json.loads(result['body']), indent=2))
+```
