@@ -327,6 +327,8 @@ A cross-origin HTTP request is one that is made to:
 
 - A different protocol (for example, from https://example.com to http://example.com)
 
+To solve this, open the API Gateway console. Select the `serverless-controller` item and, using the drop down menu "Actions", Enable CORS.
+
  <p align="center"><img src="./images/Lab09-CORS-API.png" alt="S3 public access" title="S3 public access"/></p>
 
 After you enable CORS support on your resource, you must deploy or redeploy the API for the new settings to take effect.
@@ -340,9 +342,9 @@ Test the URL from the static website and insert and retrieve new items in the sh
  <p align="center"><img src="./images/Lab09-API-shopping-list-listing.png" alt="S3 public access" title="S3 public access"/></p>
 
 
-### Testing
+### Testing and debugging
 
-Lambda functions testing in the browser is not very convenient. If you change the code of the Lambda Function and want to test it before uploading it to AWS, you can use a code similar to the one below.
+Lambda functions testing in the browser is not very convenient. If you change the code of the Lambda Function and want to test it before uploading it to AWS, you can use a code similar to the one below. Download the [`lambda.py`](Lambda-example/lambda.py) and use PyCharm to debug it.
 
 ```Python
 import json
@@ -389,3 +391,22 @@ print(json.dumps(result, indent=2))
 print('--------------------RESULT body')
 print(json.dumps(json.loads(result['body']), indent=2))
 ```
+
+**Q925.** Have you been able to debug the code of the Lambda function? If the answer is yes, check that you are using the root API keys. Erase such keys and create a new testing user with the required permissions.
+
+**Q926.** What are the minimum permissions that the user's API keys needs to execute the Lambda function locally?
+
+Write your answers in the `README.md` file for this session.
+
+
+# How to Submit this Assignment:
+
+Go to your responses repository, commit and push:
+- the `README.md` file with your answers,
+
+Submit **before the deadline** to the *RACO Practicals section* a "Lab9.txt" file including:
+
+1. Group number
+2. Name and email of the members of this group
+3. Address of the GitHub repository with your solution
+4. Add any comment that you consider necessary
