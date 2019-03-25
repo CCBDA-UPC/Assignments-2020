@@ -402,6 +402,8 @@ print(json.dumps(json.loads(result['body']), indent=2))
 
 **Q926.** What are the minimum permissions that the user's API keys needs to execute the Lambda function locally?
 
+**Q927.** Create a piece of code (Python or bash) to reproduce the above steps required to launch a new AWS Lambda function and AWS API gateway.
+ 
 Write your answers in the `README.md` file for this session.
 
 
