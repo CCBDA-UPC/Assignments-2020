@@ -372,6 +372,10 @@ To configure our CDN, we are going to follow the steps at ["Getting Started with
 
  Review the QuickStart hands-on [Getting Started in the Cloud with AWS](../../../Cloud-Computing-QuickStart/blob/master/Quick-Start-AWS.md) and create a new bucket in 'eu-west-1' region to deposit the web app static content. Let us name this bucket **eb-django-express-signup-YOUR-ID** (YOUR-ID can be your AWS account number or any other distinctive string because you will not be allowed to create two buckets with the same name, regardless the owner).
  
+ AWS has recently set some restrictions when creating an S3 bucket with public access. Make sure that you uncheck all the following options before uploading files. You can later check them back.
+ 
+ <p align="center"><img src="./images/Lab09-S3-public-access.png" alt="S3 public access" title="S3 public access"/></p>
+ 
  <p align="center"><img src="./images/Lab05-8.png " alt="S3 bucket" title="S3 bucket"/></p>
 
  This time add the files manually and grant them public read permission.
