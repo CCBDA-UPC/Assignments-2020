@@ -1,7 +1,7 @@
-# Lab session #9: Programming your cloud infrastructure
+# Lab session #6: Programming your cloud infrastructure
 
 
-## Task 9.1: Bootstrap the creation of your web server
+## Task 6.1: Bootstrap the creation of your web server
 
 This hands-on section guides you through the creation of a load balancer attached to several web servers. We are using a [bootstrapping](https://en.wikipedia.org/wiki/Bootstrapping) technique to create this example.
 
@@ -132,17 +132,17 @@ Use the ELB URL in your browser and see that the output of the webpage changes w
 
 ### Questions
 
-**Q911.** What happens when you use https://your-load-balancer-url instead of http://your-load-balancer-url ? Why does that happen? How could you fix it?
+**Q611.** What happens when you use https://your-load-balancer-url instead of http://your-load-balancer-url ? Why does that happen? How could you fix it?
 
-**Q912.** Stop all three EC2 instances. What happens?
+**Q612.** Stop all three EC2 instances. What happens?
 
-**Q913.** Terminate all three EC2 instances. What happens?
+**Q613.** Terminate all three EC2 instances. What happens?
 
-**Q914.** How are you going to end this section regarding the use of AWS resources?
+**Q614.** How are you going to end this section regarding the use of AWS resources?
 
-**Q915.** Create a piece of code (Python or bash) to reproduce the above steps required to launch a new set of web servers with a load balancer. Start using the AMI that you have already created.
+**Q615.** Create a piece of code (Python or bash) to reproduce the above steps required to launch a new set of web servers with a load balancer. Start using the AMI that you have already created.
 
-## Task 9.2: Serverless example
+## Task 6.2: Serverless example
 
 This hands-on section guides you through the creation of a serverless architecture using AWS S3, AWS API Gateway, and AWS Lambda functions. This approach allows you to have a static website at AWS S3 that invokes an API gateway to perform a series of operations.
 
@@ -259,9 +259,9 @@ Check that the [created role](https://console.aws.amazon.com/iam/home#/roles/ser
 Click on the tab `API Gateway`, as shown in the above screen capture, to obtain the API Endpoint URL. Test that it all works together adding `?TableName=shopping-list` to the end of the API Endpoint URL
 [https://YOUR-API-HOST/test/serverless-controller?TableName=shopping-list](https://YOUR-API-HOST/test/serverless-controller?TableName=shopping-list)
 
-**Q921.** What is the list of events that the above URL triggers? 
+**Q621.** What is the list of events that the above URL triggers? 
 
-**Q922.** Does the reply of the above URL match what it should be expected? Why?
+**Q622.** Does the reply of the above URL match what it should be expected? Why?
 
 ### Create a static website
 
@@ -341,9 +341,9 @@ After you enable CORS support on your resource, you must deploy or redeploy the 
 
 Test the URL from the static website and insert and retrieve new items in the shopping list. 
 
-**Q923.** Explain what happens (actions and parts activated) when you type the URL in your browser to obtain the page updated with the shopping list.
+**Q623.** Explain what happens (actions and parts activated) when you type the URL in your browser to obtain the page updated with the shopping list.
 
-**Q924.** Explain what happens (actions and parts activated) when you type a new item in the New Thing box.
+**Q624.** Explain what happens (actions and parts activated) when you type a new item in the New Thing box.
 
  <p align="center"><img src="./images/Lab06-API-shopping-list-listing.png" alt="S3 public access" title="S3 public access"/></p>
 
@@ -398,11 +398,11 @@ print('--------------------RESULT body')
 print(json.dumps(json.loads(result['body']), indent=2))
 ```
 
-**Q925.** Have you been able to debug the code of the Lambda function? If the answer is yes, check that you are using the root API keys. Erase such keys and create a new testing user with the required permissions.
+**Q625.** Have you been able to debug the code of the Lambda function? If the answer is yes, check that you are using the root API keys. Erase such keys and create a new testing user with the required permissions.
 
-**Q926.** What are the minimum permissions that the user's API keys needs to execute the Lambda function locally?
+**Q626.** What are the minimum permissions that the user's API keys needs to execute the Lambda function locally?
 
-**Q927.** Create a piece of code (Python or bash) to reproduce the above steps required to launch a new AWS Lambda function and AWS API gateway.
+**Q627.** Create a piece of code (Python or bash) to reproduce the above steps required to launch a new AWS Lambda function and AWS API gateway.
  
 Write your answers in the `README.md` file for this session.
 
@@ -412,7 +412,7 @@ Write your answers in the `README.md` file for this session.
 Go to your responses repository, commit and push:
 - the `README.md` file with your answers,
 
-Submit **before the deadline** to the *RACO Practicals section* a "Lab9.txt" file including:
+Submit **before the deadline** to the *RACO Practicals section* a "Lab6.txt" file including:
 
 1. Group number
 2. Name and email of the members of this group
