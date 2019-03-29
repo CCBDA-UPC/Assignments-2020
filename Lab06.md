@@ -1,391 +1,409 @@
-# Lab session #6: Interacting with users and services in the Cloud
-
-This hands-on session continues the previous lab sessions where you deployed a basic web app that interacts with students interested in joining your new Cloud Computing course.
-
-* [Task 6.1: How to provide your services through a REST API?](#Tasks61)
-* [Task 6.2: How to provide our service combined with third-party services?](#Tasks62)  
-
-<a name="Tasks61"/>
-
-#  Tasks of Lab 6
-<a name="Tasks61"/>
-
-## Task 6.1:  How to provide your services through a REST API?
-As we have seen in previous lab sessions, we can have plots in Python using libraries such as matplotlib.  However, how to provide our results through an API to consumers?
-
-If you want to use Python to build a prototype server (of your service) and you want to provide web-based API with minimal effort, you can take advantage of the web app that we have previously developed and deployed using AWS Elastic Beanstalk.
-
-As a simplistic and quick implementation example, we are going to create a new view "chart" that will provide the service of visualizing how many e-mails we have gathered in our web app. Consequently, when a "client" invokes the URL *http://127.0.0.1:8000/chart*, we will provide them a chart with our results.
-
-In your web app, you can have as many URLs as necessary. Such URLs receive parameters and produce results in different formats: Images, XML, JSON, etc.
-
-If you are interested in building a "real REST server", there are many excellent Python frameworks for building a RESTful API: [Flask](http://flask.pocoo.org/), [Falcon](http://falconframework.org/), [Bottle](http://bottlepy.org/docs/dev/index.html) and even [Django REST framework](http://www.django-rest-framework.org/) that follows the Django framework that we are now using.
-
-We have different options to create the visualization. However, we suggest using [D3.js](https://d3js.org) because it plays very well with web standards such as CSS and SVG, and allows creating some fantastic interactive visualizations on the web. Many people who work in data science think that it is one of the coolest libraries for data visualization.
-
-[D3.js](https://d3js.org) is, as the name suggests, based on Javascript. We will present a simple option to offer data D3 visualization with Python using the Python library [Vincent](https://github.com/wrobstory/vincent), that bridges the gap between a Python back-end and a front-end that supports D3.js visualization. Vincent takes our data in Python format and translates it into [Vega](https://github.com/vega/vega), a JSON-based visualization grammar that will be used on top of D3.
-
-First, we need to install Vincent:
-
-```
-(eb-virt)_$ pip install vincent
-```
-
-Then, we add a new view at *form/urls.py*.
-
-```python
-urlpatterns = [
-    # ex: /
-    path('', views.home, name='home'),
-    # ex: /signup
-    path('signup', views.signup, name='signup'),
-    # ex: /search
-    path('search', views.search, name='search'),
-    # ex: /chart
-    path('chart', views.chart, name='chart'),
-]
-```
-
-We will add the following lines at the end of the file *form/views.py* *(you can alter the following code with the solution that you implemented for the optional part of Lab. session #5)*:
-
-```python
-import os
-import vincent
-from django.conf import settings
-
-BASE_DIR = getattr(settings, "BASE_DIR", None)
+# Lab session #9: Programming your cloud infrastructure
 
 
-def chart(request):
-    domain = request.GET.get('domain')
-    preview = request.GET.get('preview')
-    leads = Leads()
-    items = leads.get_leads(domain, preview)
-    domain_count = Counter()
-    domain_count.update([item['email'].split('@')[1] for item in items])
-    domain_freq = domain_count.most_common(15)
-    if len(domain_freq) == 0:
-        return HttpResponse('No items to show', status=200)
-    labels, freq = zip(*domain_freq)
-    data = {'data': freq, 'x': labels}
-    bar = vincent.Bar(data, iter_idx='x')
-    filename = 'domain_freq.json'
-    bar.to_json(os.path.join(BASE_DIR, 'static', filename))
-    return render(request, 'chart.html', {'filename': filename})
-```
+## Task 9.1: Bootstrap the creation of your web server
 
-At this point, the file `domain_freq.json` is written as *static/domain_freq.json* inside the project's directory. The JSON file contains a description of the plot that can be handed over to D3.js and Vega.
+This hands-on section guides you through the creation of a load balancer attached to several web servers. We are using a [bootstrapping](https://en.wikipedia.org/wiki/Bootstrapping) technique to create this example.
 
 
-To visualize the plot you can save at *form/templates/chart.html* a simple template (taken from [Vincent resources](https://github.com/wrobstory/vincent)).
+<p align="center"><img src="./images/Lab06-Schema.png" alt="Layout" title="Layout"/></p>
 
-```html
-{% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Vega Scaffold</title>
-    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-    <script src="http://d3js.org/topojson.v1.min.js"></script>
-    <script src="http://d3js.org/d3.geo.projection.v0.min.js" charset="utf-8"></script>
-    <script src="http://trifacta.github.com/vega/vega.js"></script>
-</head>
-<body>
-<div id="vis"></div>
-</body>
-<script type="text/javascript">
-    // parse a spec and create a visualization view
-    function parse(spec) {
-        vg.parse.spec(spec, function (chart) {
-            chart({el: "#vis"}).update();
-        });
+### Configure the EC2 serving as a seed for the rest of the example
+
+Go to [AWS console](https://eu-west-1.console.aws.amazon.com/ec2/) and launch a new EC2 instance:
+ 
+1. Use Ubuntu 16.x as base AMI
+ 
+2. Select `t2.nano` instance type
+
+3. For the instance, details create 1 instance on your default VPC using the subnet of any availability zone. Enable auto-assign a public IP. At the bottom of the page unfold "Advanced details" and copy the following code "as text". You can check for errors, when the EC2 is running, at `/var/log/cloud-init-output.log`.
+ 
+    ````bash
+    #! /bin/bash -ex
+    # This script is for Ubuntu
+    sudo apt-get update
+    sudo apt-get -y install apache2
+    sudo systemctl enable apache2
+    sudo systemctl start apache2
+    sudo apt-get -y install mysql-client
+    sudo apt-get -y install php7.0-mysql php7.0-curl php7.0-cgi php7.0 libapache2-mod-php7.0 php-xml php7.0-zip
+    usermod -a -G www-data ubuntu
+    chown -R root:www-data /var/www
+    chmod 2775 /var/www
+    find /var/www -type d -exec chmod 2775 {} +
+    find /var/www/ -type f -exec chmod 0664 {} +
+    ````
+    <p align="center"><img src="./images/Lab06-AdvancedDetails.png" alt="Script" title="Script"/></p>
+    
+4. Add 8GB of storage space.
+5. Add some tags for tracking. 
+    - Project = ccbda bootstrap
+    - Name = apache-web-server
+    - Cost-center = laboratory
+6. Create a new security group named `web-sg` and open port 80 for everyone and port 22 for your current IP address.
+
+### Create a load balancer
+
+Once the EC2 is being lauched, create an HTTP/HTTPS load balancer.
+
+<p align="center"><img src="./images/Lab06-LoadBalancer.png" alt="ELB" title="ELB"/></p>
+
+1. Name it `load-balancer`, with an internet-facing scheme. Add protocols HTTP and HTTPS using standard ports and select availability zones "a" and "b" from your current region. Add the following tags for tracking. 
+    - Project = ccbda bootstrap
+    - Cost-center = laboratory
+9. You would normally obtain an SSL certificate from AWS. For that, you need to have control over the DNS of the server's domain. Select `Upload a certificate to ACM` and, for testing purposes, go to http://www.selfsignedcertificate.com/ and create a self-signed certificate for "myserver.info" and copy the private key and certificate in the corresponding text boxes. The generated information looks like the text below. Leave the certificate chain empty and select ``ELBSecurityPolicy-TLS-1-2-2017-01`` as the security policy. 
+
+    ```
+    -----BEGIN CERTIFICATE-----
+    MIIDAzCCAeugAwIBAgIJAOcF+7m0Y7yQMA0GCSqGSIb3DQEBBQUAMBgxFjAUBgNV
+    BAMMDW15c2VydmVyLmluZm8wHhcNMTkwMzIxMTQzOTE0WhcNMjkwMzE4MTQzOTE0
+    ....
+    qPNs9Xnq8GturB3J7qTX2pOX1L0fWm91kqd5saD4/n6FQwiKQX9QywROPQH5IXcm
+    WaBsBYeg03iKzcq1HJn0oXjOg3ksQD658tK0ydc9oyjfFFkU/RpfjdKbsVaNsdho
+    AbVaYusFQw==
+    -----END CERTIFICATE-----
+    
+    
+    -----BEGIN RSA PRIVATE KEY-----
+    MIIEpAIBAAKCAQEAv26vJIiiVtkmwSv9bBEtN2v4aW9vA+CGpfDk5LY3DnbKwsAQ
+    UR/gIkfgi6siVme/jtbRf6BS3Sv/0eRWAWhIqvmiD3x2SJzc449AqKIcWhdjBAZt
+    ....
+    bNAB2Yr6GGGx8zpdZnJtCaWpKRTfCYfB0KoHuzCCDyXW5XBDnaD1DsO2OCAccDeL
+    7Qrhmkr8Pl353hCmoqH06zzkeHsPD+XxQN9ANL4lsBJdo8r3Z+F6SQ==
+    -----END RSA PRIVATE KEY-----
+    ```
+10. Attach the ELB to the ``load-balancer-sg`` security group that you are creating. open HTTP and HTTPS protocols.
+
+11. Create a new target group of type IP and name it ``primary-apache-web-server-target`` using HTTP protocol and attach the EC2 instance named ``apache-web-server``.
+
+12. Once the ELB is active, go to the "Description" tab and copy the DNS name assigned http://load-balancer-1334015960.eu-west-1.elb.amazonaws.com/ and paste it in your browser. 
+
+    <p align="center"><img src="./images/Lab06-ApacheWorking.png" alt="Apache working" title="Apache working"/></p>
+
+### Modify the web server response and create a base AWS AMI 
+
+1. Use ssh to connect to the running EC2 instance. Remove the file `/var/www/html/index.html`  and copy the contents below to `/var/www/html/index.php`. Close the ssh session.
+
+    ````php
+    <html>
+    <head></head>
+    <body>
+    <h1>This is instance
+    <?php
+        $this_instance_id = file_get_contents('http://169.254.169.254/latest/meta-data/instance-id');
+    if(empty($this_instance_id))
+        echo "Unknown ID";
+    else
+        echo (string)($this_instance_id); 
+    ?>
+    alive!!</h1>
+    </body>
+    </html>
+    ````
+14. Create a machine image (AMI) using the name `test-web-server-version-1.0` with the description `LAMP web server`.
+
+    <p align="center"><img src="./images/Lab06-AMI.png" alt="AMI" title="AMI"/></p>
+    
+    <p align="center"><img src="./images/Lab06-AMI-config.png" alt="AMI configure" title="AMI configure"/></p>
+
+### Create an auto scalling group
+    
+1. Create an auto scaling group using the AMI that you created before. Name it `web-server-auto-scaling-group` and attach the `web-sg` security group that you created before.
+    <p align="center"><img src="./images/Lab06-LoadBalancer.png" alt="Auto scalling group" title="Auto scalling group"/></p>
+    <p align="center"><img src="./images/Lab06-AutoScalingGroup.png" alt="Auto scalling group" title="Auto scalling group"/></p>
+
+16. While creating the security group, add the two availability zones that you were using before. Start with 2 instances in a VPC (do not use EC-2 classic as Network option). A warning saying "No public IP addresses will be assigned" is normal because the EC2 instances will receive HTTP/HTTPS traffic through the ELB.
+
+17. Open the "Advanced Details" tab and select "receive traffic from one or more load balancers" and add `primary-apache-web-server-target` to Target Groups. Select Health Check Type: ELB
+
+17. Use scaling policies to adjust the capacity of this group, scaling from 2 and 2 instances depending on the Average CPU utilization.
+
+18. Add notifications to your e-mail via an SNS topic.
+
+19. Add some tracking tags
+    - Project = ccbda bootstrap
+    - Cost-center = laboratory
+    
+20. Once the auto scaling group is running, you see that you have two more EC2 instances running.
+
+### Test your new system
+
+Use the ELB URL in your browser and see that the output of the webpage changes when reloading the URL. The EC2 instance ID of the first EC2 instance created does not show since it is not part of the auto scaling group. Two new EC2 instances have been created using the AMI provided.
+
+### Questions
+
+**Q911.** What happens when you use https://your-load-balancer-url instead of http://your-load-balancer-url ? Why does that happen? How could you fix it?
+
+**Q912.** Stop all three EC2 instances. What happens?
+
+**Q913.** Terminate all three EC2 instances. What happens?
+
+**Q914.** How are you going to end this section regarding the use of AWS resources?
+
+**Q915.** Create a piece of code (Python or bash) to reproduce the above steps required to launch a new set of web servers with a load balancer. Start using the AMI that you have already created.
+
+## Task 9.2: Serverless example
+
+This hands-on section guides you through the creation of a serverless architecture using AWS S3, AWS API Gateway, and AWS Lambda functions. This approach allows you to have a static website at AWS S3 that invokes an API gateway to perform a series of operations.
+
+The advantage of architecting a solution this way is that you don't need to provision or pay any computing resources to be used by the web server. This architecture allows your service without spending much if there are no requests and to respond to high demand of requests without requiring any extra effort on your side. 
+
+<p align="center"><img src="./images/Lab06-Serverless-Schema.png" alt="Serverless" title="Serverless"/></p>
+
+### Create a new DynamoDB table
+
+Go to the DynamoDB console and create a new table named `shopping-list`. Follow the steps detailed at [Task 4.3: Create a DynamoDB Table](./Lab04.md#task-43-create-a-dynamodb-table).
+
+Use the tags:
+
+- Cost-center = laboratory
+- Project = ccbda serverless
+
+### Create a Lambda function
+
+Go to the AWS Lambda console [https://eu-west-1.console.aws.amazon.com/lambda/](https://eu-west-1.console.aws.amazon.com/lambda/) and create a new function from the blueprint `microservice-http-endpoint-python3` and name it `serverless-controller`. Create a new role and name it `serverless-controller-role`. The role needs to have `Simple microservice permissions - DynamoDB` permission.
+
+For the **API Gateway trigger** section create a new API that is `Open, which means that your API endpoint is publicly available and can be invoked by all users. Name it `serverless-controller-API`.
+
+Use the tags:
+
+- Cost-center = laboratory
+- Project = ccbda serverless
+
+You need to keep the Python code that the blueprint provides. 
+
+Once the lambda function and API are ready, the image below shall appear.
+
+<p align="center"><img src="./images/Lab06-Serverless-Console.png" alt="Serverless" title="Serverless"/></p>
+
+
+Click on ``serverless-controller`` to replace the Lambda function code by:
+
+````python
+import boto3
+import json
+
+print('Loading function')
+dynamo = boto3.client('dynamodb')
+
+def respond(err, res=None):
+    return {
+        'statusCode': '400' if err else '200',
+        'body': json.dumps(str(err) if err else res),
+        'headers': {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+        },
     }
-    parse('{% static filename %}');
-</script>
-</html>
-```
-
-Now you can open your browser at http://localhost:8000/chart and obtain access to the chart in SVG format.
-
-<p align="center"><img src="./images/Lab06-1.png " alt="Chart" title="Chart"/></p>
-
-With the above procedure, we can plot many different types of charts using `Vincent`. [Explore Vincent by yourself](http://vincent.readthedocs.io/en/latest/).
-
-Now you know how to deploy your services/web apps on the cloud using Elastic Beanstalk. Elastic Beanstalk, as you have already experimented, is an orchestration service that automatically builds your EC2, auto-scaling groups, ELB's, Cloudwatch metrics and S3 buckets so that you can focus on just deploying applications to AWS and not worry about infrastructure tasks.
-
-If you check the code for the controller "chart", you will see that it accepts the same parameters that search admitted. Therefore you can have different plots based on the parameters: *http://127.0.0.1:8000/chart?preview=Yes&domain=upc.edu*
-
-Having the data to feed Vega written as static content is not the best way to distribute it because different clients can invoke different parameters simultaneously and plots from different requests will be mixed offering unwanted results.
-
-**Q61a: Think how you can use S3 to solve the problem. Write the changes in the code and explain your solution.**
-
-To solve some appearing issues you may want to read [Cross-Origin Resource Sharing (CORS)](https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html).
-
-**Q61b: Once you have your solution implemented publish the changes to Elastic beanstalk and try the new functionality in the cloud. Did you need to change anything, apart from the code, to make the web app work?**
-
-Write your answers in the `README.md` file for this session.
 
 
-<a name="Tasks62"/>
+def lambda_handler(event, context):
+    operation = event['httpMethod']
+    if operation == 'GET':
+        return respond(None, dynamo.scan(**event['queryStringParameters']))
+    elif operation == 'POST':
+        return respond(None, dynamo.put_item(**json.loads(event['body'])))
+    elif operation == 'DELETE':
+        return respond(None, dynamo.delete_item(**json.loads(event['body'])))
+    elif operation == 'PUT':
+        return respond(None, dynamo.update_item(**json.loads(event['body'])))
+    else:
+        return respond(ValueError('Unsupported method %s'%operation))
 
-## Task 6.2: How to provide our service combined with third-party services?
+````
 
-To augment the value of our service, we can build it upon other services. As an example of combining our service with third-party services, I suggest to plotting tweets on a map. For this purpose, we will use [GeoJSON](http://geojson.org), a format for encoding a variety of geographic data structures and [Leaflet.js](http://leafletjs.com), a Javascript library for interactive maps.
+Check that the [created role](https://console.aws.amazon.com/iam/home#/roles/serverless-controller-role?section=permissions) has effective permissions to interact with any DynamoDB table of your account and the working zone, as well as log execution. 
 
-**GeoJSON** supports a variety of geometric types of formats that can be used to visualize the desired shapes onto a map. A GeoJSON object can represent a geometry, feature, or collection of features. Geometries only contain the information about the shape; its examples include Point, LineString, Polygon, and more complex shapes. Features extend this concept as they contain a geometry plus additional (custom) properties. Finally, a collection of features is just a list of features. A GeoJSON data structure is always a JSON object. The following snippet shows an example (taken from https://github.com/bonzanini/Book-SocialMediaMiningPython) of GeoJSON that represents a collection with two different points, each point used to pin a particular city:
+````json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:DeleteItem",
+                "dynamodb:GetItem",
+                "dynamodb:PutItem",
+                "dynamodb:Scan",
+                "dynamodb:UpdateItem"
+            ],
+            "Resource": "arn:aws:dynamodb:YOUR-AWS-ZONE:YOUR-ACCOUNT-ID:table/*"
+        }
+    ]
+}
+````
+
+````json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "logs:CreateLogGroup",
+            "Resource": "arn:aws:logs:YOUR-AWS-ZONE:YOUR-ACCOUNT-ID:*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+            ],
+            "Resource": [
+                "arn:aws:logs:YOUR-AWS-ZONE:YOUR-ACCOUNT-ID:log-group:/aws/lambda/fname:*"
+            ]
+        }
+    ]
+}
+````
+
+Click on the tab `API Gateway`, as shown in the above screen capture, to obtain the API Endpoint URL. Test that it all works together adding `?TableName=shopping-list` to the end of the API Endpoint URL
+[https://YOUR-API-HOST/test/serverless-controller?TableName=shopping-list](https://YOUR-API-HOST/test/serverless-controller?TableName=shopping-list)
+
+**Q921.** What is the list of events that the above URL triggers? 
+
+**Q922.** Does the reply of the above URL match what it should be expected? Why?
+
+### Create a static website
+
+Create a new AWS S3 bucket. Uncheck all the properties below. 
+ 
+ <p align="center"><img src="./images/Lab06-S3-public-access.png" alt="S3 public access" title="S3 public access"/></p>
+ 
+Use the tags:
+
+- Cost-center = laboratory
+- Project = ccbda serverless
+
+Download and edit the file [`script.js`](Lambda-example/script.js) and replace `apiUrl = 'https://YOUR-API-HOST/test/serverless-controller';` with the API Endpoint URL without adding any query string parameter.
+  
+Open the bucket Properties pane, choose `Static Website Hosting`, and do the following:
+
+- Select: Use this bucket to host a website.
+
+- In the Index Document box, type index.html.
+
+- Choose Save to save the website configuration.
+
+- Write down the Endpoint `http://YOUR-BUCKET-URL`
+
+In the Properties pane for the bucket, choose Permissions and then choose Bucket Policy.
+
+Your bucket must have public read access to host a static website. Copy the following bucket policy, and then paste it in the Bucket Policy Editor.
 
 ```json
 {
-  "type": "FeatureCollection",
-  "features": [
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -0.12
-          51.5
-        ]
-      },
-      "properties": {
-        "name": "London"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -74,
-          40.71
-        ]
-      },
-      "properties": {
-        "name": "New York City"
-      }
+   "Version":"2012-10-17",
+   "Statement":[{
+     "Sid":"PublicReadForGetBucketObjects",
+         "Effect":"Allow",
+       "Principal": "*",
+       "Action":["s3:GetObject"],
+       "Resource":["arn:aws:s3:::YOUR-BUCKET/*"
+       ]
+     }
+   ]
+ }
+```
+
+In the policy, replace **YOUR-BUCKET** with the name of your bucket.
+
+Upload [`index.html`](Lambda-example/index.html), the modified `script.js`, and [`styles.css`](Lambda-example/styles.css) to the bucket. Select all three and grant them public access.
+
+Verify that the endpoint shows you the following contents:
+
+ <p align="center"><img src="./images/Lab06-S3-web-form.png" alt="S3 public access" title="S3 public access"/></p>
+
+If you open the browser console you see the following error:
+
+````html
+Access to XMLHttpRequest at 'https://YOUR-API-HOST/test/serverless-controller?TableName=shopping-list' 
+from origin 'http://YOUR-BUCKET-URL' has been blocked by CORS policy: 
+No 'Access-Control-Allow-Origin' header is present on the requested resource.
+````
+
+[Cross-origin resource sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) is a browser security feature that restricts cross-origin HTTP requests that are initiated from scripts running in the browser. If your REST API's resources receive cross-origin requests, you may need to enable CORS support on those resources.
+
+A cross-origin HTTP request is one that is made to:
+
+- A different domain (for example, from example.com to amazondomains.com)
+
+- A different subdomain (for example, from example.com to petstore.example.com)
+
+- A different port (for example, from example.com to example.com:10777)
+
+- A different protocol (for example, from https://example.com to http://example.com)
+
+To solve this, open the API Gateway console. Select the `serverless-controller` item and, using the drop-down menu "Actions", Enable CORS.
+
+ <p align="center"><img src="./images/Lab06-CORS-API.png" alt="S3 public access" title="S3 public access"/></p>
+
+After you enable CORS support on your resource, you must deploy or redeploy the API for the new settings to take effect.
+
+Test the URL from the static website and insert and retrieve new items in the shopping list. 
+
+**Q923.** Explain what happens (actions and parts activated) when you type the URL in your browser to obtain the page updated with the shopping list.
+
+**Q924.** Explain what happens (actions and parts activated) when you type a new item in the New Thing box.
+
+ <p align="center"><img src="./images/Lab06-API-shopping-list-listing.png" alt="S3 public access" title="S3 public access"/></p>
+
+
+### Testing and debugging
+
+Lambda functions testing in the browser is not very convenient. If you change the code of the Lambda Function and want to test it before uploading it to AWS, you can use a code similar to the one below. Download the [`lambda.py`](Lambda-example/lambda.py) and use PyCharm to debug it.
+
+```Python
+import json
+
+print('--------------------GET event test')
+get_event = {
+    'httpMethod': 'GET',
+    'queryStringParameters': {
+        'TableName': 'shopping-list'
     }
-  ]
 }
-```
+print('--------------------REQUEST')
+print(json.dumps(get_event, indent=2))
 
-In this GeoJSON instance, the first key is the `type` of the represented object. This field is
-mandatory and its value must be one of the following:
-* `Point`: This is used to represent a single position
-* `MultiPoint`: This represents multiple positions
-* `LineString`: This specifies a string of lines that go through two or more positions
-* `MultiLineString`: This is equivalent to multiple strings of lines
-* `Polygon`: This represents a closed string of lines, that is, the first and the last positions are the same
-* `GeometryCollection`: This is a list of different geometries
-* `Feature`: This is one of the preceding items (excluding GeometryCollection) with additional custom properties
-* `FeatureCollection`: This is used to represent a list of features
+result = lambda_handler(get_event, None)
+print('--------------------RESULT')
+print(json.dumps(result, indent=2))
+print('--------------------RESULT body')
+print(json.dumps(json.loads(result['body']), indent=2))
 
-Given that `type` in the preceding example has the `FeatureCollection` value, we will expect the `features` field to be a list of objects (each of which is a `Feature`).
+print('--------------------POST event test')
 
-The two features shown in the example are simple points, so in both cases, the
-`coordinates` field is an array of two elements: longitude and latitude. This field also
-allows for a third element to be there, representing altitude (when omitted, the altitude is
-assumed to be zero).
-
-For our example, we just need the smallest structure: a `Point` identified by its coordinates (latitude and longitude). To generate this GeoJSON data structure we only need to iterate all the tweets looking for the coordinates field.
-
-Twitter allows its users to provide their geolocation when they publish a tweet, in the form of latitude and longitude coordinates. With this information, we are ready to create some friendly visualization for our data as interactive maps. Unfortunately, the details about the geographic localization of the user's device are available in only in a small portion of tweets: many users disable this functionality on their mobile.
-
-Let us create a listener program, *TwitterListener.py*, based on the code we made in previous lab sessions. We are going to execute the following code and let it listen to tweets. If the tweet contains geo localization we save it in our new NoSQL table `twitter-geo`.
-
-```python
-from tweepy import OAuthHandler
-from tweepy import Stream
-from tweepy.streaming import StreamListener
-from dateutil.parser import parse
-import json
-import sys
-import os
-import boto3
-
-GEO_TABLE = 'twitter-geo'
-AWS_REGION = 'eu-west-1'
-
-class MyListener(StreamListener):
-
-    def __init__(self):
-        dynamodb = boto3.resource('dynamodb', region_name=AWS_REGION)
-        try:
-            self.table = dynamodb.Table(GEO_TABLE)
-        except Exception as e:
-            print('\nError connecting to database table: ' + (e.fmt if hasattr(e, 'fmt') else '') + ','.join(e.args))
-            sys.exit(-1)
-
-    def on_data(self, data):
-        tweet = json.loads(data)
-        if not tweet['coordinates']:
-            sys.stdout.write('.')
-            sys.stdout.flush()
-            return True
-        try:
-            response = self.table.put_item(
-                Item={
-                    'id': tweet['id_str'],
-                    'c0': str(tweet['coordinates']['coordinates'][0]),
-                    'c1': str(tweet['coordinates']['coordinates'][1]),
-                    'text': tweet['text'],
-                    "created_at": parse(tweet['created_at']).isoformat(),
-                }
-            )
-        except Exception as e:
-            print('\nError adding item to database: ' + (e.fmt if hasattr(e, 'fmt') else '') + ','.join(e.args))
-        else:
-            status = response['ResponseMetadata']['HTTPStatusCode']
-            if status == 200:
-                sys.stdout.write('x')
-                sys.stdout.flush()
-
-    def on_error(self, status):
-        print('status:%d' % status)
-        return True
-
-consumer_key = os.environ['CONSUMER_KEY']
-consumer_secret = os.environ['CONSUMER_SECRET']
-access_token = os.environ['ACCESS_TOKEN']
-access_secret = os.environ['ACCESS_SECRET']
-
-auth = OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_token, access_secret)
-
-twitter_stream = Stream(auth, MyListener())
-twitter_stream.filter(locations=[-2.5756, 39.0147, 5.5982, 43.957])
-```
-
-In the above program have used a different way of filtering tweets: a geo bonding box. You can [select your favorite geo bounding box](http://boundingbox.klokantech.com/) using a web app made by [Klokan Technologies](https://www.klokantech.com/): choose CSV format, draw your bounding box, copy the coordinates and start listening.
-
-<p align="center"><img src="./images/Lab06-BoundingBox.png" alt="Bounding box for Barcelona Area" title="Bounding box for Barcelona Area"/></p>
-
-Going back to our dear Django web app, we will add a new view 'map'.
-
-```python
-urlpatterns = [
-...
-    # ex: /map
-    path('map', views.map, name='map'),
-]
-```
-
-The controller for the new view uses *get_tweets()* to scan *'twitter-geo'* and *map()* builds the GeoJSON file to plot the tweets. Edit the file *form/views.py* and paste the following Python code at the end.
-
-```python
-from .models import Tweets
-import json
-
-def map(request):
-    geo_data = {
-        "type": "FeatureCollection",
-        "features": []
+myvar = {
+    'TableName': 'shopping-list',
+    'Item': {
+        'ThingId': {
+            'S': 'Red apples'
+        }
     }
-    tweets = Tweets()
-    for tweet in tweets.get_tweets():
-        geo_json_feature = {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [tweet['c0'], tweet['c1']]
-            },
-            "properties": {
-                "text": tweet['text'],
-                "created_at": tweet['created_at']
-            }
-        }
-        geo_data['features'].append(geo_json_feature)
+}
 
-    if geo_data['features']:
-        filename = 'geo_data.json'
-        with open(os.path.join(BASE_DIR, 'static', filename), 'w') as fout:
-            fout.write(json.dumps(geo_data, indent=4))
-        return render(request, 'map.html', {'filename': filename})
-    else:
-        return HttpResponse('No items to show', status=200)
+post_event = {
+    'httpMethod': 'POST',
+    'body': json.dumps(myvar, separators=(',', ':'))
+}
+
+print('--------------------REQUEST')
+print(json.dumps(post_event, indent=2))
+
+result = lambda_handler(post_event, None)
+
+print('--------------------RESULT')
+print(json.dumps(result, indent=2))
+print('--------------------RESULT body')
+print(json.dumps(json.loads(result['body']), indent=2))
 ```
 
-At the *form/models.py* file we will add a new model with the function *get_tweets*. Create this model based on the code for the model Leads().
+**Q925.** Have you been able to debug the code of the Lambda function? If the answer is yes, check that you are using the root API keys. Erase such keys and create a new testing user with the required permissions.
 
-```python
-class Tweets(models.Model):
+**Q926.** What are the minimum permissions that the user's API keys needs to execute the Lambda function locally?
 
-    def get_tweets(self):
-        #
-        # Add your code here to return the 'tweets' stored in your new dynamoDB table
-        #
-        logger.error('Unknown error retrieving tweets from database.')
-        return None
-```
-
-Now, using the Leaflet.js Javascript library for interactive maps, we can create our `.html` view containing the map. Copy the contents of this file at *forms/templates/map.html*
-
-```html
-{% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Quick Start - Leaflet</title>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico"/>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css"/>
-    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
-    <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
-    <style>
-        #map {
-            height: 600px;
-        }
-    </style>
-</head>
-<body>
-<!-- this goes in the <body> -->
-<div id="map"></div>
-<script>
-    // Load the tile images from OpenStreetMap
-    var mytiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-    });
-    // Initialise an empty map
-    var map = L.map('map');
-    // Read the GeoJSON data with jQuery, and create a circleMarker element for each tweet
-    $.getJSON("{%  static filename %}", function (data) {
-        var myStyle = {
-            radius: 2,
-            fillColor: "red",
-            color: "red",
-            weight: 1,
-            opacity: 1,
-            fillOpacity: 1
-        };
-        var geojson = L.geoJson(data, {
-            pointToLayer: function (feature, latlng) {
-                return L.circleMarker(latlng, myStyle);
-            }
-        });
-        geojson.addTo(map)
-    });
-    map.addLayer(mytiles).setView([40.5, 5.0], 6);
-</script>
-</body>
-</html>
-```
-Just execute the web app locally http://127.0.0.1:8000/map, and you will see something like:
-
-<p align="center"><img src="./images/Lab06-map1.png" alt="Tweets in Barcelona City" title="Tweets in Barcelona City"/></p>
-
-<p align="center"><img src="./images/Lab06-map2.png" alt="Tweets in Europe" title="Tweets in Europe"/></p>
-
-Now we are showing all the collected tweets on the map. Can you think of a way of restricting the tweets plotted using some constraints? For instance, the user could invoke http://127.0.0.1:8000/map?from=2019-02-01&to=2019-02-03. You can add other functionality that you think it could be interesting for the users.
-
-
-**Q62a: Implement map using restriction parameters.** Change the code to implement the new feature and explain what you have done and show the results in the *README.md* file for this lab session.
-
-If several users request the same time frame you can think of storing the JSON file to avoid recalculating it. Make the necessary changes to save a file on S3 with the following name 20190201_20190203.json to save the above request.
-
-**Q62b: Publish your changes to Elastic beanstalk and explain what changes have you made to have this new function working.**
-
-**Q62c: How would you run `TwitterListener.py` in the cloud instead of locally? Try to implement your solution and explain what problems have you found and what solutions have you implemented.**
-  
+**Q927.** Create a piece of code (Python or bash) to reproduce the above steps required to launch a new AWS Lambda function and AWS API gateway.
+ 
 Write your answers in the `README.md` file for this session.
 
 
@@ -393,12 +411,8 @@ Write your answers in the `README.md` file for this session.
 
 Go to your responses repository, commit and push:
 - the `README.md` file with your answers,
-- the screenshots of your maps for task 6.2
 
-
-Go to your **private** web app repository and commit the changes that you have made to implement task 6.2.
-
-Submit **before the deadline** to the *RACO Practicals section* a "Lab6.txt" file including:
+Submit **before the deadline** to the *RACO Practicals section* a "Lab9.txt" file including:
 
 1. Group number
 2. Name and email of the members of this group

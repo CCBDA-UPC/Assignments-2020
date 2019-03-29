@@ -6,7 +6,7 @@ This section follows the official [introduction to image classification]( https:
 
 This hands-on helps you to classify images using labels. [Cloud Vision API](https://cloud.google.com/vision/) enables developers to understand the content of an image by encapsulating powerful machine learning models in an easy to use REST API. It quickly classifies images into thousands of categories (e.g., "sailboat", "lion", "Eiffel Tower"), detects individual objects and faces within images and finds and reads printed words contained within images. You can build metadata on your image catalog, moderate offensive content, or enable new marketing scenarios through image sentiment analysis. Analyze images uploaded in the request or integrate with your image storage on Google Cloud Storage. Try the API [(Drag image file here or Browse from your computer)](https://cloud.google.com/vision/). Locate the area shown below and test the functionality offered:
 
-<p align="center"><img src="./images/Lab06-GoogleVision.png" alt="GoogleVision" title="GoogleVision"/></p>
+<p align="center"><img src="./images/Lab10-GoogleVision.png" alt="GoogleVision" title="GoogleVision"/></p>
 
 <a name="Tasks81"/>
 
@@ -42,7 +42,7 @@ This example has been tested with Python 2.7 and 3.4.
 Next, set up to authenticate with the Cloud Vision API using your project's
 service account credentials.
 
-<p align="center"><img src="./images/Lab06-account.png" alt="Tweet" title="Tweet"/></p>
+<p align="center"><img src="./images/Lab10-account.png" alt="Tweet" title="Tweet"/></p>
 
 E.g., to authenticate locally, set the `GOOGLE_APPLICATION_CREDENTIALS` environment variable to point to your
 downloaded service account credentials before running this example:
@@ -59,7 +59,7 @@ oauth2client.client.ApplicationDefaultCredentialsError: The Application Default 
 
 ### 8.3.3 Quick Start: Running the Example
 
-<p align="center"><img src="./images/Lab06-Tweet-MN.png" alt="Tweet" title="Tweet"/></p>
+<p align="center"><img src="./images/Lab10-Tweet-MN.png" alt="Tweet" title="Tweet"/></p>
 
 
 If you'd like to get the example up and running before we dive into the
@@ -102,7 +102,7 @@ Create a file `ImageAnalyzer.py` that you will run on your computer. The first c
 3. store all the tags describing the images and the associated probabilities
 4. create a PNG file containing a histogram, or any other type of representation, of what thinks Google cloud vision about the images published by that profile
 
-**Q81: What problems have you found developing this section? How did you solve them?** Attach to your Lab06 folder the README.md file containing your answers, the code and some histograms, related to different analyzed profiles.
+**Q81: What problems have you found developing this section? How did you solve them?** Attach to your Lab08 folder the README.md file containing your answers, the code and some histograms, related to different analyzed profiles.
 
 **Q82: How long have you been working on this session? What have been the main difficulties you have faced and how have you solved them?** Add your answers to `README.md`.
 

@@ -26,10 +26,10 @@ Students will begin by creating an essential toolbox to get them started in the 
 [Lab3]: ./Lab03.md
 [Lab4]: ./Lab04.md
 [Lab5]: ./Lab05.md
-[Lab6]: ./Lab06.md
+[Lab6]: Lab06.md
 [Lab7]: ./Lab07.md
 [Lab8]: ./Lab08.md
-[Lab9]: ./Lab09.md
+[Lab10]: Lab10.md
 
 #### Deadlines
 
