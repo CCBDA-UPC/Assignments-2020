@@ -80,7 +80,9 @@ Once the EC2 is being lauched, create an HTTP/HTTPS load balancer.
 
     <p align="center"><img src="./images/Lab06-ApacheWorking.png" alt="Apache working" title="Apache working"/></p>
 
-13. Once the load balancer is working correctly and showing the web server home page, we will restrict the input source to requests from the load balancer. To achieve that, go to `web-sb` and modify the input address for port 80. Remove the contents of the address "0.0.0.0/32" and type "load-balancer-sg". Select the option that appears. Now you should not be able to access the web server directly through port 80 but you should be able to access the web server using port 80 (HTTP) and 443 (HTTPS).
+13. Once the load balancer is working correctly and showing the web server home page, we will restrict the input source to requests from the load balancer. To achieve that, go to `web-sb` and modify the input address for port 80. Remove the contents of the address "0.0.0.0/0" and type "load-balancer-sg". Select the option that appears. Remove the rule por IPv6 (source "::/0") that has access to port 80.
+
+Now you should not be able to access the web server directly through port 80 but you should be able to access the web server using port 80 (HTTP) and 443 (HTTPS).
 
 ### Modify the web server response and create a base AWS AMI 
 
