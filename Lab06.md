@@ -104,7 +104,9 @@ Now you should not be able to access the web server directly through port 80 but
     </body>
     </html>
     ````
-14. Create a machine image (AMI) using the name `test-web-server-version-1.0` with the description `LAMP web server`.
+2. Verify that the php file is working correctly and showing the EC2 instance identifier.
+
+14. As shown below, create a machine image (AMI) using the name `test-web-server-version-1.0` with the description `LAMP web server`.
 
     <p align="center"><img src="./images/Lab06-AMI.png" alt="AMI" title="AMI"/></p>
     
@@ -116,7 +118,7 @@ Now you should not be able to access the web server directly through port 80 but
     <p align="center"><img src="./images/Lab06-LoadBalancer.png" alt="Auto scalling group" title="Auto scalling group"/></p>
     <p align="center"><img src="./images/Lab06-AutoScalingGroup.png" alt="Auto scalling group" title="Auto scalling group"/></p>
 
-16. While creating the security group, add the two availability zones that you were using before. Start with 2 instances in a VPC (do not use EC-2 classic as Network option). A warning saying "No public IP addresses will be assigned" is normal because the EC2 instances will receive HTTP/HTTPS traffic through the ELB.
+16. While creating the security group, add all the availability zones that you were using before. Start with 2 instances in a VPC (do not use EC-2 classic as Network option). A warning saying "No public IP addresses will be assigned" is normal because the EC2 instances will receive HTTP/HTTPS traffic through the ELB.
 
 17. Open the "Advanced Details" tab and select "receive traffic from one or more load balancers" and add `primary-apache-web-server-target` to Target Groups. Select Health Check Type: ELB
 
@@ -138,9 +140,9 @@ Use the ELB URL in your browser and see that the output of the webpage changes w
 
 **Q611.** What happens when you use https://your-load-balancer-url instead of http://your-load-balancer-url ? Why does that happen? How could you fix it?
 
-**Q612.** Stop all three EC2 instances. What happens?
+**Q612.** Stop all three EC2 instances and wait aprox. 5 minutes. What happens? Why?
 
-**Q613.** Terminate all three EC2 instances. What happens?
+**Q613.** Terminate all three EC2 instances and wait aprox. 5 minutes. What happens? Why?
 
 **Q614.** How are you going to end this section regarding the use of AWS resources?
 
