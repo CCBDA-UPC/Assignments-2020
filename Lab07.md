@@ -89,32 +89,34 @@ import re
 
 cleanString = lambda x: '' if x is None else unidecode.unidecode(re.sub(r'\s+',' ',x))
 
-
 class NytimesSpider(scrapy.Spider):
     name = 'nytimes'
     allowed_domains = ['www.nytimes.com']
-    start_urls = ['http://www.nytimes.com/']
+    start_urls = ['https://www.nytimes.com/']
 
     def parse(self, response):
-        for article in response.css("section.top-news article.story"):
-            yield {
-                'appears_ulr': response.url,
-                'title': cleanString(article.css('.story-heading>a::text').extract_first()),
-                'article_url': article.css('.story-heading>a::attr(href)').extract_first(),
-                'author': cleanString(article.css('p.byline::text').extract_first()),
-                'summary': cleanString(article.css('p.summary::text').extract_first())+cleanString(' '.join(article.css('ul *::text').extract())),
-            }
+        for section in response.css("section[data-testid]"):
+            section_name = section.attrib['data-block-tracking-id']
+            for article in section.css("article"):
+                print(article)
+                yield {
+                    'section': section_name,
+                    'appears_ulr': response.url,
+                    'title': cleanString(article.css('a h2::text, a h2 span::text').extract_first()),
+                    'article_url': response.url[:-1]+article.css('a::attr(href)').extract_first(),
+                    'summary': cleanString(''.join(article.css('p::text, ul li::text').extract())),
+                }
 ```
 
 In the above code, every invocation of parse yields a JSON record containing something like the following example:
 
 ```json
-  {
+{
+    "section": "Editors Picks",
     "appears_ulr": "https://www.nytimes.com/",
-    "title": "National Democrats Plunge Into Midterm Primary Fights",
-    "article_url": "https://www.nytimes.com/2018/02/21/us/politics/democrats-house-midterms-california.html",
-    "author": "By ALEXANDER BURNS ",
-    "summary": "Democratic leaders are intervening aggressively in California, where the state's unusual voting system could undercut their chances in crowded congressional races."
+    "title": "In Bubbles, She Sees a Mathematical Universe",
+    "article_url": "https://www.nytimes.com/2019/04/08/science/uhlenbeck-bubbles-math-physics.html",
+    "summary": "For Karen Uhlenbeck, winner of the Abel Prize for math, a whimsical phenomenon offers a window onto higher dimensions."
   }
 ```
 
