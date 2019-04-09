@@ -31,9 +31,9 @@ Once the Scrapy package is installed, you can use the Scrapy shell to do some te
 ```
 fetch("https://www.nytimes.com/")
 print(response.text)
-response.css("article h2.story-heading>a::text").extract_first()
-response.css("article h2.story-heading>a::text").extract()
-response.css("article p.byline::text").extract()
+response.css("article a h2::text").extract_first()
+response.css("article a h2::text").extract()
+response.css("article p::text").extract()
 ```
 
 ### Scrapy custom spyders
