@@ -116,7 +116,7 @@ In the above code, every invocation of parse yields a JSON record containing som
     "title": "In Bubbles, She Sees a Mathematical Universe",
     "article_url": "https://www.nytimes.com/2019/04/08/science/uhlenbeck-bubbles-math-physics.html",
     "summary": "For Karen Uhlenbeck, winner of the Abel Prize for math, a whimsical phenomenon offers a window onto higher dimensions."
-  }
+}
 ```
 
 ### Extract your results to a JSON file
@@ -150,38 +150,40 @@ Our new parser will look like:
 class NytimesSpider(scrapy.Spider):
     name = 'nytimes'
     allowed_domains = ['www.nytimes.com']
-    start_urls = ['http://www.nytimes.com/']
+    start_urls = ['https://www.nytimes.com/']
 
     def parse(self, response):
-        for article in response.css("section.top-news article.story"):
-            article_url = article.css('.story-heading>a::attr(href)').extract_first()
-            yield {
-                'appears_ulr': response.url,
-                'title': cleanString(article.css('.story-heading>a::text').extract_first()),
-                'article_url': article_url,
-                'author': cleanString(article.css('p.byline::text').extract_first()),
-                'summary': cleanString(article.css('p.summary::text').extract_first())+cleanString(' '.join(article.css('ul *::text').extract())),
-            }
-            next_page = article_url
-            if next_page is not None:
-                yield response.follow(next_page, callback=self.parse_article)
+        for section in response.css("section[data-testid]"):
+            section_name = section.attrib['data-block-tracking-id']
+            for article in section.css("article"):
+                article_url = response.url[:-1] + article.css('a::attr(href)').extract_first()
+                yield {
+                    'section': section_name,
+                    'appears_ulr': response.url,
+                    'title': cleanString(article.css('a h2::text, a h2 span::text').extract_first()),
+                    'article_url': article_url,
+                    'summary': cleanString(''.join(article.css('p::text, ul li::text').extract())),
+                }
+                next_page = article_url
+                if next_page is not None:
+                    yield response.follow(next_page, callback=self.parse_article)
 
     def parse_article(self, response):
         yield {
             'appears_ulr': response.url,
-            'title': cleanString(response.css('h1.headline::text').extract_first()),
-            'author': cleanString(response.css('span.byline-author::text').extract_first()),
-            'contents': cleanString(''.join(response.css('div.story-body p.story-body-text::text').extract())),
+            'title': cleanString(response.css("h1[itemprop='headline'] span::text, h1[itemprop='headline']::text").extract_first()),
+            'authors': cleanString(', '.join(response.css("p[itemprop='author creator'] a span[itemprop='name']::text").extract())),
+            'contents': cleanString(''.join(response.css('section[itemprop=\'articleBody\'] p::text').extract())),
         }
 ```
 Parsing the articles will produce records similar to the following one:
 
 ```json
 {
-    "appears_ulr": "https://www.nytimes.com/2018/02/21/us/texas-police-shooting-fired.html",
-    "title": "Sheriff's Deputy Is Fired After Fatally Shooting Unarmed Man in Houston",
-    "author": "JACEY FORTIN",
-    "contents": "A sheriff's deputy who who was acting erratically at a Houston intersection last month has been fired, the Harris County Sheriff's Office said on Friday.The deputy, Cameron Brewer, who is also black, ..."
+    "appears_ulr": "https://www.nytimes.com/2019/04/09/nyregion/jane-doe-song-yang-flushing.html",
+    "title": "'Jane Doe Ponytail': Her Life Ended in N.Y. Now Her Brother's Bringing Her Home.",
+    "authors": "Dan Barry, Jeffrey E. Singer",
+    "contents": "A long-limbed man carrying a black ..."
 }
 ```
 Prepare a new **private** repository in GitHub named `scrapy-lab` to commit all the changes to your code. Invite `angeltoribio-UPC-BCN` to your new remote private repository as a collaborator.
