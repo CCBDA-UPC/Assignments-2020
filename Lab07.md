@@ -98,7 +98,6 @@ class NytimesSpider(scrapy.Spider):
         for section in response.css("section[data-testid]"):
             section_name = section.attrib['data-block-tracking-id']
             for article in section.css("article"):
-                print(article)
                 yield {
                     'section': section_name,
                     'appears_ulr': response.url,
