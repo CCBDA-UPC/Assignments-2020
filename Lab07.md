@@ -36,6 +36,11 @@ response.css("article a h2::text").extract()
 response.css("article p::text").extract()
 ```
 
+To find the "search path" you may want to use Google Chrome, find the URL, inspect the code and use the search bar at the botom of the code to match the path.
+
+<p align="center"><img src="./images/Lab07-GoogleChromeSearch.png" alt="Google Chrome Search" title="Google Chrome Search"/></p>
+
+
 ### Scrapy custom spyders
 
 Once you have explored the page you can write a custom spyder to programatically extract data from HTML pages.
