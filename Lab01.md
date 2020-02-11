@@ -62,7 +62,7 @@ Just to become familiar with the IDE, set some break points and examine the vari
 
 
 ## Task 1.3:
-Create a `private repository` **CLOUD-COMPUTING-CLASS-2019** in your GitHub account. Use your student email account (".upc.edu") to create your GitHub account to benefit from private repositories and other perks of the [student pack](https://education.github.com/pack).
+Create a `private repository` **CLOUD-COMPUTING-CLASS-2020** in your GitHub account. Use your student email account (".upc.edu") to create your GitHub account to benefit from private repositories and other perks of the [student pack](https://education.github.com/pack).
 
 **Create a global folder with a sub-folder for each lab session similarly as shown below**:
 
@@ -71,12 +71,12 @@ Create a `private repository` **CLOUD-COMPUTING-CLASS-2019** in your GitHub acco
 ## Task 1.4:   
 Update your remote repository from the local repository on your laptop:
 ```
-echo "# CLOUD-COMPUTING-CLASS-2019" >> README.md
+echo "# CLOUD-COMPUTING-CLASS-2020" >> README.md
 git init
 git add README.md
 git add Lab1/Lab1.guessnumber.py
 git commit -m "first commit"
-git remote add origin https://github.com/<username>/CLOUD-COMPUTING-CLASS-2019.git
+git remote add origin https://github.com/<username>/CLOUD-COMPUTING-CLASS-2020.git
 git push -u origin master
 ```
 > change `<username>` for your Github account

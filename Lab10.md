@@ -375,12 +375,12 @@ Just execute the web app locally http://127.0.0.1:8000/map, and you will see som
 
 <p align="center"><img src="./images/Lab10-map2.png" alt="Tweets in Europe" title="Tweets in Europe"/></p>
 
-Now we are showing all the collected tweets on the map. Can you think of a way of restricting the tweets plotted using some constraints? For instance, the user could invoke http://127.0.0.1:8000/map?from=2019-02-01&to=2019-02-03. You can add other functionality that you think it could be interesting for the users.
+Now we are showing all the collected tweets on the map. Can you think of a way of restricting the tweets plotted using some constraints? For instance, the user could invoke http://127.0.0.1:8000/map?from=2020-02-01&to=2020-02-03. You can add other functionality that you think it could be interesting for the users.
 
 
 **Q62a: Implement map using restriction parameters.** Change the code to implement the new feature and explain what you have done and show the results in the *README.md* file for this lab session.
 
-If several users request the same time frame you can think of storing the JSON file to avoid recalculating it. Make the necessary changes to save a file on S3 with the following name 20190201_20190203.json to save the above request.
+If several users request the same time frame you can think of storing the JSON file to avoid recalculating it. Make the necessary changes to save a file on S3 with the following name 20200201_20200203.json to save the above request.
 
 **Q62b: Publish your changes to Elastic beanstalk and explain what changes have you made to have this new function working.**
 

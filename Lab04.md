@@ -152,7 +152,7 @@ You will now need to initialize the web app local database and run a local testi
 (eb-virt)~$ python manage.py migrate
 (eb-virt)~$ python manage.py runserver
 System check identified no issues (0 silenced).
-January 04, 2019 - 18:57:49
+January 04, 2020 - 18:57:49
 Django version 2.1.2, using settings 'eb-django-express-signup.settings'
 Starting development server at http://127.0.0.1:8000/
 Quit the server with CONTROL-C.
@@ -325,18 +325,18 @@ Environment details for: eb-django-signup
   Platform: arn:aws:elasticbeanstalk:eu-west-1::platform/Python 3.6 running on 64bit Amazon Linux/2.8.1
   Tier: WebServer-Standard-1.0
   CNAME: eb-django-ccbda.eu-west-1.elasticbeanstalk.com
-  Updated: 2019-03-10 21:44:32.529000+00:00
+  Updated: 2020-03-10 21:44:32.529000+00:00
 Printing Status:
-2019-03-10 21:44:31    INFO    createEnvironment is starting.
-2019-03-10 21:44:32    INFO    Using elasticbeanstalk-eu-west-1-468331866415 as Amazon S3 storage bucket for environment data.
-2019-03-10 21:44:55    INFO    Created load balancer named: awseb-e-r-AWSEBLoa-1K9ZK4E68LYD1
-2019-03-10 21:45:11    INFO    Created security group named: awseb-e-rduyfzjegp-stack-AWSEBSecurityGroup-4AZMXHN8NEN3
-2019-03-10 21:45:11    INFO    Created Auto Scaling launch configuration named: awseb-e-rduyfzjegp-stack-AWSEBAutoScalingLaunchConfiguration-TYFNTTWETJIU
-2019-03-10 21:46:28    INFO    Created Auto Scaling group named: awseb-e-rduyfzjegp-stack-AWSEBAutoScalingGroup-25JLWUN93G2
-2019-03-10 21:46:28    INFO    Waiting for EC2 instances to launch. This may take a few minutes.
+2020-03-10 21:44:31    INFO    createEnvironment is starting.
+2020-03-10 21:44:32    INFO    Using elasticbeanstalk-eu-west-1-468331866415 as Amazon S3 storage bucket for environment data.
+2020-03-10 21:44:55    INFO    Created load balancer named: awseb-e-r-AWSEBLoa-1K9ZK4E68LYD1
+2020-03-10 21:45:11    INFO    Created security group named: awseb-e-rduyfzjegp-stack-AWSEBSecurityGroup-4AZMXHN8NEN3
+2020-03-10 21:45:11    INFO    Created Auto Scaling launch configuration named: awseb-e-rduyfzjegp-stack-AWSEBAutoScalingLaunchConfiguration-TYFNTTWETJIU
+2020-03-10 21:46:28    INFO    Created Auto Scaling group named: awseb-e-rduyfzjegp-stack-AWSEBAutoScalingGroup-25JLWUN93G2
+2020-03-10 21:46:28    INFO    Waiting for EC2 instances to launch. This may take a few minutes.
 .........
-2019-03-10 21:47:31    INFO    Application available at eb-django-ccbda.eu-west-1.elasticbeanstalk.com.
-2019-03-1o 21:47:31    INFO    Successfully launched environment: eb-django-signup
+2020-03-10 21:47:31    INFO    Application available at eb-django-ccbda.eu-west-1.elasticbeanstalk.com.
+2020-03-1o 21:47:31    INFO    Successfully launched environment: eb-django-signup
 
 ```
 
