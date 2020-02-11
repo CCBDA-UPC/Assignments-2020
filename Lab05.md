@@ -470,7 +470,7 @@ Django can also assume the synchronization of the static files to the CDN by mea
 
 Commit the `README.md` file to your **responses repository** and commit all changes to the **web app repository**. Do not mix the repository containing the course answers with the repository that holds the changes to your web app.
 
-**There is only one deadline for all the laboratory session (optional part included)**. All team members shall push their responses to their private **CLOUD-COMPUTING-CLASS-2020** repository. Obviously, the responses of both members are identical.
+**There is only one deadline for all the laboratory session (optional part included)**. **Before the deadline**, all team members shall push their responses to their private **CLOUD-COMPUTING-CLASS-2020** repository. Obviously, the responses of both members are identical.
 
 
 2. Edit the file **authors.json** and include your UPC email

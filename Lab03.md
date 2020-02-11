@@ -284,7 +284,7 @@ Create a file named `StudentProposal.py` with the solution and add it to your re
 **Q35: How long have you been working on this session? What have been the main difficulties you have faced and how have you solved them?** Add your answers to `README.md`.
 
 # How to Submit this Assignment:  
-Make sure that you have updated your remote GitHub repository with the Lab files generated along this Lab session. All team members shall push their responses to their private **CLOUD-COMPUTING-CLASS-2020** repository. Obviously, the responses of both members are identical.
+Make sure that you have updated your remote GitHub repository with the Lab files generated along this Lab session. **Before the deadline**, all team members shall push their responses to their private **CLOUD-COMPUTING-CLASS-2020** repository. Obviously, the responses of both members are identical.
 
 
 2. Name and email of the members of the group

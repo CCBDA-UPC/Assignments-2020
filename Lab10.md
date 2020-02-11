@@ -398,7 +398,7 @@ Go to your responses repository, commit and push:
 
 Go to your **private** web app repository and commit the changes that you have made to implement task 6.2.
 
-All team members shall push their responses to their private **CLOUD-COMPUTING-CLASS-2020** repository. Obviously, the responses of both members are identical.
+**Before the deadline**, all team members shall push their responses to their private **CLOUD-COMPUTING-CLASS-2020** repository. Obviously, the responses of both members are identical.
 
 
 2. Edit the file **authors.json** and include your UPC email
