@@ -418,7 +418,7 @@ Write your answers in the `README.md` file for this session.
 Go to your responses repository, commit and push:
 - the `README.md` file with your answers,
 
-Submit **before the deadline** to the *RACO Practicals section* a "Lab6.txt" file including:
+All team members shall push their responses to their private **CLOUD-COMPUTING-CLASS-2020** repository. Obviously, the responses of both members are identical.
 
 
 2. Edit the file **authors.json** and include your UPC email

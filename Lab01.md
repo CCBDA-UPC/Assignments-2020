@@ -101,7 +101,7 @@ Create an S3 bucket and synchronize your repository there. Take a screenshot of 
 
 
 # How to submit this assignment:
-Submit **before the deadline** to the *RACO Practicals section* a "Lab1.txt" file including:
+All team members shall push their responses to their private **CLOUD-COMPUTING-CLASS-2020** repository. Obviously, the responses of both members are identical.
 
 1. Edit the file **authors.json** and include your UPC email
 2. GitHub URL that contains your lab answers

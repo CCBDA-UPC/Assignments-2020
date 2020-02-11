@@ -336,7 +336,7 @@ We are now ready for next Lab session where we will be mining streaming Twitter 
 # How to submit this assignment:
 Make sure that you have updated your remote GitHub repository (using the `git`commands `add`, `commit` and `push`) with all the files generated during this session. 
 
-Submit **before the deadline** to the *RACO Practicals section* a "Lab2.txt" file including:
+All team members shall push their responses to their private **CLOUD-COMPUTING-CLASS-2020** repository. Obviously, the responses of both members are identical.
 
 
 2. Name and email of the members of the group
