@@ -286,7 +286,7 @@ Create a file named `StudentProposal.py` with the solution and add it to your re
 # How to Submit this Assignment:  
 Make sure that you have updated your remote GitHub repository with the Lab files generated along this Lab session. Submit **before the deadline** to the *RACO Practicals section* a "Lab3.txt" file including:
 
-1. Group number
+
 2. Name and email of the members of the group
 3. GitHub URL containing your lab answers (as for Lab1 session)
 4. Link to your dataset created in task 3.4.

@@ -338,7 +338,7 @@ Make sure that you have updated your remote GitHub repository (using the `git`co
 
 Submit **before the deadline** to the *RACO Practicals section* a "Lab2.txt" file including:
 
-1. Group number
+
 2. Name and email of the members of the group
 3. GitHub URL containing your lab answers (as for Lab1 session)
 4. Add any comment that you consider necessary

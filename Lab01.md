@@ -103,7 +103,6 @@ Create an S3 bucket and synchronize your repository there. Take a screenshot of 
 # How to submit this assignment:
 Submit **before the deadline** to the *RACO Practicals section* a "Lab1.txt" file including:
 
-1. Group number
-2. Name and email of the members of this group
-3. GitHub URL that contains your lab answers
-4. Add any comment that you consider necessary
+1. Edit the file **authors.json** and include your UPC email
+2. GitHub URL that contains your lab answers
+3. Add any comment that you consider necessary

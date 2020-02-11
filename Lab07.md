@@ -345,7 +345,7 @@ Go to your **private** `scrapy-lab` repository and commit the changes that you h
 
 Submit **before the deadline for each part** to the *RACO Practicals section* a "Lab7.txt" file including:
 
-1. Group number
-2. Name and email of the members of this group
+
+2. Edit the file **authors.json** and include your UPC email
 3. Address of the GitHub repository with your solution
 4. Add any comment that you consider necessary
