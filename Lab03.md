@@ -287,7 +287,7 @@ Create a file named `StudentProposal.py` with the solution and add it to your re
 Make sure that you have updated your remote GitHub repository with the Lab files generated along this Lab session. **Before the deadline**, all team members shall push their responses to their private **CLOUD-COMPUTING-CLASS-2020** repository. Obviously, the responses of both members are identical.
 
 
-2. Name and email of the members of the group
-3. GitHub URL containing your lab answers (as for Lab1 session)
-4. Link to your dataset created in task 3.4.
+1. Name and email of the members of the group
+2. GitHub URL containing your lab answers (as for Lab1 session)
+3. Link to your dataset created in task 3.4.
 4. Add any comment that you consider necessary

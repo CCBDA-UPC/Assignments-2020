@@ -421,6 +421,6 @@ Go to your responses repository, commit and push:
 **Before the deadline**, all team members shall push their responses to their private **CLOUD-COMPUTING-CLASS-2020** repository. Obviously, the responses of both members are identical.
 
 
-2. Edit the file **authors.json** and include your UPC email
-3. Address of the GitHub repository with your solution
-4. Add any comment that you consider necessary
+1. Edit the file **authors.json** and include your UPC email
+2. Address of the GitHub repository with your solution
+3. Add any comment that you consider necessary

@@ -339,6 +339,6 @@ Make sure that you have updated your remote GitHub repository (using the `git`co
 **Before the deadline**, all team members shall push their responses to their private **CLOUD-COMPUTING-CLASS-2020** repository. Obviously, the responses of both members are identical.
 
 
-2. Name and email of the members of the group
-3. GitHub URL containing your lab answers (as for Lab1 session)
-4. Add any comment that you consider necessary
+1. Edit the file **authors.json** and include your UPC email
+2. GitHub URL containing your lab answers (as for Lab1 session)
+3. Add any comment that you consider necessary
