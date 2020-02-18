@@ -474,5 +474,4 @@ Commit the `README.md` file to your **responses repository** and commit all chan
 
 
 1. Edit the file **authors.json** and include your UPC email
-2. Address of the GitHub repository with your solution
-3. Add any comment that you consider necessary
+2. Add any comment that you consider necessary

@@ -288,6 +288,5 @@ Make sure that you have updated your remote GitHub repository with the Lab files
 
 
 1. Name and email of the members of the group
-2. GitHub URL containing your lab answers (as for Lab1 session)
-3. Link to your dataset created in task 3.4.
-4. Add any comment that you consider necessary
+2. Link to your dataset created in task 3.4.
+3. Add any comment that you consider necessary

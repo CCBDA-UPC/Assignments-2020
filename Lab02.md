@@ -340,5 +340,4 @@ Make sure that you have updated your remote GitHub repository (using the `git`co
 
 
 1. Edit the file **authors.json** and include your UPC email
-2. GitHub URL containing your lab answers (as for Lab1 session)
-3. Add any comment that you consider necessary
+2. Add any comment that you consider necessary
