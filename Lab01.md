@@ -62,11 +62,8 @@ Just to become familiar with the IDE, set some break points and examine the vari
 
 
 ## Task 1.3:
+Please clone this repository to use it as a template to deliver your responses to the above laboratory sessions.
 Create a `private repository` **CLOUD-COMPUTING-CLASS-2020** in your GitHub account. Use your student email account (".upc.edu") to create your GitHub account to benefit from private repositories and other perks of the [student pack](https://education.github.com/pack).
-
-**Create a global folder with a sub-folder for each lab session similarly as shown below**:
-
-<p align="center"><img src="./images/SolutionsFolder.png " alt="Solutions Folder" title="Solutions Folder"/></p>
 
 ## Task 1.4:   
 Update your remote repository from the local repository on your laptop:
@@ -92,10 +89,12 @@ Create an EC2 instance at AWS. Login and pull down all the contents of your GitH
 ## Task 1.8:
 Execute the program `Lab1.guessnumber.py` in your AWS instance. Take a screenshot of the terminal window that are you using as proof.
 Include that screenshot in your local repository, on your laptop, with the name `Lab1.AWSterminal.png`.
+Update your `README.md` file to make that screenshot appear.
 ## Task 1.9:
 Update your remote GitHub repository with the updated `README.md`and the new file `Lab1.AWSterminal.png` using the `git`commands `add`, `commit` and `push`.
 ## Task 1.10:
 Create an S3 bucket and synchronize your repository there. Take a screenshot of the browser window showing your S3 bucket. Include that screenshot in your local repository, on your laptop, with the name `Lab1.S3Bucket.png`.
+Update your `README.md` file to make that screenshot appear.
 
 **Questions: How long have you been working on this session? What have been the main difficulties you have faced and how have you solved them?** Add your answers to `README.md`.
 
