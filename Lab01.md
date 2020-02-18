@@ -106,5 +106,4 @@ Update your `README.md` file to make that screenshot appear.
 **Before the deadline**, all team members shall push their responses to their private **CLOUD-COMPUTING-CLASS-2020** repository. Obviously, the responses of both members are identical.
 
 1. Edit the file **authors.json** and include your UPC email
-2. GitHub URL that contains your lab answers
-3. Add any comment that you consider necessary
+2. Add any comment that you consider necessary
