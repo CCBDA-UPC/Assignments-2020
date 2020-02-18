@@ -62,9 +62,11 @@ Just to become familiar with the IDE, set some break points and examine the vari
 
 
 ## Task 1.3:
-Please **clone** [this repository](../../../Lab2019-2020/blob/master/README.md) to use it as a template to deliver your responses to the above laboratory sessions. 
+Please **clone** [this repository](../../../Lab2019-2020/blob/master/README.md) to use it as a template to deliver your responses to all the laboratory sessions. 
 
 Create a `private repository` **CLOUD-COMPUTING-CLASS-2020** in your GitHub account. Use your student email account (".upc.edu") to create your GitHub account to benefit from private repositories and other perks of the [student pack](https://education.github.com/pack).
+
+Populate your new `private repository` with the repository that you have just cloned.
 
 ## Task 1.4:   
 Update your remote repository from the local repository on your laptop:
