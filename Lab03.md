@@ -289,4 +289,4 @@ Make sure that you have updated your remote GitHub repository with the Lab files
 
 1. Name and email of the members of the group
 2. Link to your dataset created in task 3.4.
-3. Add any comment that you consider necessary
+3. Add any comment that you consider necessary at the end of the 'README.md' file

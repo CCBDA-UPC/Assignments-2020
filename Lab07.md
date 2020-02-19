@@ -347,4 +347,4 @@ Submit **before the deadline for each part** to the *RACO Practicals section* a 
 
 
 1. Edit the file **authors.json** and include your UPC email
-2. Add any comment that you consider necessary
+2. Add any comment that you consider necessary at the end of the 'README.md' file
