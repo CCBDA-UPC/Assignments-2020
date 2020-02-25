@@ -350,8 +350,4 @@ It needs to have, at least, two files `README.md with your responses to the abov
 
 Make sure that you have updated your remote GitHub repository (using the `git`commands `add`, `commit` and `push`) with all the files generated during this session. 
 
-**Before the deadline**, all team members shall push their responses to their private **CLOUD-COMPUTING-CLASS-2020** repository. Obviously, the responses of both members are identical.
-
-
-1. Edit the file **authors.json** and include your UPC email
-2. Add any comment that you consider necessary at the end of the 'README.md' file
+**Before the deadline**, all team members shall push their responses to their private **CLOUD-COMPUTING-CLASS-2020-Lab2** repository.
