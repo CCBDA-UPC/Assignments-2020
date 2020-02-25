@@ -466,12 +466,22 @@ This should be the last step on the deployment of the web app and you can activa
 
 Django can also assume the synchronization of the static files to the CDN by means of the maintenace command `python manage.py collectstatic`.
 
-# How to Submit this Assignment:
+# How to submit this assignment:
 
+Create a **new and private** repo named *https://github.com/<YOUR-ACCOUNT-NAME>/CLOUD-COMPUTING-CLASS-2020-Lab5* and invite your Lab. session partner and `angeltoribio-UPC-BCN`.
+
+It needs to have, at least, two files `README.md` with your responses to the above questions and `authors.json` with both members email addresses:
+
+```json5
+{
+  "authors": [
+    "FIRSTNAME1.LASTNAME1@est.fib.upc.edu",
+    "FIRSTNAME2.LASTNAME2@est.fib.upc.edu"
+  ]
+}
+```
 Commit the `README.md` file to your **responses repository** and commit all changes to the **web app repository**. Do not mix the repository containing the course answers with the repository that holds the changes to your web app.
 
-**There is only one deadline for all the laboratory session (optional part included)**. **Before the deadline**, all team members shall push their responses to their private **CLOUD-COMPUTING-CLASS-2020** repository. Obviously, the responses of both members are identical.
+Make sure that you have updated your local GitHub repository (using the `git`commands `add`, `commit` and `push`) with all the files generated during this session. 
 
-
-1. Edit the file **authors.json** and include your UPC email
-2. Add any comment that you consider necessary at the end of the 'README.md' file
+**Before the deadline**, all team members shall push their responses to their private **CLOUD-COMPUTING-CLASS-2020-Lab5** repository.
