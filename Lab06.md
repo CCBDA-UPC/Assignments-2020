@@ -413,13 +413,23 @@ print(json.dumps(json.loads(result['body']), indent=2))
 Write your answers in the `README.md` file for this session.
 
 
-# How to Submit this Assignment:
+# How to submit this assignment:
 
-Go to your responses repository, commit and push:
-- the `README.md` file with your answers,
+Create a **new and private** repo named *https://github.com/<YOUR-ACCOUNT-NAME>/CLOUD-COMPUTING-CLASS-2020-Lab6* and invite your Lab. session partner and `angeltoribio-UPC-BCN`.
 
-**Before the deadline**, all team members shall push their responses to their private **CLOUD-COMPUTING-CLASS-2020** repository. Obviously, the responses of both members are identical.
+It needs to have, at least, two files `README.md` with your responses to the above questions and `authors.json` with both members email addresses:
+
+```json5
+{
+  "authors": [
+    "FIRSTNAME1.LASTNAME1@est.fib.upc.edu",
+    "FIRSTNAME2.LASTNAME2@est.fib.upc.edu"
+  ]
+}
+```
+
+Make sure that you have updated your local GitHub repository (using the `git`commands `add`, `commit` and `push`) with all the files generated during this session. 
+
+**Before the deadline**, all team members shall push their responses to their private **CLOUD-COMPUTING-CLASS-2020-Lab6** repository.
 
 
-1. Edit the file **authors.json** and include your UPC email
-2. Add any comment that you consider necessary at the end of the 'README.md' file
