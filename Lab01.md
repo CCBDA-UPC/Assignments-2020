@@ -62,9 +62,10 @@ Just to become familiar with the IDE, set some break points and examine the vari
 
 
 ## Task 1.3:
-Please **clone** [this repository](../../../Lab2019-2020/blob/master/README.md) to use it as a template to deliver your responses to all the laboratory sessions. 
 
-Create a `private repository` **CLOUD-COMPUTING-CLASS-2020** in your GitHub account. Use your student email account (".upc.edu") to create your GitHub account to benefit from private repositories and other perks of the [student pack](https://education.github.com/pack).
+Create a `private repository` **CLOUD-COMPUTING-CLASS-2020-Lab1** in your GitHub account.
+
+Use your student email account (".upc.edu") to create your GitHub account to benefit from private repositories and other perks of the [student pack](https://education.github.com/pack).
 
 Populate your new `private repository` with the contents that you have just cloned.
 
@@ -86,7 +87,7 @@ It is better that you manage git by hand. Once you become familiar with git you 
 ## Task 1.5:
 Update the `README.md` file including all the information about your group (member's name and email addresses).
 ## Task 1.6:
-Invite `angeltoribio-UPC-BCN` to your remote private repository as a collaborator using the  `settings` button (for evaluation purpose).
+Invite `angeltoribio-UPC-BCN` and your lab. session partner to your remote private repository as a collaborator using the  `settings` button (use 'Triage' for the teacher and 'Admin' access to your partner).
 ## Task 1.7:
 Create an EC2 instance at AWS. Login and pull down all the contents of your GitHub repository to make an exact clone by using `git clone` command.
 ## Task 1.8:
@@ -102,8 +103,24 @@ Update your `README.md` file to make that screenshot appear.
 **Questions: How long have you been working on this session? What have been the main difficulties you have faced and how have you solved them?** Add your answers to `README.md`.
 
 
-# How to submit this assignment:
-**Before the deadline**, all team members shall push their responses to their private **CLOUD-COMPUTING-CLASS-2020** repository. Obviously, the responses of both members are identical.
 
-1. Edit the file **authors.json** and include your UPC email
-2. Add any comment that you consider necessary at the end of the 'README.md' file
+# How to submit this assignment:
+
+Create a **new and private** repo named *https://github.com/<YOUR-ACCOUNT-NAME>/CLOUD-COMPUTING-CLASS-2020-Lab1* and invite your Lab. session partner and `angeltoribio-UPC-BCN`.
+
+It needs to have, at least, two files `README.md` with your responses to the above questions and `authors.json` with both members email addresses:
+
+```json5
+{
+  "authors": [
+    "FIRSTNAME1.LASTNAME1@est.fib.upc.edu",
+    "FIRSTNAME2.LASTNAME2@est.fib.upc.edu"
+  ]
+}
+```
+
+Include the code and histograms for task 8.1
+
+Make sure that you have updated your local GitHub repository (using the `git`commands `add`, `commit` and `push`) with all the files generated during this session. 
+
+**Before the deadline**, all team members shall push their responses to their private **CLOUD-COMPUTING-CLASS-2020-Lab1** repository.
