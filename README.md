@@ -31,10 +31,6 @@ Students will begin by creating an essential toolbox to get them started in the 
 [Lab8]: ./Lab08.md
 [Lab10]: ./Lab10.md
 
-#### Delivery
-
-Please **clone** [this repository](../../../Lab2019-2020/blob/master/README.md) to use it as a template to deliver your responses to the above laboratory sessions. 
-
 #### Deadlines
 
 The deadlines for each assignment will be published at the "FIB Racó".
