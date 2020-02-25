@@ -106,16 +106,24 @@ Create a file `ImageAnalyzer.py` that you will run on your computer. The first c
 
 **Q82: How long have you been working on this session? What have been the main difficulties you have faced and how have you solved them?** Add your answers to `README.md`.
 
-# How to Submit this Assignment:
+# How to submit this assignment:
 
-Go to your responses repository, commit and push:
-- the `README.md` file with your answers,
-- include the code and histograms for task 8.1
+Create a **new and private** repo named *https://github.com/<YOUR-ACCOUNT-NAME>/CLOUD-COMPUTING-CLASS-2020-Lab8* and invite your Lab. session partner and `angeltoribio-UPC-BCN`.
 
+It needs to have, at least, two files `README.md` with your responses to the above questions and `authors.json` with both members email addresses:
 
-**Before the deadline**, all team members shall push their responses to their private **CLOUD-COMPUTING-CLASS-2020** repository. Obviously, the responses of both members are identical.
+```json5
+{
+  "authors": [
+    "FIRSTNAME1.LASTNAME1@est.fib.upc.edu",
+    "FIRSTNAME2.LASTNAME2@est.fib.upc.edu"
+  ]
+}
+```
 
+Include the code and histograms for task 8.1
 
-1. Edit the file **authors.json** and include your UPC email
-2. Add any comment that you consider necessary at the end of the 'README.md' file
+Make sure that you have updated your local GitHub repository (using the `git`commands `add`, `commit` and `push`) with all the files generated during this session. 
+
+**Before the deadline**, all team members shall push their responses to their private **CLOUD-COMPUTING-CLASS-2020-Lab8** repository.
 
