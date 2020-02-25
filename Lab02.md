@@ -348,6 +348,6 @@ It needs to have, at least, two files `README.md` with your responses to the abo
 }
 ```
 
-Make sure that you have updated your remote GitHub repository (using the `git`commands `add`, `commit` and `push`) with all the files generated during this session. 
+Make sure that you have updated your local GitHub repository (using the `git`commands `add`, `commit` and `push`) with all the files generated during this session. 
 
 **Before the deadline**, all team members shall push their responses to their private **CLOUD-COMPUTING-CLASS-2020-Lab2** repository.
