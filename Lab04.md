@@ -429,16 +429,26 @@ Now, to save expenses, you can terminate your environment, this time from the EB
 
 **Q46: How long have you been working on this session? What have been the main difficulties you have faced and how have you solved them?** Add your answers to `README.md`.
 
-# How to Submit this Assignment:
+# How to submit this assignment:
 
-Create some screen captures of your:
+Create a **new and private** repo named *https://github.com/<YOUR-ACCOUNT-NAME>/CLOUD-COMPUTING-CLASS-2020-Lab4* and invite your Lab. session partner and `angeltoribio-UPC-BCN`.
+
+It needs to have, at least, two files `README.md` with your responses to the above questions and `authors.json` with both members email addresses:
+
+```json5
+{
+  "authors": [
+    "FIRSTNAME1.LASTNAME1@est.fib.upc.edu",
+    "FIRSTNAME2.LASTNAME2@est.fib.upc.edu"
+  ]
+}
+```
+
+1. Create some screen captures of your:
 - DyanmoDB table with the data of the new leads.
 - Make sure you have written your responses to the above questions in `README.md`.
-- Commit the files to the repository.
-
-
-**Before the deadline**, all team members shall push their responses to their private **CLOUD-COMPUTING-CLASS-2020** repository. Obviously, the responses of both members are identical.
-
-
-1. Edit the file **authors.json** and include your UPC email
 2. Add any comment that you consider necessary at the end of the 'README.md' file
+
+Make sure that you have updated your local GitHub repository (using the `git`commands `add`, `commit` and `push`) with all the files generated during this session. 
+
+**Before the deadline**, all team members shall push their responses to their private **CLOUD-COMPUTING-CLASS-2020-Lab4** repository.

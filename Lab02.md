@@ -159,10 +159,10 @@ import os
 import tweepy
 from tweepy import OAuthHandler
  
-consumer_key = os.environ['CONSUMER-KEY']
-consumer_secret = os.environ['CONSUMER-SECRET']
-access_token = os.environ['ACCESS-TOKEN']
-access_secret = os.environ['ACCESS-SECRET']
+consumer_key = os.environ['CONSUMER_KEY']
+consumer_secret = os.environ['CONSUMER_SECRET']
+access_token = os.environ['ACCESS_TOKEN']
+access_secret = os.environ['ACCESS_SECRET']
 
 auth = OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_secret)
@@ -334,10 +334,20 @@ We are now ready for next Lab session where we will be mining streaming Twitter 
 
 
 # How to submit this assignment:
-Make sure that you have updated your remote GitHub repository (using the `git`commands `add`, `commit` and `push`) with all the files generated during this session. 
 
-**Before the deadline**, all team members shall push their responses to their private **CLOUD-COMPUTING-CLASS-2020** repository. Obviously, the responses of both members are identical.
+Create a **new and private** repo named *https://github.com/<YOUR-ACCOUNT-NAME>/CLOUD-COMPUTING-CLASS-2020-Lab2* and invite your Lab. session partner and `angeltoribio-UPC-BCN`.
 
+It needs to have, at least, two files `README.md` with your responses to the above questions and `authors.json` with both members email addresses:
 
-1. Edit the file **authors.json** and include your UPC email
-2. Add any comment that you consider necessary at the end of the 'README.md' file
+```json5
+{
+  "authors": [
+    "FIRSTNAME1.LASTNAME1@est.fib.upc.edu",
+    "FIRSTNAME2.LASTNAME2@est.fib.upc.edu"
+  ]
+}
+```
+
+Make sure that you have updated your local GitHub repository (using the `git`commands `add`, `commit` and `push`) with all the files generated during this session. 
+
+**Before the deadline**, all team members shall push their responses to their private **CLOUD-COMPUTING-CLASS-2020-Lab2** repository.
