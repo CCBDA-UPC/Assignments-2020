@@ -148,15 +148,16 @@ _$ export AWS_ACCESS_KEY_ID="<YOUR-ACCESS-KEY-ID>"
 _$ export AWS_SECRET_ACCESS_KEY="<YOUR-SECRET-ACCESS-KEY>"
 ```
 
-Alter your environment variables contents by replacing **<YOUR-ACCESS-KEY-ID>** and **<YOUR-SECRET-ACCESS-KEY>** with the values of the **credentials.csv** file that you previously downloaded after creating the new User.
+Update the contents of your environment variables by replacing **<YOUR-ACCESS-KEY-ID>** and **<YOUR-SECRET-ACCESS-KEY>** with the values of the **credentials.csv** file that you previously downloaded after creating the new User.
 
-**DO NOT PUSH THE CREDENTIALS TO YOUR PRIVATE REPOSITORY !!!**
-
-You can also type in the command line:
+You can also type in the command line (make sure the above values have been replaced):
 
 ```
 _$ source extra-files/environment.sh
 ```
+
+**DO NOT PUSH THE AWS CREDENTIALS TO YOUR PRIVATE REPOSITORY !!!**
+
 
 Next, create a **new Python 3.x virtual environment** specially for this web app and install the packages required to run it. (**MS-Windows OS** users read the note at the end of this section)
 
