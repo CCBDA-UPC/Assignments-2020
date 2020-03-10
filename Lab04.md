@@ -235,17 +235,29 @@ Open the Elastic Beanstalk console using this preconfigured link: [https://conso
 
 4. For *Application code*, select **Sample application** and click at **Review and launch**.
 
-5. In the next screen, find the box named **Instances** click *Modify* and select a `t2.nano` Instance type (the smallest EC2 instance that you can pick. Consider t2.micro if you have free tier available).  Click **Save**.
+5. In the next screen, find the box named **Capacity** click *Modify* and 
 
-6. Back in the boxes screen find the one named **Security** click *Modify* and select a *EC2 key pair* that you have access to. Select *IAM instance profile* the value **gsg-signup-role** and click **Save**.
+- select a `t2.nano` Instance type (the smallest EC2 instance that you can pick. Consider t2.micro if you have free tier available).  Click **Save**.
+
+- select "Load balanced" as "Environment type" and select a minimum of 1 instance and a maximum of 2 instances.
+
+6. Back in the boxes screen find the one named **Security** click *Modify* and 
+
+- select a *EC2 key pair* that you have access to (if you don't have any keypair you will not be able to access the EC2 instances that Elastic Beanstalk creates.)
+- for *Service role* select the value **gsg-signup-role** 
+- click **Save**.
  
 7. Back in the boxes screen find the one named **Notifications** and type your e-mail address to receive notifications regarding the environment that you are launching. Click **Save**.
 
-8. Back in the boxes screen find the one named **Network** and select a VPC where the app. will run isolated regarding its security groups. Select only **eu-west-1a** in both *Load balancer subnets* and *Instance subnets*. If you select more availability zones one EC2 instance will be created on each zone. Check *Public IP address* to be able to access the app from the outside. Click **Next**.
+8. Back in the boxes screen find the one named **Network** and 
 
-9. Back in the boxes screen find the one named **Capacity**. Here you can select whether you want a single instance running your environment or several instances with a load balancer and an auto-scalling policy. Please check the auto-scalling options to get a sense of what it can be achieved.
+- select a VPC where the app. will run isolated regarding its security groups. 
+- select only **eu-west-1a** in both *Load balancer subnets* and *Instance subnets*. If you select more availability zones one EC2 instance will be created on each zone. 
+- check *Public IP address* to be able to access the app from the outside. 
+- click **Next**.
 
-10. Review all the settings and click **Create app**.
+
+9. Review all the settings and click **Create app**.
 
 In just a few minutes, Elastic Beanstalk provisions the networking, storage, compute and monitoring infrastructure required to run a scalable web application in AWS.
 
