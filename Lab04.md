@@ -109,7 +109,7 @@ For more information on permissions, see [http://docs.aws.amazon.com/elasticbean
 
 4. Choose **Next: Permissions**
 
-5. Select the pane *"Attach existing policies directly"*, find **"gsg-signup-policy"** and add a checkmark. Do the same with **"AWSElasticBeanstalkFullAccess"**.
+5. Select the pane *"Attach existing policies directly"*, find **"gsg-signup-policy"** and add a checkmark. Do the same with **AWSElasticBeanstalkFullAccess** and **AWSCodeCommitFullAccess**.
 
 6. Choose **Next: Tags** and **Next: Review** where you should be seeing that your new user has programmatic access and it's attached to the previously selected managed policies.
 
@@ -271,7 +271,7 @@ A new tab will open showing:
 
 Once the site is up and running, at any time, you can deploy a new version of your application code to the cloud environment.
 
-Good job! We are almost there.
+Good job! We are almost there. You can now "Terminate environment" at the "Actions" dropdown menu.
 
 <a name="Tasks46"/>
 
@@ -288,10 +288,6 @@ Select a default region
 4) eu-west-1 : EU (Ireland)
 ...
 (default is 3): 4
-
-Select an application to use
-1) [ Create new Application ]
-(default is 1): 1
 
 Enter Application Name
 (default is "eb-django-express-signup"):
