@@ -52,9 +52,10 @@ Prepare a new **private** repository in GitHub named `eb-django-express-signup` 
 
 <a name="Tasks42"/>
 
-## Task 4.2: Create an IAM Policy and Role
+## Task 4.2: Create an IAM Policy, Role and User to run the application
 
-Next, you need to create an **IAM role** with an **IAM policy** that grants your web app permission to put items into your DynamoDB table. You will apply the role to the EC2 instances that run your application when you create an AWS Elastic Beanstalk environment.
+Next, you need to create a **IAM User** that will be associated with **only** the permissions that are strictly required to run your application.
+The **IAM role** with an **IAM policy** that grants your web app permission to put items into your DynamoDB table. You will apply the role to the EC2 instances that run your application when you create an AWS Elastic Beanstalk environment.
 
 #### To create the IAM policy
 
@@ -98,6 +99,24 @@ Create an IAM role and attach the policy to it.
 
 For more information on permissions, see [http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts-roles.html](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts-roles.html) in the AWS Elastic Beanstalk Developer Guide.
 
+#### To create the IAM User
+
+1. In the navigation pane, choose **Users**.
+
+2. Choose **Add user**.
+
+3. As a user name enter **gsg-signup-user** and check *"Programmatic access"* as *Access type*.
+
+4. Choose **Next: Permissions**
+
+5. Select the pane *"Attach existing policies directly"*, find **"gsg-signup-policy"** and add a checkmark. Do the same with **"AWSElasticBeanstalkFullAccess"**.
+
+6. Choose **Next: Tags** and **Next: Review** where you should be seeing that your new user has programmatic access and it's attached to the previously selected managed policies.
+
+7. Choose **Create user**
+
+8. Copy the values of **Access key ID** and **Secret access key** or use **Download .csv** and save it in a safe place.
+
 <a name="Tasks43"/>
 
 ## Task 4.3: Create a DynamoDB Table
@@ -125,7 +144,13 @@ Once you are inside the directory of the project issue the following commands to
 _$ export DEBUG="True"
 _$ export STARTUP_SIGNUP_TABLE="gsg-signup-table"
 _$ export AWS_REGION="eu-west-1"
+_$ export AWS_ACCESS_KEY_ID="<YOUR-ACCESS-KEY-ID>"
+_$ export AWS_SECRET_ACCESS_KEY="<YOUR-SECRET-ACCESS-KEY>"
 ```
+
+Alter your environment variables contents by replacing **<YOUR-ACCESS-KEY-ID>** and **<YOUR-SECRET-ACCESS-KEY>** with the values of the **credentials.csv** file that you previously downloaded after creating the new User.
+
+**DO NOT PUSH THE CREDENTIALS TO YOUR PRIVATE REPOSITORY !!!**
 
 You can also type in the command line:
 
