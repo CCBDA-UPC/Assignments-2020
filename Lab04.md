@@ -54,7 +54,7 @@ Prepare a new **private** repository in GitHub named `eb-django-express-signup` 
 
 ## Task 4.2: Create an IAM Policy, Role and User to run the application
 
-Next, you need to create a **IAM User** that will be associated with **only** the permissions that are strictly required to run your application.
+Next, you need to create a **IAM User** that will be granted with **only** the permissions that are strictly required to run your application. It is very important to grant the most restrictive set of permissions in case your application is compromised.
 The **IAM role** with an **IAM policy** that grants your web app permission to put items into your DynamoDB table. You will apply the role to the EC2 instances that run your application when you create an AWS Elastic Beanstalk environment.
 
 #### To create the IAM policy
