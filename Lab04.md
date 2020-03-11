@@ -109,7 +109,7 @@ For more information on permissions, see [http://docs.aws.amazon.com/elasticbean
 
 4. Choose **Next: Permissions**
 
-5. Select the pane *"Attach existing policies directly"*, find **"gsg-signup-policy"** and add a checkmark. Do the same with **AWSElasticBeanstalkFullAccess** and **AWSCodeCommitFullAccess**.
+5. Select the pane *"Attach existing policies directly"*, find **"gsg-signup-policy"** and add a checkmark. Do the same with **AWSElasticBeanstalkFullAccess**.
 
 6. Choose **Next: Tags** and **Next: Review** where you should be seeing that your new user has programmatic access and it's attached to the previously selected managed policies.
 
@@ -279,6 +279,8 @@ Good job! We are almost there. You can now "Terminate environment" at the "Actio
 
 At this point, we have the sample web app deployed. AWS EB CLI can, alternatively, help us to transfer and install our web app to the cloud. 
 
+You can find more information on  [**eb** command line interface](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-getting-started.html).
+
 Go to your terminal window and write:
 
 ```
@@ -288,6 +290,11 @@ Select a default region
 4) eu-west-1 : EU (Ireland)
 ...
 (default is 3): 4
+
+Select an application to use
+...
+3) [ Create new Application ]
+(default is 3): 3
 
 Enter Application Name
 (default is "eb-django-express-signup"):
@@ -300,15 +307,9 @@ Select a platform version.
 1) Python 3.6
 ...
 (default is 1): 1
-Note: Elastic Beanstalk now supports AWS CodeCommit; a fully-managed source control service. To learn more, see Docs: https://aws.amazon.com/codecommit/
 Do you wish to continue with CodeCommit? (y/N) (default is n): n
 Do you want to set up SSH for your instances?
-(Y/n): y
-
-Select a key pair.
-1) ccbda_upc
-2) [ Create new KeyPair ]
-(default is 2): 1
+(Y/n): n
 ```
 That has initialized the container and now you will be creating an environment for the application:
 
@@ -316,13 +317,13 @@ Running eb init creates a configuration file at `.elasticbeanstalk/config.yml`. 
 
 ```
 branch-defaults:
-  default:
-    environment: eb-django-signup
+  master:
+    environment: null
     group_suffix: null
 global:
-  application_name: eb-django-signup
+  application_name: eb-django-express-signup
   branch: null
-  default_ec2_keyname: ccbda_upc
+  default_ec2_keyname: null
   default_platform: Python 3.6
   default_region: eu-west-1
   include_git_submodules: true
@@ -331,28 +332,28 @@ global:
   platform_version: null
   profile: eb-cli
   repository: null
-  sc: null
+  sc: git
   workspace_type: Application
 ```
 
-To create the resources required to run the application and upload the application code we need to type the following command, using the parameters `--envvars` to set the values for the environment variables, `--ip` and `--service-role` to grant the role's permissions to the EC2s running the code.
+
+
+
+To create the resources required to run the application and upload the application code we need to type the following command, using the parameter `--service-role` to grant the role's permissions to the EC2s running the code.
 
 ```
-_$ eb create --envvars DEBUG=True,STARTUP_SIGNUP_TABLE=gsg-signup-table,AWS_REGION=eu-west-1 --service-role gsg-signup-role
+_$ eb create --service-role gsg-signup-role  --instance_type t2.nano --elb-type classic --vpc.elbsubnets eu-west-1a --envvars DEBUG=True,STARTUP_SIGNUP_TABLE=gsg-signup-table,AWS_REGION=eu-west-1,AWS_ACCESS_KEY_ID=<YOURS>,AWS_SECRET_ACCESS_KEY=<YOURS>
 Enter Environment Name
-(default is eb-django-signup-dev): eb-django-signup
+(default is eb-django-express-signup-dev): eb-django-express-signup-dev
 Enter DNS CNAME prefix
-(default is eb-django-signup): eb-django-ccbda
+(default is eb-django-express-signup-dev): eb-django-express-signup-dev
+Would you like to enable Spot Fleet requests for this environment?
+(y/N): n
 
-Select a load balancer type
-1) classic
-2) application
-3) network
-(default is 2): 1
 Creating application version archive "app-190310_224408".
 Uploading: [##################################################] 100% Done...
-Environment details for: eb-django-signup
-  Application name: eb-django-signup
+Environment details for: eb-django-express-signup
+  Application name: eb-django-express-signup
   Region: eu-west-1
   Deployed Version: app-190316_124408
   Environment ID: e-rduyfzjegp
@@ -370,10 +371,9 @@ Printing Status:
 2020-03-10 21:46:28    INFO    Waiting for EC2 instances to launch. This may take a few minutes.
 .........
 2020-03-10 21:47:31    INFO    Application available at eb-django-ccbda.eu-west-1.elasticbeanstalk.com.
-2020-03-1o 21:47:31    INFO    Successfully launched environment: eb-django-signup
+2020-03-1o 21:47:31    INFO    Successfully launched environment: eb-django-express-signup
 
 ```
-
 
 Please, wait until you see the last message stating that the environment is successfully launched and use `http://eb-django-ccbda.eu-west-1.elasticbeanstalk.com/` to access the project.
 
@@ -384,19 +384,6 @@ Please, note that issuing the above command the application code has been upload
 Creating application version archive "app-190310_224408".
 ```
 Do a little research on the CLI params and create the environment with a single instance, with no load-balancer.
-
-Ìf you change your code, you only need to type the following command to transfer the code to AWS and restart the environment.
-
-```
-_$ eb deploy
-Creating application version archive "app-b2f2-180205_205630".
-Uploading eb-django-express-signup/app-b2f2-180205_205630.zip to S3. This may take a while.
-Upload Complete.
-INFO: Environment update is starting.
-INFO: Deploying new version to instance(s).
-INFO: New application version was deployed to running EC2 instances.
-INFO: Environment update completed successfully.
-```
 
 ### Test the Web App
 
@@ -416,25 +403,32 @@ Interact with the web app and check that the new records inserted are stored in 
 
 If you followed all the steps, opened the URL, and obtained no app, there is a deployment problem. To troubleshoot a deployment issue, you may need to use the logs that are provided by Elastic Beanstalk.
 
-Of course, you would try to catch such an error in development. However, if an error does get through to production, or you want to update your app, Elastic Beanstalk makes it fast and easy to redeploy. Just modify your code, commit the changes, and issue "deploy" again.
+You can check the logs of the Elastic BeanStalk environment using `eb logs --all`. Once they have been retrieved you'll be able to find them at the `.elasticbeanstalk` folder.
+
+You can check that the values are correct using `eb printenv`.
+```
+_$ eb printenv
+Environment Variables:
+     AWS_ACCESS_KEY_ID = *****
+     AWS_REGION = eu-west-1
+     AWS_SECRET_ACCESS_KEY = ********<YOURS>*********
+     DEBUG = true
+     STARTUP_SIGNUP_TABLE = gsg-signup-table
+
+```
+
+Of course, you would try to catch such an error in development. However, if an error does get through to production, or you want to update your app, Elastic Beanstalk makes it fast and easy to redeploy. Just modify your code, commit the changes to your **LOCAL** repository, and issue "deploy" again.
 
 ```
 _$ eb deploy
+Creating application version archive "app-b2f2-180205_205630".
+Uploading eb-django-express-signup/app-b2f2-180205_205630.zip to S3. This may take a while.
+Upload Complete.
+INFO: Environment update is starting.
+INFO: Deploying new version to instance(s).
+INFO: New application version was deployed to running EC2 instances.
+INFO: Environment update completed successfully.
 ```
-
-You can also download the logs and try to find the error. For instance one of the process environment variables are not set correctly.
-
-```
-_$ eb logs
-```
-
-If you want to check the errors inside the EC2 instance running your EB environment, you can connect the CLI using a command like:
-
-```
-_$ ssh -i YOUR-KEYPAIR.pem ec2-user@IP-ADDRESS-OR-NAME
-```
-
-Where the key-pair used is the one declared when initializing the EB and the name of the host. Go to the EC2 console in case that you want to obtain the IP address.
 
 Since ElasticBeanstalk infrastructure maintenante is part of AWS responsibilities, that includes updating the operating system, web server, application server, etc. Such updates may interfere with your application, therefore you can decide when it is the best moment to use the following command that updates the environment to the most recent platform version.
 ```
