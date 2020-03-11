@@ -244,7 +244,7 @@ Open the Elastic Beanstalk console using this preconfigured link: [https://conso
 6. Back in the boxes screen find the one named **Security** click *Modify* and 
 
 - select a *EC2 key pair* that you have access to (if you don't have any keypair you will not be able to access the EC2 instances that Elastic Beanstalk creates.)
-- for *Service role* select the value **gsg-signup-role** 
+- for *Service role* select the value **aws-elasticbeanstalk-service-role** 
 - click **Save**.
  
 7. Back in the boxes screen find the one named **Notifications** and type your e-mail address to receive notifications regarding the environment that you are launching. Click **Save**.
@@ -342,7 +342,7 @@ global:
 To create the resources required to run the application and upload the application code we need to type the following command, using the parameter `--service-role` to grant the role's permissions to the EC2s running the code.
 
 ```
-_$ eb create --service-role gsg-signup-role  --elb-type classic --vpc.elbsubnets eu-west-1a --envvars DEBUG=True,STARTUP_SIGNUP_TABLE=gsg-signup-table,AWS_REGION=eu-west-1,AWS_ACCESS_KEY_ID=<YOURS>,AWS_SECRET_ACCESS_KEY=<YOURS>
+_$ eb create --service-role aws-elasticbeanstalk-service-role  --elb-type classic --vpc.elbsubnets eu-west-1a --envvars DEBUG=True,STARTUP_SIGNUP_TABLE=gsg-signup-table,AWS_REGION=eu-west-1,AWS_ACCESS_KEY_ID=<YOURS>,AWS_SECRET_ACCESS_KEY=<YOURS>
 Enter Environment Name
 (default is eb-django-express-signup-dev): eb-django-express-signup-dev
 Enter DNS CNAME prefix
