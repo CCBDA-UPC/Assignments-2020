@@ -342,7 +342,7 @@ global:
 To create the resources required to run the application and upload the application code we need to type the following command, using the parameter `--service-role` to grant the role's permissions to the EC2s running the code.
 
 ```
-_$ eb create --service-role gsg-signup-role  --instance_type t2.nano --elb-type classic --vpc.elbsubnets eu-west-1a --envvars DEBUG=True,STARTUP_SIGNUP_TABLE=gsg-signup-table,AWS_REGION=eu-west-1,AWS_ACCESS_KEY_ID=<YOURS>,AWS_SECRET_ACCESS_KEY=<YOURS>
+_$ eb create --service-role gsg-signup-role  --elb-type classic --vpc.elbsubnets eu-west-1a --envvars DEBUG=True,STARTUP_SIGNUP_TABLE=gsg-signup-table,AWS_REGION=eu-west-1,AWS_ACCESS_KEY_ID=<YOURS>,AWS_SECRET_ACCESS_KEY=<YOURS>
 Enter Environment Name
 (default is eb-django-express-signup-dev): eb-django-express-signup-dev
 Enter DNS CNAME prefix
