@@ -182,7 +182,7 @@ user = api.me()
  
 print('Name: ' + user.name)
 print('Location: ' + user.location)
-print('Friends: ' + str(user.followers_count))
+print('Followers: ' + str(user.followers_count))
 print('Created: ' + str(user.created_at))
 print('Description: ' + str(user.description))
 ```
@@ -218,11 +218,11 @@ for status in tweepy.Cursor(api.home_timeline).items(1):
     print(json.dumps(status._json, indent=2))
     
 ```
-What if we wanted to have a list of 10 of our friends?
+What if we wanted to have a list of 10 of our followers (friends who follow you)?
  
 ```python
-for friend in tweepy.Cursor(api.friends).items(1):
-    print(json.dumps(friend._json, indent=2))
+for follower in tweepy.Cursor(api.friends).items(1):
+    print(json.dumps(follower._json, indent=2))
 
 ```
 And how about a list of some of our tweets?

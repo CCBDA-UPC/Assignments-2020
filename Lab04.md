@@ -52,9 +52,10 @@ Prepare a new **private** repository in GitHub named `eb-django-express-signup` 
 
 <a name="Tasks42"/>
 
-## Task 4.2: Create an IAM Policy and Role
+## Task 4.2: Create an IAM Policy, Role and User to run the application
 
-Next, you need to create an **IAM role** with an **IAM policy** that grants your web app permission to put items into your DynamoDB table. You will apply the role to the EC2 instances that run your application when you create an AWS Elastic Beanstalk environment.
+Next, you need to create a **IAM User** that will be granted with **only** the permissions that are strictly required to run your application. It is very important to grant the most restrictive set of permissions in case your application is compromised.
+The **IAM role** with an **IAM policy** that grants your web app permission to put items into your DynamoDB table. You will apply the role to the EC2 instances that run your application when you create an AWS Elastic Beanstalk environment.
 
 #### To create the IAM policy
 
@@ -98,6 +99,24 @@ Create an IAM role and attach the policy to it.
 
 For more information on permissions, see [http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts-roles.html](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts-roles.html) in the AWS Elastic Beanstalk Developer Guide.
 
+#### To create the IAM User
+
+1. In the navigation pane, choose **Users**.
+
+2. Choose **Add user**.
+
+3. As a user name enter **gsg-signup-user** and check *"Programmatic access"* as *Access type*.
+
+4. Choose **Next: Permissions**
+
+5. Select the pane *"Attach existing policies directly"*, find **"gsg-signup-policy"** and add a checkmark. Do the same with **AWSElasticBeanstalkFullAccess**.
+
+6. Choose **Next: Tags** and **Next: Review** where you should be seeing that your new user has programmatic access and it's attached to the previously selected managed policies.
+
+7. Choose **Create user**
+
+8. Copy the values of **Access key ID** and **Secret access key** or use **Download .csv** and save it in a safe place.
+
 <a name="Tasks43"/>
 
 ## Task 4.3: Create a DynamoDB Table
@@ -125,13 +144,20 @@ Once you are inside the directory of the project issue the following commands to
 _$ export DEBUG="True"
 _$ export STARTUP_SIGNUP_TABLE="gsg-signup-table"
 _$ export AWS_REGION="eu-west-1"
+_$ export AWS_ACCESS_KEY_ID="<YOUR-ACCESS-KEY-ID>"
+_$ export AWS_SECRET_ACCESS_KEY="<YOUR-SECRET-ACCESS-KEY>"
 ```
 
-You can also type in the command line:
+Update the contents of your environment variables by replacing **<YOUR-ACCESS-KEY-ID>** and **<YOUR-SECRET-ACCESS-KEY>** with the values of the **credentials.csv** file that you previously downloaded after creating the new User.
+
+You can also type in the command line (make sure the above values have been replaced):
 
 ```
 _$ source extra-files/environment.sh
 ```
+
+**DO NOT PUSH THE AWS CREDENTIALS TO YOUR PRIVATE REPOSITORY !!!**
+
 
 Next, create a **new Python 3.x virtual environment** specially for this web app and install the packages required to run it. (**MS-Windows OS** users read the note at the end of this section)
 
@@ -209,17 +235,29 @@ Open the Elastic Beanstalk console using this preconfigured link: [https://conso
 
 4. For *Application code*, select **Sample application** and click at **Review and launch**.
 
-5. In the next screen, find the box named **Instances** click *Modify* and select a `t2.nano` Instance type (the smallest EC2 instance that you can pick. Consider t2.micro if you have free tier available).  Click **Save**.
+5. In the next screen, find the box named **Capacity** click *Modify* and 
 
-6. Back in the boxes screen find the one named **Security** click *Modify* and select a *EC2 key pair* that you have access to. Select *IAM instance profile* the value **gsg-signup-role** and click **Save**.
+- select a `t2.nano` Instance type (the smallest EC2 instance that you can pick. Consider t2.micro if you have free tier available).  Click **Save**.
+
+- select "Load balanced" as "Environment type" and select a minimum of 1 instance and a maximum of 2 instances.
+
+6. Back in the boxes screen find the one named **Security** click *Modify* and 
+
+- select a *EC2 key pair* that you have access to (if you don't have any keypair you will not be able to access the EC2 instances that Elastic Beanstalk creates.)
+- for *Service role* select the value **aws-elasticbeanstalk-service-role** 
+- click **Save**.
  
 7. Back in the boxes screen find the one named **Notifications** and type your e-mail address to receive notifications regarding the environment that you are launching. Click **Save**.
 
-8. Back in the boxes screen find the one named **Network** and select a VPC where the app. will run isolated regarding its security groups. Select only **eu-west-1a** in both *Load balancer subnets* and *Instance subnets*. If you select more availability zones one EC2 instance will be created on each zone. Check *Public IP address* to be able to access the app from the outside. Click **Next**.
+8. Back in the boxes screen find the one named **Network** and 
 
-9. Back in the boxes screen find the one named **Capacity**. Here you can select whether you want a single instance running your environment or several instances with a load balancer and an auto-scalling policy. Please check the auto-scalling options to get a sense of what it can be achieved.
+- select a VPC where the app. will run isolated regarding its security groups. 
+- select only **eu-west-1a** in both *Load balancer subnets* and *Instance subnets*. If you select more availability zones one EC2 instance will be created on each zone. 
+- check *Public IP address* to be able to access the app from the outside. 
+- click **Next**.
 
-10. Review all the settings and click **Create app**.
+
+9. Review all the settings and click **Create app**.
 
 In just a few minutes, Elastic Beanstalk provisions the networking, storage, compute and monitoring infrastructure required to run a scalable web application in AWS.
 
@@ -233,13 +271,15 @@ A new tab will open showing:
 
 Once the site is up and running, at any time, you can deploy a new version of your application code to the cloud environment.
 
-Good job! We are almost there.
+Good job! We are almost there. You can now "Terminate environment" at the "Actions" dropdown menu.
 
 <a name="Tasks46"/>
 
 ## Task 4.6: Configure Elastic Beanstalk CLI and deploy the target web app
 
 At this point, we have the sample web app deployed. AWS EB CLI can, alternatively, help us to transfer and install our web app to the cloud. 
+
+You can find more information on  [**eb** command line interface](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-getting-started.html).
 
 Go to your terminal window and write:
 
@@ -252,8 +292,9 @@ Select a default region
 (default is 3): 4
 
 Select an application to use
-1) [ Create new Application ]
-(default is 1): 1
+...
+3) [ Create new Application ]
+(default is 3): 3
 
 Enter Application Name
 (default is "eb-django-express-signup"):
@@ -266,15 +307,9 @@ Select a platform version.
 1) Python 3.6
 ...
 (default is 1): 1
-Note: Elastic Beanstalk now supports AWS CodeCommit; a fully-managed source control service. To learn more, see Docs: https://aws.amazon.com/codecommit/
 Do you wish to continue with CodeCommit? (y/N) (default is n): n
 Do you want to set up SSH for your instances?
-(Y/n): y
-
-Select a key pair.
-1) ccbda_upc
-2) [ Create new KeyPair ]
-(default is 2): 1
+(Y/n): n
 ```
 That has initialized the container and now you will be creating an environment for the application:
 
@@ -282,13 +317,13 @@ Running eb init creates a configuration file at `.elasticbeanstalk/config.yml`. 
 
 ```
 branch-defaults:
-  default:
-    environment: eb-django-signup
+  master:
+    environment: null
     group_suffix: null
 global:
-  application_name: eb-django-signup
+  application_name: eb-django-express-signup
   branch: null
-  default_ec2_keyname: ccbda_upc
+  default_ec2_keyname: null
   default_platform: Python 3.6
   default_region: eu-west-1
   include_git_submodules: true
@@ -297,28 +332,28 @@ global:
   platform_version: null
   profile: eb-cli
   repository: null
-  sc: null
+  sc: git
   workspace_type: Application
 ```
 
-To create the resources required to run the application and upload the application code we need to type the following command, using the parameters `--envvars` to set the values for the environment variables, `--ip` and `--service-role` to grant the role's permissions to the EC2s running the code.
+
+
+
+To create the resources required to run the application and upload the application code we need to type the following command, using the parameter `--service-role` to grant the role's permissions to the EC2s running the code.
 
 ```
-_$ eb create --envvars DEBUG=True,STARTUP_SIGNUP_TABLE=gsg-signup-table,AWS_REGION=eu-west-1 --service-role gsg-signup-role
+_$ eb create --service-role aws-elasticbeanstalk-service-role  --elb-type classic --vpc.elbsubnets eu-west-1a --envvars DEBUG=True,STARTUP_SIGNUP_TABLE=gsg-signup-table,AWS_REGION=eu-west-1,AWS_ACCESS_KEY_ID=<YOURS>,AWS_SECRET_ACCESS_KEY=<YOURS>
 Enter Environment Name
-(default is eb-django-signup-dev): eb-django-signup
+(default is eb-django-express-signup-dev): eb-django-express-signup-dev
 Enter DNS CNAME prefix
-(default is eb-django-signup): eb-django-ccbda
+(default is eb-django-express-signup-dev): eb-django-express-signup-dev
+Would you like to enable Spot Fleet requests for this environment?
+(y/N): n
 
-Select a load balancer type
-1) classic
-2) application
-3) network
-(default is 2): 1
 Creating application version archive "app-190310_224408".
 Uploading: [##################################################] 100% Done...
-Environment details for: eb-django-signup
-  Application name: eb-django-signup
+Environment details for: eb-django-express-signup
+  Application name: eb-django-express-signup
   Region: eu-west-1
   Deployed Version: app-190316_124408
   Environment ID: e-rduyfzjegp
@@ -336,10 +371,9 @@ Printing Status:
 2020-03-10 21:46:28    INFO    Waiting for EC2 instances to launch. This may take a few minutes.
 .........
 2020-03-10 21:47:31    INFO    Application available at eb-django-ccbda.eu-west-1.elasticbeanstalk.com.
-2020-03-1o 21:47:31    INFO    Successfully launched environment: eb-django-signup
+2020-03-1o 21:47:31    INFO    Successfully launched environment: eb-django-express-signup
 
 ```
-
 
 Please, wait until you see the last message stating that the environment is successfully launched and use `http://eb-django-ccbda.eu-west-1.elasticbeanstalk.com/` to access the project.
 
@@ -350,19 +384,6 @@ Please, note that issuing the above command the application code has been upload
 Creating application version archive "app-190310_224408".
 ```
 Do a little research on the CLI params and create the environment with a single instance, with no load-balancer.
-
-Ìf you change your code, you only need to type the following command to transfer the code to AWS and restart the environment.
-
-```
-_$ eb deploy
-Creating application version archive "app-b2f2-180205_205630".
-Uploading eb-django-express-signup/app-b2f2-180205_205630.zip to S3. This may take a while.
-Upload Complete.
-INFO: Environment update is starting.
-INFO: Deploying new version to instance(s).
-INFO: New application version was deployed to running EC2 instances.
-INFO: Environment update completed successfully.
-```
 
 ### Test the Web App
 
@@ -382,25 +403,32 @@ Interact with the web app and check that the new records inserted are stored in 
 
 If you followed all the steps, opened the URL, and obtained no app, there is a deployment problem. To troubleshoot a deployment issue, you may need to use the logs that are provided by Elastic Beanstalk.
 
-Of course, you would try to catch such an error in development. However, if an error does get through to production, or you want to update your app, Elastic Beanstalk makes it fast and easy to redeploy. Just modify your code, commit the changes, and issue "deploy" again.
+You can check the logs of the Elastic BeanStalk environment using `eb logs --all`. Once they have been retrieved you'll be able to find them at the `.elasticbeanstalk` folder.
+
+You can check that the values are correct using `eb printenv`.
+```
+_$ eb printenv
+Environment Variables:
+     AWS_ACCESS_KEY_ID = *****
+     AWS_REGION = eu-west-1
+     AWS_SECRET_ACCESS_KEY = ********<YOURS>*********
+     DEBUG = true
+     STARTUP_SIGNUP_TABLE = gsg-signup-table
+
+```
+
+Of course, you would try to catch such an error in development. However, if an error does get through to production, or you want to update your app, Elastic Beanstalk makes it fast and easy to redeploy. Just modify your code, commit the changes to your **LOCAL** repository, and issue "deploy" again.
 
 ```
 _$ eb deploy
+Creating application version archive "app-b2f2-180205_205630".
+Uploading eb-django-express-signup/app-b2f2-180205_205630.zip to S3. This may take a while.
+Upload Complete.
+INFO: Environment update is starting.
+INFO: Deploying new version to instance(s).
+INFO: New application version was deployed to running EC2 instances.
+INFO: Environment update completed successfully.
 ```
-
-You can also download the logs and try to find the error. For instance one of the process environment variables are not set correctly.
-
-```
-_$ eb logs
-```
-
-If you want to check the errors inside the EC2 instance running your EB environment, you can connect the CLI using a command like:
-
-```
-_$ ssh -i YOUR-KEYPAIR.pem ec2-user@IP-ADDRESS-OR-NAME
-```
-
-Where the key-pair used is the one declared when initializing the EB and the name of the host. Go to the EC2 console in case that you want to obtain the IP address.
 
 Since ElasticBeanstalk infrastructure maintenante is part of AWS responsibilities, that includes updating the operating system, web server, application server, etc. Such updates may interfere with your application, therefore you can decide when it is the best moment to use the following command that updates the environment to the most recent platform version.
 ```

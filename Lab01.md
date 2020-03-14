@@ -14,6 +14,7 @@ Take a look at the following hands-on guides to check if you already have the ba
 Create an AWS account and install AWS CLI following the following hands-on:
 * Hands-on 5: [Getting Started in the Cloud with AWS](../../../Cloud-Computing-QuickStart/blob/master/Quick-Start-AWS.md)
 
+Have this URL present in case you need to use the [AWS CLI](https://aws.amazon.com/cli/). 
 #  Tasks for Lab session #1
 ## Task 1.1:
 Install Python on your laptop.
