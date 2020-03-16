@@ -374,7 +374,7 @@ To configure our CDN, we are going to follow the steps at ["Getting Started with
  
  AWS has recently set some restrictions when creating an S3 bucket with public access. Make sure that you uncheck all the following options before uploading files. You can later check them back.
  
- <p align="center"><img src="./images/Lab09-S3-public-access.png" alt="S3 public access" title="S3 public access"/></p>
+ <p align="center"><img src="./images/Lab06-S3-public-access.png" alt="S3 public access" title="S3 public access"/></p>
  
  <p align="center"><img src="./images/Lab05-8.png " alt="S3 bucket" title="S3 bucket"/></p>
 
