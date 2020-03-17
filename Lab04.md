@@ -172,10 +172,9 @@ _$ source ../eb-virt/bin/activate
 (eb-virt)_$ pip install boto3
 ```
 
-You will now need to initialize the web app local database and run a local testing server.
+You will now need to run a local testing server.
 
 ```
-(eb-virt)~$ python manage.py migrate
 (eb-virt)~$ python manage.py runserver
 System check identified no issues (0 silenced).
 January 04, 2020 - 18:57:49
