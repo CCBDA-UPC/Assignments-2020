@@ -12,11 +12,11 @@ This hands-on section guides you through the creation of a load balancer attache
 
 Go to [AWS console](https://eu-west-1.console.aws.amazon.com/ec2/) and launch a new EC2 instance:
  
-1. Use Ubuntu 16.x as base AMI
+1. Use Ubuntu 18.x as base AMI
  
 2. Select `t2.nano` instance type
 
-3. For the instance, details create 1 instance on your default VPC using the subnet of any availability zone. Enable auto-assign a public IP. At the bottom of the page unfold "Advanced details" and copy the following code "as text". You can check for errors, when the EC2 is running, at `/var/log/cloud-init-output.log`.
+3. For the instance, details create 1 instance on your default VPC using the subnet of *any availability zone* (No preference). Enable auto-assign a public IP. At the bottom of the page unfold "Advanced details" and copy the following code "as text". You can check for errors, when the EC2 is running, at `/var/log/cloud-init-output.log`.
  
     ````bash
     #! /bin/bash -ex
@@ -26,12 +26,12 @@ Go to [AWS console](https://eu-west-1.console.aws.amazon.com/ec2/) and launch a 
     sudo systemctl enable apache2
     sudo systemctl start apache2
     sudo apt-get -y install mysql-client
-    sudo apt-get -y install php7.0-mysql php7.0-curl php7.0-cgi php7.0 libapache2-mod-php7.0 php-xml php7.0-zip
-    usermod -a -G www-data ubuntu
-    chown -R root:www-data /var/www
-    chmod 2775 /var/www
-    find /var/www -type d -exec chmod 2775 {} +
-    find /var/www/ -type f -exec chmod 0664 {} +
+    sudo apt-get -y install php7.2-mysql php7.2-curl php7.2-cgi php7.2 libapache2-mod-php7.2 php-xml php7.2-zip
+    sudo usermod -a -G www-data ubuntu
+    sudo chown -R root:www-data /var/www
+    sudo chmod 2775 /var/www
+    sudo find /var/www -type d -exec chmod 2775 {} +
+    sudo find /var/www/ -type f -exec chmod 0664 {} +
     ````
     <p align="center"><img src="./images/Lab06-AdvancedDetails.png" alt="Script" title="Script"/></p>
     
@@ -72,7 +72,7 @@ Once the EC2 is being lauched, create an HTTP/HTTPS load balancer.
     7Qrhmkr8Pl353hCmoqH06zzkeHsPD+XxQN9ANL4lsBJdo8r3Z+F6SQ==
     -----END RSA PRIVATE KEY-----
     ```
-10. Attach the ELB to the ``load-balancer-sg`` security group that you are creating. open HTTP and HTTPS protocols.
+10. Attach the ELB to the ``load-balancer-sg`` security group that you are creating. That has open HTTP and HTTPS protocols.
 
 11. Create a new target group of type "Instance" and name it ``primary-apache-web-server-target`` using HTTP protocol and attach the EC2 instance named ``apache-web-server``.
 
@@ -82,7 +82,7 @@ Once the EC2 is being lauched, create an HTTP/HTTPS load balancer.
 
 13. Once the load balancer is working correctly and showing the web server home page, we will restrict the input source to requests from the load balancer. To achieve that, go to `web-sb` and modify the input address for port 80. Remove the contents of the address "0.0.0.0/0" and type "load-balancer-sg". Select the option that appears. Remove the rule por IPv6 (source "::/0") that has access to port 80.
 
-Now you should not be able to access the web server directly through port 80 but you should be able to access the web server using port 80 (HTTP) and 443 (HTTPS).
+Now you should not be able to access the web server directly through port 80 (using the EC2 IP address) but you should be able to access the web server using port 80 (HTTP) and 443 (HTTPS) (using the load balancer IP address).
 
 ### Modify the web server response and create a base AWS AMI 
 
@@ -100,6 +100,7 @@ Now you should not be able to access the web server directly through port 80 but
     else
         echo (string)($this_instance_id); 
     ?>
+    
     alive!!</h1>
     </body>
     </html>
@@ -134,7 +135,7 @@ Now you should not be able to access the web server directly through port 80 but
 
 ### Test your new system
 
-Use the ELB URL in your browser and see that the output of the webpage changes when reloading the URL. The EC2 instance ID of the first EC2 instance created does not show since it is not part of the auto scaling group. Two new EC2 instances have been created using the AMI provided.
+Check how many EC2 instances are running and, once they are ready, use the ELB URL in your browser and see that the output of the webpage changes when reloading the URL. The EC2 instance ID of the first EC2 instance created does not show since it is not part of the auto scaling group. Two new EC2 instances have been created using the AMI provided.
 
 ### Questions
 
