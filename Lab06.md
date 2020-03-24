@@ -335,11 +335,42 @@ Test the URL from the static website and insert and retrieve new items in the sh
 Lambda functions testing in the browser is not very convenient. If you change the code of the Lambda Function and want to test it before uploading it to AWS, you can use a code similar to the one below. Download the [`lambda.py`](Lambda-example/lambda.py) and use PyCharm to debug it.
 
 ```Python
+import boto3
 import json
+
+print('Loading function')
+dynamo = boto3.client('dynamodb')
+
+def respond(err, res=None):
+    return {
+        'statusCode': '400' if err else '200',
+        'body': json.dumps(str(err) if err else res),
+        'headers': {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+        },
+    }
+
+
+def lambda_handler(event, context):
+    operation = event['requestContext']['http']['method']
+    if operation == 'GET':
+        return respond(None, dynamo.scan(**event['queryStringParameters']))
+    elif operation == 'POST':
+        return respond(None, dynamo.put_item(**json.loads(event['body'])))
+    elif operation == 'DELETE':
+        return respond(None, dynamo.delete_item(**json.loads(event['body'])))
+    elif operation == 'PUT':
+        return respond(None, dynamo.update_item(**json.loads(event['body'])))
+    else:
+        return respond(ValueError('Unsupported method %s'%operation))
+
+
+###### DO NOT COPY TO AWS LAMBDA CONSOLE FROM HERE
 
 print('--------------------GET event test')
 get_event = {
-    'httpMethod': 'GET',
+    'requestContext': {'http':{'method':'GET'}},
     'queryStringParameters': {
         'TableName': 'shopping-list'
     }
@@ -358,14 +389,14 @@ print('--------------------POST event test')
 myvar = {
     'TableName': 'shopping-list',
     'Item': {
-        'ThingId': {
+        'thingid': {
             'S': 'Red apples'
         }
     }
 }
 
 post_event = {
-    'httpMethod': 'POST',
+    'requestContext': {'http':{'method':'POST'}},
     'body': json.dumps(myvar, separators=(',', ':'))
 }
 

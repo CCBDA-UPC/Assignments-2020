@@ -33,7 +33,7 @@ def lambda_handler(event, context):
 
 print('--------------------GET event test')
 get_event = {
-    'httpMethod': 'GET',
+    'requestContext': {'http':{'method':'GET'}},
     'queryStringParameters': {
         'TableName': 'shopping-list'
     }
@@ -52,14 +52,14 @@ print('--------------------POST event test')
 myvar = {
     'TableName': 'shopping-list',
     'Item': {
-        'ThingId': {
+        'thingid': {
             'S': 'Red apples'
         }
     }
 }
 
 post_event = {
-    'httpMethod': 'POST',
+    'requestContext': {'http':{'method':'POST'}},
     'body': json.dumps(myvar, separators=(',', ':'))
 }
 
