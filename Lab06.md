@@ -153,7 +153,7 @@ Check how many EC2 instances are running and, once they are ready, use the ELB U
 
 This hands-on section guides you through the creation of a serverless architecture using AWS S3, AWS API Gateway, and AWS Lambda functions. This approach allows you to have a static website at AWS S3 that invokes an API gateway to perform a series of operations.
 
-The advantage of architecting a solution this way is that you don't need to provision or pay any computing resources to be used by the web server. This architecture allows your service without spending much if there are no requests and to respond to high demand of requests without requiring any extra effort on your side. 
+The advantage of architecting a solution this way is that you don't need to provision or pay for any computing resources to be used by the web server. This architecture allows your service without spending much if there are no requests and to respond to high demand of requests without requiring any extra effort on your side. 
 
 <p align="center"><img src="./images/Lab06-Serverless-Schema.png" alt="Serverless" title="Serverless"/></p>
 
@@ -168,9 +168,9 @@ Use the tags:
 
 ### Create a Lambda function
 
-Go to the AWS Lambda console [https://eu-west-1.console.aws.amazon.com/lambda/](https://eu-west-1.console.aws.amazon.com/lambda/) and create a new function from the blueprint `microservice-http-endpoint-python3` and name it `serverless-controller`. Create a new role and name it `serverless-controller-role`. The role needs to have `Simple microservice permissions - DynamoDB` permission.
+Go to the AWS Lambda console [https://eu-west-1.console.aws.amazon.com/lambda/](https://eu-west-1.console.aws.amazon.com/lambda/) and create a new function from the blueprint `microservice-http-endpoint-python` and name it `serverless-controller`. Create a new role from AWS policy templates and name it `serverless-controller-role`. The role needs to have `Simple microservice permissions - DynamoDB` permission.
 
-For the **API Gateway trigger** section create a new API that is `Open, which means that your API endpoint is publicly available and can be invoked by all users. Name it `serverless-controller-API`.
+For the **API Gateway trigger** section create a new API that is `Open`, which means that your API endpoint is publicly available and can be invoked by all users. Name it `serverless-controller-API`.
 
 Use the tags:
 
