@@ -10,7 +10,7 @@
         crossDomain: true,
         success: function (result) {
             $.each(result.Items, function (i, item) {
-                $('#items').append('<li>' + item.ThingId.S + '</li>');
+                $('#items').append('<li>' + item.thingid.S + '</li>');
             });
         },
         error: function (result) {
@@ -21,17 +21,17 @@
     // Form submit
     $("#form").submit(function (event) {
         event.preventDefault();
-        ThingId = $('#ThingId').val();
+        thingid = $('#thingid').val();
 
         // Call API Gateway POST Item
         $.ajax({
             url: apiUrl,
-            data: JSON.stringify({TableName: tableName, Item: {ThingId: {S: ThingId}}}),
+            data: JSON.stringify({TableName: tableName, Item: {thingid: {S: thingid}}}),
             type: 'POST',
             crossDomain: true,
             success: function (result) {
-                $('#ThingId').val('');
-                $('#items').append('<li>' + ThingId + '</li>');
+                $('#thingid').val('');
+                $('#items').append('<li>' + thingid + '</li>');
             },
             error: function (result) {
                 $('#error').toggle().append('<div>' + result.statusText + '</div>');
