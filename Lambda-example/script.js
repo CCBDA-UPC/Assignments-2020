@@ -26,9 +26,11 @@
         // Call API Gateway POST Item
         $.ajax({
             url: apiUrl,
+            type: 'post',
+            contentType: 'text/plain',
             data: JSON.stringify({TableName: tableName, Item: {thingid: {S: thingid}}}),
-            type: 'POST',
             crossDomain: true,
+            processData: false,
             success: function (result) {
                 $('#thingid').val('');
                 $('#items').append('<li>' + thingid + '</li>');
