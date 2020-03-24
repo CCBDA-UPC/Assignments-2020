@@ -16,7 +16,7 @@ def respond(err, res=None):
 
 
 def lambda_handler(event, context):
-    operation = event['httpMethod']
+    operation = event['requestContext']['http']['method']
     if operation == 'GET':
         return respond(None, dynamo.scan(**event['queryStringParameters']))
     elif operation == 'POST':

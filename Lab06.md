@@ -320,31 +320,6 @@ Verify that the endpoint shows you the following contents:
 
  <p align="center"><img src="./images/Lab06-S3-web-form.png" alt="S3 public access" title="S3 public access"/></p>
 
-If you open the browser console you see the following error:
-
-````html
-Access to XMLHttpRequest at 'https://YOUR-API-HOST/test/serverless-controller?TableName=shopping-list' 
-from origin 'http://YOUR-BUCKET-URL' has been blocked by CORS policy: 
-No 'Access-Control-Allow-Origin' header is present on the requested resource.
-````
-
-[Cross-origin resource sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) is a browser security feature that restricts cross-origin HTTP requests that are initiated from scripts running in the browser. If your REST API's resources receive cross-origin requests, you may need to enable CORS support on those resources.
-
-A cross-origin HTTP request is one that is made to:
-
-- A different domain (for example, from example.com to amazondomains.com)
-
-- A different subdomain (for example, from example.com to petstore.example.com)
-
-- A different port (for example, from example.com to example.com:10777)
-
-- A different protocol (for example, from https://example.com to http://example.com)
-
-To solve this, open the API Gateway console. Select the `serverless-controller` item and, using the drop-down menu "Actions", Enable CORS.
-
- <p align="center"><img src="./images/Lab06-CORS-API.png" alt="S3 public access" title="S3 public access"/></p>
-
-After you enable CORS support on your resource, you must deploy or redeploy the API for the new settings to take effect.
 
 Test the URL from the static website and insert and retrieve new items in the shopping list. 
 
