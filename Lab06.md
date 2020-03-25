@@ -115,23 +115,21 @@ Now you should not be able to access the web server directly through port 80 (us
 
 ### Create an auto scalling group
     
-1. Create an auto scaling group using the AMI that you created before. Name it `web-server-auto-scaling-group` and attach the `web-sg` security group that you created before.
+1. Create **Launch Configuration** using the AMI that you created before. Name it `web-server-auto-scaling-configuration` and attach the `web-sg` security group that you created before.
     <p align="center"><img src="./images/Lab06-LoadBalancer.png" alt="Auto scalling group" title="Auto scalling group"/></p>
     <p align="center"><img src="./images/Lab06-AutoScalingGroup.png" alt="Auto scalling group" title="Auto scalling group"/></p>
 
-16. While creating the security group, add all the availability zones that you were using before. Start with 2 instances in a VPC (do not use EC-2 classic as Network option). A warning saying "No public IP addresses will be assigned" is normal because the EC2 instances will receive HTTP/HTTPS traffic through the ELB.
+2. Create an **Auto Scaling Group** named `web-server-auto-scaling-group`. Start with 2 instances in a VPC (do not use EC-2 classic as Network option). Add all the availability zones that you were using before. 
 
-17. Open the "Advanced Details" tab and select "receive traffic from one or more load balancers" and add `primary-apache-web-server-target` to Target Groups. Select Health Check Type: ELB
+3. Select the *Keep this group at its initial size* option.
 
-17. Use scaling policies to adjust the capacity of this group, scaling from 2 and 2 instances depending on the Average CPU utilization.
+4. Add notifications to your e-mail via an SNS topic.
 
-18. Add notifications to your e-mail via an SNS topic.
-
-19. Add some tracking tags
+5. Add some tracking tags
     - Project = ccbda bootstrap
     - Cost-center = laboratory
     
-20. Once the auto scaling group is running, you see that you have two more EC2 instances running.
+6. Once the auto scaling group is running, you see that you have two more EC2 instances running.
 
 ### Test your new system
 
