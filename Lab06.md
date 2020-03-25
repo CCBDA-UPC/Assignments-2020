@@ -115,13 +115,13 @@ Now you should not be able to access the web server directly through port 80 (us
 
 ### Create an auto scalling group
     
-1. Create **Launch Configuration** using the AMI that you created before. Name it `web-server-auto-scaling-configuration` and attach the `web-sg` security group that you created before.
+1. Create a **Launch Configuration** using the AMI that you created before. Name it `web-server-auto-scaling-configuration` and attach the `web-sg` security group that you created before.
     <p align="center"><img src="./images/Lab06-LoadBalancer.png" alt="Auto scalling group" title="Auto scalling group"/></p>
     <p align="center"><img src="./images/Lab06-AutoScalingGroup.png" alt="Auto scalling group" title="Auto scalling group"/></p>
 
-2. Create an **Auto Scaling Group** named `web-server-auto-scaling-group`. Start with 2 instances in a VPC (do not use EC-2 classic as Network option). Add all the availability zones that you were using before. 
+2. Create an **Auto Scaling Group** named `web-server-auto-scaling-group`. Start with 2 instances in a VPC. Add all the availability zones that you were using before. 
 
-3. Select the *Keep this group at its initial size* option.
+3. Select the *Keep this group at its initial size* option. Optionally you may want to create a scale-in and scale-out policy, but do that once you've verified that this simpler policy (no auto-scaling) works correctly.
 
 4. Add notifications to your e-mail via an SNS topic.
 
