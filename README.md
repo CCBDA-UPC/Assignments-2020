@@ -86,7 +86,9 @@ Reproduce the functionality explained in the following illustrations.
 <p align="center"><img src="./images/covid-19-1.jpeg" alt="Google & Apple COVID-19" title="Google & Apple COVID-19"/></p>
 <p align="center"><img src="./images/covid-19-2.jpeg" alt="Google & Apple COVID-19" title="Google & Apple COVID-19"/></p>
 
-You need to simulate the the phones storing the anonymous identifier beacons stored before the infection is detected. You will then isolate the individuals who have been in contact at home (change their daily agenda to "H") for a **period of time** defined by the user or, if they develop the infection, until they become cured (change their daily agenda to "M").
+You only need to simulate the the phones reading and writing the anonymous identifier beacons of the interactions before the infection is detected. 
+
+People notified to have been in contact with an infected individual, will immediately be isolated at home (change their daily agenda to "H") for a **period of time** defined by the user or until they become cured (change their daily agenda to "M") if they develop the infection.
 
 Create a graphical interface that demonstrates how does your simulation tool works and how effective is the use of the Google & Apple project. Students are invited to use (Elastic tools)[https://www.elastic.co/] for that purpose.
 
