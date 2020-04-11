@@ -51,6 +51,14 @@ It is much better to present a well defined, correctly executed but partially wo
 
 For the project, students need to **create a web app, web service or set of microservices that will be available on the AWS cloud**.
 
+Bear in mind when you build your architecture:
+
+- design it for failure: avoid single points of failure
+- keep information and the whole infrastructure secure
+- implement elasticity
+- have components decoupled 
+- optimize it for performance
+
 ### Project challenge
 
 Based on the ideas explained in [this article](https://www.sciencedirect.com/science/article/pii/S0198971514001367), create a simplified model of people behavior and infection spread.
@@ -59,17 +67,17 @@ Your model needs to work with, at least, the following parameters:
 
 - infection status: susceptible, infected, infectious, treated and cured.
 
-- duration of the incubation stage, the symptomatic stage and the duration to fight the infection and become immune.
+- **duration** of the **incubation stage**, the **symptomatic stage** and the duration to fight the infection and **become immune**. **Mortality percentage** for the infected individuals. These parameters will be **entered by the simulation user**.
 
 - individuals are be characterized as students, workers, stay-at-home or elderly. 
 
 - daily agenda for an individual is subject to daily activity patterns, depending on the classification of this individual (see Table 4. Activity patterns)
 
-- to propagate the infection it will use the mean number of transmission events per hour of contact between fully infectious and fully susceptible people.
+- to propagate the infection the model will use the **mean number of transmission events per hour** of contact between fully infectious and fully susceptible people. This parameter will be **entered by the simulation user**.
 
 
 Build a prototype of the [functionality proposed by Google and Apple]( 
-https://www.theverge.com/2020/4/10/21216484/google-apple-coronavirus-contract-tracing-bluetooth-location-tracking-data-app).
+https://www.theverge.com/2020/4/10/21216484/google-apple-coronavirus-contract-tracing-bluetooth-location-tracking-data-app). 
 
 Your simulator will add a phone to every individual that will be storing the beacons exchanged by the people who have been interacting with the phone owner.
 
@@ -78,7 +86,11 @@ Reproduce the functionality explained in the following illustrations.
 <p align="center"><img src="./images/covid-19-1.jpeg" alt="Google & Apple COVID-19" title="Google & Apple COVID-19"/></p>
 <p align="center"><img src="./images/covid-19-2.jpeg" alt="Google & Apple COVID-19" title="Google & Apple COVID-19"/></p>
 
+You need to simulate the the phones storing the anonymous identifier beacons stored before the infection is detected. You will then isolate the individuals who have been in contact at home (change their daily agenda to "H") for a **period of time** defined by the user or, if they develop the infection, until they become cured (change their daily agenda to "M").
+
 Create a graphical interface that demonstrates how does your simulation tool works and how effective is the use of the Google & Apple project. Students are invited to use (Elastic tools)[https://www.elastic.co/] for that purpose.
+
+The system must be parametrized and built to simulate any number of individuals and interactions between them. 
 
 #### Additional resources
 
