@@ -78,6 +78,8 @@ Reproduce the functionality explained in the following illustrations.
 <p align="center"><img src="./images/covid-19-1.jpeg" alt="Google & Apple COVID-19" title="Google & Apple COVID-19"/></p>
 <p align="center"><img src="./images/covid-19-2.jpeg" alt="Google & Apple COVID-19" title="Google & Apple COVID-19"/></p>
 
+Create a graphical interface that demonstrates how does your simulation tool works and how effective is the use of the Google & Apple project. Students are invited to use (Elastic tools)[https://www.elastic.co/] for that purpose.
+
 #### Additional resources
 
 - https://www.hpcwire.com/2020/04/07/spanish-researchers-introduce-hpc-ready-covid-19-spread-simulator/
