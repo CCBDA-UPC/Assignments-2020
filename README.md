@@ -75,8 +75,8 @@ Your simulator will add a phone to every individual that will be storing the bea
 
 Reproduce the functionality explained in the following illustrations.
 
-<p align="center"><img src="./images/covid-19-1.jpg" alt="Google & Apple COVID-19" title="Google & Apple COVID-19"/></p>
-<p align="center"><img src="./images/covid-19-2.jpg" alt="Google & Apple COVID-19" title="Google & Apple COVID-19"/></p>
+<p align="center"><img src="./images/covid-19-1.jpeg" alt="Google & Apple COVID-19" title="Google & Apple COVID-19"/></p>
+<p align="center"><img src="./images/covid-19-2.jpeg" alt="Google & Apple COVID-19" title="Google & Apple COVID-19"/></p>
 
 #### Additional resources
 
