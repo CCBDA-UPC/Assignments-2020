@@ -94,7 +94,7 @@ Reproduce the functionality explained in the following illustrations.
 
 - The code of the project will be written in **Python 3**. Additional programming languages for **small parts of the project** can also be used  (i.e., JavaScript, ...)
 
-- Students can use as many packages or open source code as they need, They need to explain the reasons for using these resources.
+- Students can use as many cloud services, packages or open source code as they need, They only need to explain the reasons for using these resources.
 
 - Create a private **GitHub** repository to manage the code versioning. All team members and angeltoribio-UPC-BCN need to have access to it.
 
@@ -114,7 +114,7 @@ Student teams need to provide:
  
  - a description of the functionality and scope of their project;  
  
- - a listing of the resources and services required to build their solution;
+- a listing of the resources and services required to build their solution;
 
 - a listing the intended use of the 160 hours for all the main tasks of the project (i.e., architectural design, research and documentation on services and resources, coding, meetings, written documentation,  etc).
 
