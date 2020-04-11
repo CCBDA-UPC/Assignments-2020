@@ -49,7 +49,45 @@ A good approach is to work on a simple idea that makes sense by itself. Once it 
 
 It is much better to present a well defined, correctly executed but partially working idea than a very sophisticated working program that nobody will dare to touch a line of code after three weeks because of the high probability of making a huge mess.
 
-For the project, students need to **create a web app, web service or set of microservices that will be available on the AWS cloud**. They need to decide and explain the final objective, resources, and services that the project will be using.
+For the project, students need to **create a web app, web service or set of microservices that will be available on the AWS cloud**.
+
+### Project challenge
+
+Based on the ideas explained in [this article](https://www.sciencedirect.com/science/article/pii/S0198971514001367), create a simplified model of people behavior and infection spread.
+
+Your model needs to work with, at least, the following parameters:
+
+- infection status: susceptible, infected, infectious, treated and cured.
+
+- duration of the incubation stage, the symptomatic stage and the duration to fight the infection and become immune.
+
+- individuals are be characterized as students, workers, stay-at-home or elderly. 
+
+- daily agenda for an individual is subject to daily activity patterns, depending on the classification of this individual (see Table 4. Activity patterns)
+
+- to propagate the infection it will use the mean number of transmission events per hour of contact between fully infectious and fully susceptible people.
+
+
+Build a prototype of the [functionality proposed by Google and Apple]( 
+https://www.theverge.com/2020/4/10/21216484/google-apple-coronavirus-contract-tracing-bluetooth-location-tracking-data-app).
+
+Your simulator will add a phone to every individual that will be storing the beacons exchanged by the people who have been interacting with the phone owner.
+
+Reproduce the functionality explained in the following illustrations.
+
+<p align="center"><img src="./images/covid-19-1.jpg" alt="Google & Apple COVID-19" title="Google & Apple COVID-19"/></p>
+<p align="center"><img src="./images/covid-19-2.jpg" alt="Google & Apple COVID-19" title="Google & Apple COVID-19"/></p>
+
+#### Additional resources
+
+- https://www.hpcwire.com/2020/04/07/spanish-researchers-introduce-hpc-ready-covid-19-spread-simulator/
+
+- https://www.academia.edu/16795162/EpiGraph_A_Scalable_Simulation_Tool_for_Epidemiological_Studies
+
+- http://www.gleamviz.org/simulator/
+
+- https://towardsdatascience.com/simulating-epidemics-using-go-and-python-101557991b20
+
 
 
 ### Project requirements
@@ -150,3 +188,4 @@ Once the laboratory laboratory assignments have finished, students are required 
 All team members need to demonstrate that they have equally contributed to the success of the project, therefore they need to communicate their efforts and difficulties to the teacher (during the in-class meetings and the technical interviews).
 
 Based on the quality of the in-class presentation and the answers given during the in-class meetings and technical interview, **all team members may not end up having the same final grade** on the project.
+
