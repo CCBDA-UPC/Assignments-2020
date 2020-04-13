@@ -90,7 +90,7 @@ You only need to simulate the the phones reading and writing the anonymous ident
 
 People notified to have been in contact with an infected individual, will immediately be isolated at home (change their daily agenda to "H") for a **period of time** defined by the user or until they become cured (change their daily agenda to "M") if they develop the infection.
 
-Create a graphical interface that demonstrates how does your simulation tool works and how effective is the use of the Google & Apple project. Students are invited to use (Elastic tools)[https://www.elastic.co/] for that purpose.
+Create a graphical interface that demonstrates how does your simulation tool works and how effective is the use of the Google & Apple project. Students are invited to use [Elastic tools](https://www.elastic.co/) for that purpose.
 
 - Elastic offers a great data storage for geo-based information. You can manage geo_point and geo_shape to model all kind of interactions and query conditions: https://www.elastic.co/guide/en/elasticsearch/reference/current/geo-queries.html
 
