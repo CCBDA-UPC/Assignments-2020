@@ -92,6 +92,14 @@ People notified to have been in contact with an infected individual, will immedi
 
 Create a graphical interface that demonstrates how does your simulation tool works and how effective is the use of the Google & Apple project. Students are invited to use (Elastic tools)[https://www.elastic.co/] for that purpose.
 
+- Elastic offers a great data storage for geo-based information. You can manage geo_point and geo_shape to model all kind of interactions and query conditions: https://www.elastic.co/guide/en/elasticsearch/reference/current/geo-queries.html
+
+- Elastic Maps Services provide tiles for geo maps as well as vectorized maps for countries, provinces, regions, etc. You can leverage those, for example, to render administrative region dimensions https://maps.elastic.co/#file/world_countries
+
+- To visualize information in Elastic Kibana, Elastic Kibana Lens added recently, is a great feature to design your visualizations. Just drag and drop fields and tune your charts: https://www.elastic.co/what-is/kibana-lens
+
+- In the Machine Learning module, available in Elastic Cloud service, you can find regression, binary classification and outlier detections. Find some examples of how to use those analyses with the sample datasets you can find in Kibana: https://www.elastic.co/guide/en/machine-learning/7.6/dfanalytics-examples.html
+
 The system must be parametrized and built to simulate any number of individuals and interactions between them. 
 
 #### Additional resources
