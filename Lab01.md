@@ -73,12 +73,12 @@ Populate your new `private repository` with the contents that you have just clon
 ## Task 1.4:   
 Update your remote repository from the local repository on your laptop:
 ```
-echo "# CLOUD-COMPUTING-CLASS-2020" >> README.md
+echo "# CLOUD-COMPUTING-CLASS-2020-Lab1" >> README.md
 git init
 git add README.md
 git add Lab1/Lab1.guessnumber.py
 git commit -m "first commit"
-git remote add origin https://github.com/<username>/CLOUD-COMPUTING-CLASS-2020.git
+git remote add origin https://github.com/<username>/CLOUD-COMPUTING-CLASS-2020-Lab1.git
 git push -u origin master
 ```
 > change `<username>` for your Github account
@@ -107,7 +107,7 @@ Update your `README.md` file to make that screenshot appear.
 
 # How to submit this assignment:
 
-Create a **new and private** repo named *https://github.com/<YOUR-ACCOUNT-NAME>/CLOUD-COMPUTING-CLASS-2020-Lab1* and invite your Lab. session partner and `angeltoribio-UPC-BCN`.
+Create a **new and private** repo named *https://github.com/YOUR-ACCOUNT-NAME/CLOUD-COMPUTING-CLASS-2020-Lab1* and invite your Lab. session partner and `angeltoribio-UPC-BCN`.
 
 It needs to have, at least, two files `README.md` with your responses to the above questions and `authors.json` with both members email addresses:
 

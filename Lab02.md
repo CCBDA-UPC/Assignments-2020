@@ -335,7 +335,7 @@ We are now ready for next Lab session where we will be mining streaming Twitter 
 
 # How to submit this assignment:
 
-Create a **new and private** repo named *https://github.com/<YOUR-ACCOUNT-NAME>/CLOUD-COMPUTING-CLASS-2020-Lab2* and invite your Lab. session partner and `angeltoribio-UPC-BCN`.
+Create a **new and private** repo named *https://github.com/YOUR-ACCOUNT-NAME/CLOUD-COMPUTING-CLASS-2020-Lab2* and invite your Lab. session partner and `angeltoribio-UPC-BCN`.
 
 It needs to have, at least, two files `README.md` with your responses to the above questions and `authors.json` with both members email addresses:
 
