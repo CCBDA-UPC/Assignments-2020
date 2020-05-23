@@ -98,7 +98,7 @@ Now, if we want to process all our tweets, previously saved on file:
 
 ```python
 with open('ArtificialIntelligenceTweets.json', 'r') as f:
-    for line in f:
+    for line in f.readlines():
         tweet = json.loads(line)
         tokens = preprocess(tweet['text'])
         print(tokens)
@@ -150,7 +150,7 @@ from collections import Counter
 fname = 'ArtificialIntelligenceTweets.json'
 with open(fname, 'r') as f:
     count_all = Counter()
-    for line in f:
+    for line in f.readlines():
         tweet = json.loads(line)
         # Create a list with all the terms
         terms_all = [term for term in preprocess(tweet['text'])]
@@ -182,7 +182,7 @@ from collections import Counter
 fname = 'ArtificialIntelligenceTweets.json'
 with open(fname, 'r') as f:
     count_all = Counter()
-    for line in f:
+    for line in f.readlines():
         tweet = json.loads(line)
         # Create a list with all the terms
         terms_stop = [term for term in preprocess(tweet['text']) if term not in stop]
@@ -230,7 +230,7 @@ We wanted to get a rough idea of what was telling people about Barcelona. For ex
 fname = 'Lab3.CaseStudy.json'
 with open(fname, 'r') as f:
     count_all = Counter()
-    for line in f:
+    for line in f.readlines():
         tweet = json.loads(line)
         # Create a list with all the terms
         terms_hash = [term for term in preprocess(tweet['text']) if term.startswith('#') and term not in stop]
